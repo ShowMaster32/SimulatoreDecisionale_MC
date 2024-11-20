@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       154,          7]
-NotebookDataLength[     77897,       1810]
-NotebookOptionsPosition[     68314,       1652]
-NotebookOutlinePosition[     68722,       1668]
-CellTagsIndexPosition[     68679,       1665]
+NotebookDataLength[     79203,       1836]
+NotebookOptionsPosition[     69620,       1678]
+NotebookOutlinePosition[     70028,       1694]
+CellTagsIndexPosition[     69985,       1691]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -1312,8 +1312,8 @@ aggiunto.\\n\>\"", ",", " ", "Purple"}], "]"}]}], "}"}], "]"}]}], ";"}], "\n",
          RowBox[{"Enabled", " ", "->", " ", 
           RowBox[{"Dynamic", "[", 
            RowBox[{"simulazioneIniziata", " ", "&&", " ", 
-            RowBox[{"turniRestanti", " ", "==", " ", "0"}]}], "]"}]}]}], "\n",
-         "    ", "]"}], ",", "\n", "   ", 
+            RowBox[{"turniRestanti", " ", "<", " ", "turniIniziali"}]}], 
+           "]"}]}]}], "\n", "    ", "]"}], ",", "\n", "   ", 
        RowBox[{"Button", "[", 
         RowBox[{"\"\<Mostra Strategia Ottimale\>\"", ",", " ", "\n", "    ", 
          RowBox[{"(", "\n", "     ", 
@@ -1356,15 +1356,24 @@ aggiunto.\\n\>\"", ",", " ", "Purple"}], "]"}]}], "}"}], "]"}]}], ";"}], "\n",
    3.9410288751982937`*^9, 3.9410294228961697`*^9, 3.9410295574395695`*^9, 
    3.9410296359191113`*^9, 3.9410297349867706`*^9, 3.94102981329163*^9, 
    3.941030875570095*^9, 3.941104020143032*^9, 3.941104151396387*^9, 
-   3.941104459259924*^9},ExpressionUUID->"7f4a16af-7292-ea43-885e-\
-45386109ea56"],
+   3.941104459259924*^9, {3.9411046447380924`*^9, 3.941104666591469*^9}},
+ CellLabel->"In[18]:=",ExpressionUUID->"7f4a16af-7292-ea43-885e-45386109ea56"],
 
 Cell[BoxData[
- DynamicModuleBox[{SimulatoreDecisioni`risorseCorrenti$$ = 100, 
-  SimulatoreDecisioni`turniRestanti$$ = 10, $CellContext`log$$ = 
-  "", $CellContext`azioniRaccolta$$ = 0, $CellContext`azioniCostruzione$$ = 
-  0, $CellContext`azioniEsplorazione$$ = 
-  0, $CellContext`simulazioneIniziata$$ = False, 
+ DynamicModuleBox[{SimulatoreDecisioni`risorseCorrenti$$ = 125, 
+  SimulatoreDecisioni`turniRestanti$$ = 8, $CellContext`log$$ = Row[{
+    Row[{
+      Row[{"", 
+        Style["Struttura costruita! Beneficio: ", Bold], "60", 
+        " risorse.\n"}], 
+      Style["\nStatistiche Finali:\n", Bold], "Risorse Finali: ", "120", "\n",
+       "Turni Rimanenti: ", "9", "\n", "Azioni Eseguite:\n", "  Raccolta: ", 
+      "0", "\n", "  Costruzioni: ", "1", "\n", "  Esplorazioni: ", "0", 
+      "\n"}], 
+    Style["Raccolte ", Bold], "20", 
+    " risorse.\n"}], $CellContext`azioniRaccolta$$ = 
+  1, $CellContext`azioniCostruzione$$ = 1, $CellContext`azioniEsplorazione$$ =
+   0, $CellContext`simulazioneIniziata$$ = True, 
   SimulatoreDecisioni`risorseIniziali$$ = 100, $CellContext`turniIniziali$$ = 
   10, $CellContext`difficolta$$ = "Medio", $CellContext`costoRaccolta$$ = 
   15, $CellContext`beneficioRaccolta$$ = 20, $CellContext`costoCostruzione$$ =
@@ -1504,7 +1513,9 @@ $CellContext`simulazioneIniziata$$ = True; Null),
         TemplateBox[{20}, "Spacer1"], 
         StyleBox["\"Turni Rimanenti: \"", Bold, StripOnInput -> False], 
         DynamicBox[
-         ToBoxes[SimulatoreDecisioni`turniRestanti$$, StandardForm]]},
+         ToBoxes[SimulatoreDecisioni`turniRestanti$$, StandardForm], 
+         ImageSizeCache -> {
+          7.147461175918579, {0.11425781669095159`, 8.410644839750603}}]},
        "RowDefault"]},
      {
       TemplateBox[{10},
@@ -1614,6 +1625,18 @@ $CellContext`costoEsplorazione$$];
             ToString[$CellContext`azioniEsplorazione$$], "\n"}]; Null),
        Enabled->Dynamic[
          And[$CellContext`simulazioneIniziata$$, 
+          SimulatoreDecisioni`turniRestanti$$ < $CellContext`turniIniziali$$]],
+       Evaluator->Automatic,
+       Method->"Preemptive"]},
+     {
+      ButtonBox["\<\"Mostra Strategia Ottimale\"\>",
+       Appearance->Automatic,
+       ButtonFunction:>($CellContext`log$$ = Row[{$CellContext`log$$, 
+            Style["\nStrategia Ottimale:\n", Bold], 
+            "Risorse Massime Possibili: ", 
+            ToString[$CellContext`risorseOttimali$$], "\n"}]; Null),
+       Enabled->Dynamic[
+         And[$CellContext`simulazioneIniziata$$, 
           SimulatoreDecisioni`turniRestanti$$ == 0]],
        Evaluator->Automatic,
        Method->"Preemptive"]},
@@ -1624,8 +1647,10 @@ $CellContext`costoEsplorazione$$];
      {
       PaneBox[
        DynamicBox[ToBoxes[$CellContext`log$$, StandardForm],
-        ImageSizeCache->{0., {0., 6.373047108761966}}],
+        ImageSizeCache->{
+         307.9946393966675, {228.25814819335938`, 11.958984375}}],
        ImageSize->{400, 150},
+       ScrollPosition->{0., 102.96713256835938`},
        Scrollbars->True]}
     },
     DefaultBaseStyle->"Column",
@@ -1642,8 +1667,9 @@ $CellContext`costoEsplorazione$$];
    3.9410295598496284`*^9, 3.9410296378867702`*^9, 3.941029815238165*^9, 
    3.941030876957716*^9, {3.941101918884083*^9, 3.9411019189403095`*^9}, {
    3.941103774276907*^9, 3.941103819801792*^9}, 3.9411040212586327`*^9, 
-   3.9411041524776115`*^9},
- CellLabel->"Out[15]=",ExpressionUUID->"d6ecda2b-02e3-da43-ba80-201134fcc162"]
+   3.9411041524776115`*^9, 3.9411045192438145`*^9, {3.941104646204378*^9, 
+   3.941104669419489*^9}},
+ CellLabel->"Out[18]=",ExpressionUUID->"c9f57b08-a5bd-224a-9c3e-ef54b259849f"]
 }, Open  ]]
 }, Open  ]]
 }, Open  ]]
@@ -1805,8 +1831,8 @@ Cell[32148, 893, 329, 6, 22, "Print",ExpressionUUID->"4789d2c4-498d-9a43-9d13-9b
 }, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[32526, 905, 22781, 454, 2789, "Code",ExpressionUUID->"7f4a16af-7292-ea43-885e-45386109ea56"],
-Cell[55310, 1361, 12940, 284, 458, "Output",ExpressionUUID->"d6ecda2b-02e3-da43-ba80-201134fcc162"]
+Cell[32526, 905, 22865, 454, 2789, "Code",ExpressionUUID->"7f4a16af-7292-ea43-885e-45386109ea56"],
+Cell[55394, 1361, 14162, 310, 485, "Output",ExpressionUUID->"c9f57b08-a5bd-224a-9c3e-ef54b259849f"]
 }, Open  ]]
 }, Open  ]]
 }, Open  ]]
