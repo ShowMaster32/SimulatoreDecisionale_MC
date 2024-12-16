@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       154,          7]
-NotebookDataLength[     87719,       2000]
-NotebookOptionsPosition[     77851,       1839]
-NotebookOutlinePosition[     78259,       1855]
-CellTagsIndexPosition[     78216,       1852]
+NotebookDataLength[     44640,        986]
+NotebookOptionsPosition[     39156,        893]
+NotebookOutlinePosition[     39564,        909]
+CellTagsIndexPosition[     39521,        906]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -85,16 +85,454 @@ Cell[CellGroupData[{
 Cell[BoxData[{
  RowBox[{"SetDirectory", "[", 
   "\"\<D:\\\\Dropbox\\\\Universita\\\\Magistrale\\\\1_anno\\\\Sessione \
-1\\\\Matematica Computazionale\\\\Esame\>\"", "]"}], "\n", 
- RowBox[{"Get", "[", "\"\<SimulatoreDecisioni`\>\"", "]"}]}], "Code",
- CellChangeTimes->{{3.94077186984264*^9, 3.9407718709959335`*^9}},
- CellLabel->"In[25]:=",ExpressionUUID->"b961b460-9484-4c48-94f0-1dcb265ac6f3"],
+1\\\\Matematica \
+Computazionale\\\\Esame\\\\Consegna\\\\SimulatoreDecisionale\>\"", 
+  "]"}], "\n", 
+ RowBox[{"Get", "[", "\"\<SimulatoreDecisioni`\>\"", "]"}], "\n", 
+ RowBox[{"AvviaGioco", "[", "]"}]}], "Code",
+ CellChangeTimes->{{3.94077186984264*^9, 3.9407718709959335`*^9}, 
+   3.942069876691353*^9, {3.943287311294117*^9, 3.943287318291645*^9}, {
+   3.943288142647272*^9, 3.943288152565176*^9}},
+ CellLabel->"In[31]:=",ExpressionUUID->"b961b460-9484-4c48-94f0-1dcb265ac6f3"],
 
 Cell[BoxData["\<\"D:\\\\Dropbox\\\\Universita\\\\Magistrale\\\\1_anno\\\\\
-Sessione 1\\\\Matematica Computazionale\\\\Esame\"\>"], "Output",
+Sessione 1\\\\Matematica \
+Computazionale\\\\Esame\\\\Consegna\\\\SimulatoreDecisionale\"\>"], "Output",
  CellChangeTimes->{{3.9408568501920223`*^9, 3.94085687686784*^9}, 
-   3.9410186301661816`*^9, 3.9411019184975567`*^9, 3.941107938323511*^9},
- CellLabel->"Out[25]=",ExpressionUUID->"50f2b70c-fc69-e24c-b845-441c7f98e6d7"]
+   3.9410186301661816`*^9, 3.9411019184975567`*^9, 3.941107938323511*^9, {
+   3.9420690849734898`*^9, 3.942069085425068*^9}, 3.9420698798781986`*^9, 
+   3.9420701768474197`*^9, 3.9420703910179615`*^9, 3.9420811921431084`*^9, 
+   3.9420815334968567`*^9, 3.942082116586231*^9, 3.9420823115703907`*^9, {
+   3.9420823753687553`*^9, 3.9420823852504444`*^9}, 3.9420825875629673`*^9, 
+   3.942083390740938*^9, 3.9420835620075474`*^9, {3.9420836931630344`*^9, 
+   3.9420836978481026`*^9}, 3.942083866870262*^9, 3.942084060016985*^9, {
+   3.942084380070919*^9, 3.94208439693622*^9}, 3.9420850732677174`*^9, 
+   3.9420864891398964`*^9, 3.9420869610344067`*^9, 3.942087165838011*^9, {
+   3.942643153880707*^9, 3.942643153967449*^9}, 3.9426434734849796`*^9, 
+   3.9426437288591385`*^9, 3.9426440078825397`*^9, 3.942644905113899*^9, 
+   3.9426450990692234`*^9, 3.9426451656842136`*^9, 3.942645869415634*^9, 
+   3.942646316167038*^9, 3.942646552113222*^9, 3.9426468681939716`*^9, 
+   3.9426687916983414`*^9, 3.9426691122918415`*^9, 3.9426702619159927`*^9, 
+   3.9426710849401913`*^9, 3.9426723823977394`*^9, 3.942672816530424*^9, 
+   3.9426732649265385`*^9, 3.942682155187523*^9, {3.943287303993023*^9, 
+   3.943287304300499*^9}, {3.943288156675026*^9, 3.9432881567190475`*^9}, 
+   3.943288419858282*^9, 3.9432884830185585`*^9, 3.9432935018811703`*^9},
+ CellLabel->"Out[31]=",ExpressionUUID->"350390ff-c21c-d549-8929-b0d8230efdf5"],
+
+Cell[BoxData[
+ DynamicModuleBox[{SimulatoreDecisioni`Private`risorseCorrenti$$ = 100, 
+  SimulatoreDecisioni`Private`turniRestanti$$ = 10, 
+  SimulatoreDecisioni`Private`log$$ = "", 
+  SimulatoreDecisioni`Private`azioniRaccolta$$ = 0, 
+  SimulatoreDecisioni`Private`azioniCostruzione$$ = 0, 
+  SimulatoreDecisioni`Private`azioniEsplorazione$$ = 0, 
+  SimulatoreDecisioni`Private`simulazioneIniziata$$ = True, 
+  SimulatoreDecisioni`Private`risorseIniziali$$ = 100, 
+  SimulatoreDecisioni`Private`turniIniziali$$ = 10, 
+  SimulatoreDecisioni`Private`difficolta$$ = "Medio", 
+  SimulatoreDecisioni`Private`costoRaccolta$$ = 15, 
+  SimulatoreDecisioni`Private`beneficioRaccolta$$ = 25, 
+  SimulatoreDecisioni`Private`costoCostruzione$$ = 40, 
+  SimulatoreDecisioni`Private`beneficioCostruzione$$ = 50, 
+  SimulatoreDecisioni`Private`costoEsplorazione$$ = 20, 
+  SimulatoreDecisioni`Private`beneficioEsplorazione$$ = {10, 50}, 
+  SimulatoreDecisioni`Private`rendimentoCostruzione$$ = 14, 
+  SimulatoreDecisioni`Private`risorseOttimali$$ = 0, 
+  SimulatoreDecisioni`Private`strategiaOttimale$$ = "", 
+  SimulatoreDecisioni`Private`esercizioSeed$$ = 0, 
+  SimulatoreDecisioni`Private`rispostaUtente$$ = "", 
+  SimulatoreDecisioni`Private`verificaFeedback$$ = ""}, 
+  TagBox[GridBox[{
+     {
+      StyleBox["\<\"Simulatore di Ottimizzazione delle Scelte\"\>",
+       StripOnInput->False,
+       FontSize->18,
+       FontWeight->Bold]},
+     {
+      StyleBox["\<\"Per iniziare, personalizzare i parametri e cliccare su \
+'Inizia Simulazione'\"\>",
+       StripOnInput->False,
+       LineColor->RGBColor[
+        0.33333333333333337`, 0.33333333333333337`, 0.33333333333333337`],
+       FrontFaceColor->RGBColor[
+        0.33333333333333337`, 0.33333333333333337`, 0.33333333333333337`],
+       BackFaceColor->RGBColor[
+        0.33333333333333337`, 0.33333333333333337`, 0.33333333333333337`],
+       GraphicsColor->RGBColor[
+        0.33333333333333337`, 0.33333333333333337`, 0.33333333333333337`],
+       FontSlant->Italic,
+       FontColor->RGBColor[
+        0.33333333333333337`, 0.33333333333333337`, 0.33333333333333337`]]},
+     {
+      TemplateBox[{"\"Numero di Turni: \"", 
+        SliderBox[
+         Dynamic[
+         SimulatoreDecisioni`Private`turniIniziali$$, (
+          SimulatoreDecisioni`Private`turniIniziali$$ = Round[#])& ], {5, 20},
+          Enabled -> Dynamic[
+           Not[SimulatoreDecisioni`Private`simulazioneIniziata$$]]], 
+        DynamicBox[
+         ToBoxes[
+          Style[SimulatoreDecisioni`Private`turniIniziali$$, Bold], 
+          StandardForm]], 
+        TemplateBox[{10}, "Spacer1"], "\"Risorse Iniziali: \"", 
+        SliderBox[
+         Dynamic[
+         SimulatoreDecisioni`Private`risorseIniziali$$, (
+          SimulatoreDecisioni`Private`risorseIniziali$$ = Round[#])& ], {50, 
+         200}, Enabled -> Dynamic[
+           Not[SimulatoreDecisioni`Private`simulazioneIniziata$$]]], 
+        DynamicBox[
+         ToBoxes[
+          Style[SimulatoreDecisioni`Private`risorseIniziali$$, Bold], 
+          StandardForm]], 
+        TemplateBox[{10}, "Spacer1"], 
+        TagBox[
+         TooltipBox[
+         "\"Difficolt\[AGrave]: \"", 
+          "\"Facile: guadagni elevati e costi ridotti.\\nMedio: \
+bilanciato.\\nDifficile: guadagni bassi e costi elevati.\"", TooltipStyle -> 
+          "TextStyling"], 
+         Annotation[#, 
+          "Facile: guadagni elevati e costi ridotti.\nMedio: bilanciato.\n\
+Difficile: guadagni bassi e costi elevati.", "Tooltip"]& ], 
+        PopupMenuBox[
+         Dynamic[SimulatoreDecisioni`Private`difficolta$$], {
+         "Facile" -> "\"Facile\"", "Medio" -> "\"Medio\"", "Difficile" -> 
+          "\"Difficile\""}, Enabled -> Dynamic[
+           Not[SimulatoreDecisioni`Private`simulazioneIniziata$$]]]},
+       "RowDefault"]},
+     {
+      TemplateBox[{10},
+       "Spacer1"]},
+     {
+      TemplateBox[{
+        StyleBox["\"Parametri Attuali: \"", Bold, StripOnInput -> False], 
+        DynamicBox[
+         ToBoxes[
+          
+          Row[{"Turni: ", SimulatoreDecisioni`Private`turniIniziali$$, "   ", 
+            "Risorse Iniziali: ", 
+            SimulatoreDecisioni`Private`risorseIniziali$$, "   ", 
+            "Difficolt\[AGrave]: ", 
+            SimulatoreDecisioni`Private`difficolta$$}], StandardForm]]},
+       "RowDefault"]},
+     {
+      TemplateBox[{10},
+       "Spacer1"]},
+     {
+      TagBox[
+       TooltipBox[
+        ButtonBox["\<\"Inizia Simulazione\"\>",
+         Appearance->Automatic,
+         ButtonFunction:>(
+          SimulatoreDecisioni`Private`risorseCorrenti$$ = 
+           SimulatoreDecisioni`Private`risorseIniziali$$; 
+          SimulatoreDecisioni`Private`turniRestanti$$ = 
+           SimulatoreDecisioni`Private`turniIniziali$$; 
+          SimulatoreDecisioni`Private`azioniRaccolta$$ = 0; 
+          SimulatoreDecisioni`Private`azioniCostruzione$$ = 0; 
+          SimulatoreDecisioni`Private`azioniEsplorazione$$ = 0; 
+          SimulatoreDecisioni`Private`rendimentoCostruzione$$ = 0; 
+          SimulatoreDecisioni`Private`log$$ = ""; 
+          Switch[SimulatoreDecisioni`Private`difficolta$$, "Facile", 
+            SimulatoreDecisioni`Private`costoRaccolta$$ = 10; 
+            SimulatoreDecisioni`Private`beneficioRaccolta$$ = 30; 
+            SimulatoreDecisioni`Private`costoCostruzione$$ = 35; 
+            SimulatoreDecisioni`Private`beneficioCostruzione$$ = 60; 
+            SimulatoreDecisioni`Private`rendimentoCostruzione$$ = 14; 
+            SimulatoreDecisioni`Private`costoEsplorazione$$ = 15; 
+            SimulatoreDecisioni`Private`beneficioEsplorazione$$ = {20, 70}, 
+            "Medio", SimulatoreDecisioni`Private`costoRaccolta$$ = 15; 
+            SimulatoreDecisioni`Private`beneficioRaccolta$$ = 25; 
+            SimulatoreDecisioni`Private`costoCostruzione$$ = 40; 
+            SimulatoreDecisioni`Private`beneficioCostruzione$$ = 50; 
+            SimulatoreDecisioni`Private`rendimentoCostruzione$$ = 14; 
+            SimulatoreDecisioni`Private`costoEsplorazione$$ = 20; 
+            SimulatoreDecisioni`Private`beneficioEsplorazione$$ = {10, 50}, 
+            "Difficile", SimulatoreDecisioni`Private`costoRaccolta$$ = 20; 
+            SimulatoreDecisioni`Private`beneficioRaccolta$$ = 20; 
+            SimulatoreDecisioni`Private`costoCostruzione$$ = 50; 
+            SimulatoreDecisioni`Private`beneficioCostruzione$$ = 40; 
+            SimulatoreDecisioni`Private`rendimentoCostruzione$$ = 14; 
+            SimulatoreDecisioni`Private`costoEsplorazione$$ = 25; 
+            SimulatoreDecisioni`Private`beneficioEsplorazione$$ = {5, 30}]; 
+          SimulatoreDecisioni`Private`simulazioneIniziata$$ = True; Null),
+         Enabled->Dynamic[
+           Not[SimulatoreDecisioni`Private`simulazioneIniziata$$]],
+         Evaluator->Automatic,
+         Method->"Preemptive"],
+        "\"Clicca per iniziare la simulazione con i parametri selezionati.\"",
+        TooltipStyle->"TextStyling"],
+       Annotation[#, 
+        "Clicca per iniziare la simulazione con i parametri selezionati.", 
+        "Tooltip"]& ]},
+     {
+      TagBox[
+       TooltipBox[
+        ButtonBox["\<\"Ricomincia\"\>",
+         Appearance->Automatic,
+         ButtonFunction:>(
+          SimulatoreDecisioni`Private`simulazioneIniziata$$ = False; 
+          SimulatoreDecisioni`Private`risorseCorrenti$$ = 100; 
+          SimulatoreDecisioni`Private`turniRestanti$$ = 10; 
+          SimulatoreDecisioni`Private`log$$ = ""; 
+          SimulatoreDecisioni`Private`rendimentoCostruzione$$ = 0; Null),
+         Enabled->Dynamic[SimulatoreDecisioni`Private`simulazioneIniziata$$],
+         Evaluator->Automatic,
+         Method->"Preemptive"],
+        "\"Clicca per ricominciare la simulazione.\"",
+        TooltipStyle->"TextStyling"],
+       Annotation[#, "Clicca per ricominciare la simulazione.", "Tooltip"]& ]},
+     {
+      TemplateBox[{10},
+       "Spacer1"]},
+     {
+      TemplateBox[{
+        TagBox[
+         TooltipBox[
+          ButtonBox["\"Raccogli Risorse\"", ButtonFunction :> If[
+             And[
+             SimulatoreDecisioni`Private`turniRestanti$$ > 0, 
+              SimulatoreDecisioni`Private`risorseCorrenti$$ >= 
+              SimulatoreDecisioni`Private`costoRaccolta$$], 
+             Decrement[SimulatoreDecisioni`Private`turniRestanti$$]; 
+             SubtractFrom[
+              SimulatoreDecisioni`Private`risorseCorrenti$$, 
+               SimulatoreDecisioni`Private`costoRaccolta$$]; 
+             AddTo[SimulatoreDecisioni`Private`risorseCorrenti$$, 
+               SimulatoreDecisioni`Private`beneficioRaccolta$$]; 
+             Increment[SimulatoreDecisioni`Private`azioniRaccolta$$]; 
+             SimulatoreDecisioni`Private`log$$ = Row[{
+                 Style["Turno: ", Bold], 
+                 ToString[
+                 SimulatoreDecisioni`Private`turniIniziali$$ - 
+                  SimulatoreDecisioni`Private`turniRestanti$$], "\n", 
+                 Style["Azione: Raccogli Risorse\n", Bold], "Risorse spese: ", 
+                 ToString[SimulatoreDecisioni`Private`costoRaccolta$$], "\n", 
+                 "Risorse guadagnate: ", 
+                 ToString[SimulatoreDecisioni`Private`beneficioRaccolta$$], 
+                 "\n", SimulatoreDecisioni`Private`log$$}]; Null, 
+             SimulatoreDecisioni`Private`log$$ = Row[{
+                 Style["Azione non disponibile.\n", Red], 
+                 SimulatoreDecisioni`Private`log$$}]; Null], Enabled -> 
+           Dynamic[
+             And[
+             SimulatoreDecisioni`Private`simulazioneIniziata$$, 
+              SimulatoreDecisioni`Private`turniRestanti$$ > 0]], Appearance -> 
+           Automatic, Evaluator -> Automatic, Method -> "Preemptive"], 
+          
+          TemplateBox[{
+           "\"Costo: \"", 
+            "\"SimulatoreDecisioni`Private`costoRaccolta$29680\"", 
+            "\" | Guadagno: \"", 
+            "\"SimulatoreDecisioni`Private`beneficioRaccolta$29680\""}, 
+           "RowDefault"], TooltipStyle -> "TextStyling"], Annotation[#, 
+          
+          Row[{"Costo: ", "SimulatoreDecisioni`Private`costoRaccolta$29680", 
+            " | Guadagno: ", 
+            "SimulatoreDecisioni`Private`beneficioRaccolta$29680"}], 
+          "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[
+          ButtonBox["\"Costruisci Struttura\"", ButtonFunction :> If[
+             And[
+             SimulatoreDecisioni`Private`turniRestanti$$ > 0, 
+              SimulatoreDecisioni`Private`risorseCorrenti$$ >= 
+              SimulatoreDecisioni`Private`costoCostruzione$$], 
+             Decrement[SimulatoreDecisioni`Private`turniRestanti$$]; 
+             SubtractFrom[
+              SimulatoreDecisioni`Private`risorseCorrenti$$, 
+               SimulatoreDecisioni`Private`costoCostruzione$$]; 
+             AddTo[SimulatoreDecisioni`Private`risorseCorrenti$$, 
+               SimulatoreDecisioni`Private`beneficioCostruzione$$]; 
+             Increment[SimulatoreDecisioni`Private`azioniCostruzione$$]; 
+             AddTo[SimulatoreDecisioni`Private`rendimentoCostruzione$$, 14]; 
+             SimulatoreDecisioni`Private`log$$ = Row[{
+                 Style["Turno: ", Bold], 
+                 ToString[
+                 SimulatoreDecisioni`Private`turniIniziali$$ - 
+                  SimulatoreDecisioni`Private`turniRestanti$$], "\n", 
+                 Style["Azione: Costruisci Struttura\n", Bold], 
+                 "Risorse spese: ", 
+                 ToString[SimulatoreDecisioni`Private`costoCostruzione$$], 
+                 "\n", "Rendimento incrementale: +", 
+                 ToString[14], " per turno.\n", 
+                 SimulatoreDecisioni`Private`log$$}]; Null, 
+             SimulatoreDecisioni`Private`log$$ = Row[{
+                 Style["Azione non disponibile.\n", Red], 
+                 SimulatoreDecisioni`Private`log$$}]; Null], Enabled -> 
+           Dynamic[
+             And[
+             SimulatoreDecisioni`Private`simulazioneIniziata$$, 
+              SimulatoreDecisioni`Private`turniRestanti$$ > 0]], Appearance -> 
+           Automatic, Evaluator -> Automatic, Method -> "Preemptive"], 
+          
+          TemplateBox[{
+           "\"Costo: \"", 
+            "\"SimulatoreDecisioni`Private`costoCostruzione$29680\"", 
+            "\" | Guadagno: \"", 
+            "\"SimulatoreDecisioni`Private`beneficioCostruzione$29680\""}, 
+           "RowDefault"], TooltipStyle -> "TextStyling"], Annotation[#, 
+          
+          Row[{"Costo: ", 
+            "SimulatoreDecisioni`Private`costoCostruzione$29680", 
+            " | Guadagno: ", 
+            "SimulatoreDecisioni`Private`beneficioCostruzione$29680"}], 
+          "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[
+          ButtonBox["\"Esplora\"", ButtonFunction :> If[
+             And[
+             SimulatoreDecisioni`Private`turniRestanti$$ > 0, 
+              SimulatoreDecisioni`Private`risorseCorrenti$$ >= 
+              SimulatoreDecisioni`Private`costoEsplorazione$$], 
+             Decrement[SimulatoreDecisioni`Private`turniRestanti$$]; 
+             SubtractFrom[
+              SimulatoreDecisioni`Private`risorseCorrenti$$, 
+               SimulatoreDecisioni`Private`costoEsplorazione$$]; 
+             Module[{SimulatoreDecisioni`Private`guadagno$ = 
+                RandomInteger[
+                 SimulatoreDecisioni`Private`beneficioEsplorazione$$]}, 
+               AddTo[
+                SimulatoreDecisioni`Private`risorseCorrenti$$, 
+                 SimulatoreDecisioni`Private`guadagno$]; 
+               SimulatoreDecisioni`Private`log$$ = Row[{
+                   Style["Turno: ", Bold], 
+                   ToString[
+                   SimulatoreDecisioni`Private`turniIniziali$$ - 
+                    SimulatoreDecisioni`Private`turniRestanti$$], "\n", 
+                   Style["Azione: Esplora\n", Bold], "Risorse spese: ", 
+                   ToString[SimulatoreDecisioni`Private`costoEsplorazione$$], 
+                   "\n", "Guadagno variabile: ", 
+                   ToString[SimulatoreDecisioni`Private`guadagno$], "\n", 
+                   SimulatoreDecisioni`Private`log$$}]; Null]; 
+             Increment[SimulatoreDecisioni`Private`azioniEsplorazione$$]; 
+             Null, SimulatoreDecisioni`Private`log$$ = Row[{
+                 Style["Azione non disponibile.\n", Red], 
+                 SimulatoreDecisioni`Private`log$$}]; Null], Enabled -> 
+           Dynamic[
+             And[
+             SimulatoreDecisioni`Private`simulazioneIniziata$$, 
+              SimulatoreDecisioni`Private`turniRestanti$$ > 0]], Appearance -> 
+           Automatic, Evaluator -> Automatic, Method -> "Preemptive"], 
+          
+          TemplateBox[{
+           "\"Costo: \"", 
+            "\"SimulatoreDecisioni`Private`costoEsplorazione$29680\"", 
+            "\" | Guadagno: Variabile\""}, "RowDefault"], TooltipStyle -> 
+          "TextStyling"], Annotation[#, 
+          
+          Row[{"Costo: ", 
+            "SimulatoreDecisioni`Private`costoEsplorazione$29680", 
+            " | Guadagno: Variabile"}], "Tooltip"]& ]},
+       "RowDefault"]},
+     {
+      TemplateBox[{10},
+       "Spacer1"]},
+     {
+      TagBox[
+       TooltipBox[
+        ButtonBox["\<\"Mostra Risultati\"\>",
+         Appearance->Automatic,
+         ButtonFunction:>(SimulatoreDecisioni`Private`log$$ = Row[{
+              Style["\nStatistiche Finali:\n", Bold], "Risorse Finali: ", 
+              ToString[SimulatoreDecisioni`Private`risorseCorrenti$$], "\n", 
+              "Turni Rimanenti: ", 
+              ToString[SimulatoreDecisioni`Private`turniRestanti$$], "\n", 
+              "Azioni Eseguite:\n", "  Raccolta: ", 
+              ToString[SimulatoreDecisioni`Private`azioniRaccolta$$], "\n", 
+              "  Costruzioni: ", 
+              ToString[SimulatoreDecisioni`Private`azioniCostruzione$$], "\n",
+               "  Esplorazioni: ", 
+              ToString[SimulatoreDecisioni`Private`azioniEsplorazione$$], 
+              "\n", "Guadagno attuale per turno: ", 
+              ToString[SimulatoreDecisioni`Private`rendimentoCostruzione$$], 
+              "\n", SimulatoreDecisioni`Private`log$$}]; Null),
+         Enabled->Dynamic[
+           And[
+           SimulatoreDecisioni`Private`simulazioneIniziata$$, 
+            SimulatoreDecisioni`Private`turniRestanti$$ < 
+            SimulatoreDecisioni`Private`turniIniziali$$]],
+         Evaluator->Automatic,
+         Method->"Preemptive"],
+        "\"Clicca per visualizzare le statistiche finali della simulazione.\"",
+        TooltipStyle->"TextStyling"],
+       Annotation[#, 
+        "Clicca per visualizzare le statistiche finali della simulazione.", 
+        "Tooltip"]& ]},
+     {
+      TagBox[
+       TooltipBox[
+        ButtonBox["\<\"Mostra Strategia Ottimale\"\>",
+         Appearance->Automatic,
+         ButtonFunction:>(
+          SimulatoreDecisioni`Private`strategiaOttimale$$ = 
+           SimulatoreDecisioni`Private`CalcolaStrategiaOttimale[
+            SimulatoreDecisioni`Private`turniIniziali$$, 
+             SimulatoreDecisioni`Private`risorseIniziali$$, 
+             SimulatoreDecisioni`Private`costoRaccolta$$, 
+             SimulatoreDecisioni`Private`beneficioRaccolta$$, 
+             SimulatoreDecisioni`Private`costoCostruzione$$, 
+             SimulatoreDecisioni`Private`beneficioCostruzione$$, 
+             SimulatoreDecisioni`Private`rendimentoCostruzione$$, 
+             SimulatoreDecisioni`Private`costoEsplorazione$$, 
+             SimulatoreDecisioni`Private`beneficioEsplorazione$$]; 
+          SimulatoreDecisioni`Private`log$$ = Row[{
+              Style["\nStrategia Ottimale:\n", Bold], 
+              Part[SimulatoreDecisioni`Private`strategiaOttimale$$, 2], 
+              "\nMassimo rendimento previsto: ", 
+              ToString[
+               Part[SimulatoreDecisioni`Private`strategiaOttimale$$, 1]], 
+              "\n", SimulatoreDecisioni`Private`log$$}]; Null),
+         Enabled->Dynamic[
+           And[
+           SimulatoreDecisioni`Private`simulazioneIniziata$$, 
+            SimulatoreDecisioni`Private`turniRestanti$$ == 0]],
+         Evaluator->Automatic,
+         Method->"Preemptive"],
+        "\"Calcola e visualizza la sequenza di azioni ottimale per \
+massimizzare le risorse.\"",
+        TooltipStyle->"TextStyling"],
+       Annotation[#, 
+        "Calcola e visualizza la sequenza di azioni ottimale per massimizzare \
+le risorse.", "Tooltip"]& ]},
+     {
+      StyleBox["\<\"Log degli Eventi:\"\>",
+       StripOnInput->False,
+       FontWeight->Bold]},
+     {
+      PaneBox[
+       DynamicBox[ToBoxes[SimulatoreDecisioni`Private`log$$, StandardForm],
+        ImageSizeCache->{0., {0., 6.373047108761966}}],
+       ImageSize->{400, 200},
+       Scrollbars->True]}
+    },
+    DefaultBaseStyle->"Column",
+    GridBoxAlignment->{"Columns" -> {{Left}}},
+    GridBoxItemSize->{"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
+   "Column"],
+  DynamicModuleValues:>{}]], "Output",
+ CellChangeTimes->{{3.9408568501920223`*^9, 3.94085687686784*^9}, 
+   3.9410186301661816`*^9, 3.9411019184975567`*^9, 3.941107938323511*^9, {
+   3.9420690849734898`*^9, 3.942069085425068*^9}, 3.9420698798781986`*^9, 
+   3.9420701768474197`*^9, 3.9420703910179615`*^9, 3.9420811921431084`*^9, 
+   3.9420815334968567`*^9, 3.942082116586231*^9, 3.9420823115703907`*^9, {
+   3.9420823753687553`*^9, 3.9420823852504444`*^9}, 3.9420825875629673`*^9, 
+   3.942083390740938*^9, 3.9420835620075474`*^9, {3.9420836931630344`*^9, 
+   3.9420836978481026`*^9}, 3.942083866870262*^9, 3.942084060016985*^9, {
+   3.942084380070919*^9, 3.94208439693622*^9}, 3.9420850732677174`*^9, 
+   3.9420864891398964`*^9, 3.9420869610344067`*^9, 3.942087165838011*^9, {
+   3.942643153880707*^9, 3.942643153967449*^9}, 3.9426434734849796`*^9, 
+   3.9426437288591385`*^9, 3.9426440078825397`*^9, 3.942644905113899*^9, 
+   3.9426450990692234`*^9, 3.9426451656842136`*^9, 3.942645869415634*^9, 
+   3.942646316167038*^9, 3.942646552113222*^9, 3.9426468681939716`*^9, 
+   3.9426687916983414`*^9, 3.9426691122918415`*^9, 3.9426702619159927`*^9, 
+   3.9426710849401913`*^9, 3.9426723823977394`*^9, 3.942672816530424*^9, 
+   3.9426732649265385`*^9, 3.942682155187523*^9, {3.943287303993023*^9, 
+   3.943287304300499*^9}, {3.943288156675026*^9, 3.9432881567190475`*^9}, 
+   3.943288419858282*^9, 3.9432884830185585`*^9, 3.943293501913906*^9},
+ CellLabel->"Out[33]=",ExpressionUUID->"1958d285-b905-5b49-ae45-613bbf8f7481"]
 }, Open  ]]
 }, Open  ]],
 
@@ -441,8 +879,6 @@ scelte strategiche.\
    3.940771211360054*^9}},ExpressionUUID->"3870266a-3650-504b-8bc4-\
 fa1a272f9fb6"],
 
-Cell[CellGroupData[{
-
 Cell["\<\
 Ulteriori funzionalit\[AGrave] di analisi potrebbero includere una \
 visualizzazione pi\[UGrave] dettagliata delle scelte e delle risorse, \
@@ -450,1395 +886,13 @@ offrendo suggerimenti automatici per ottimizzare il punteggio.\
 \>", "Item",
  CellChangeTimes->{
   3.939647248466383*^9},ExpressionUUID->"b93c5c9f-ebb4-2944-ac1b-\
-93ac7cbcbcfa"],
-
-Cell[BoxData[""], "Input",
- CellChangeTimes->{3.940857030173914*^9},
- CellLabel->"In[27]:=",ExpressionUUID->"e18ab786-48b4-d34b-a704-cb3573d13263"],
-
-Cell[CellGroupData[{
-
-Cell[BoxData[
- RowBox[{"IniziaSimulazione", "[", "]"}]], "Code",
- CellChangeTimes->{3.9408570390575676`*^9, 3.9408570983298855`*^9},
- CellLabel->"In[28]:=",ExpressionUUID->"ceaa1d8c-7ad8-144c-be27-24059e220785"],
-
-Cell[BoxData[
- InterpretationBox[
-  RowBox[{"\<\"Simulazione iniziata con \"\>", "\[InvisibleSpace]", "100", 
-   "\[InvisibleSpace]", "\<\" risorse e \"\>", "\[InvisibleSpace]", "10", 
-   "\[InvisibleSpace]", "\<\" turni rimanenti.\"\>"}],
-  SequenceForm[
-  "Simulazione iniziata con ", 100, " risorse e ", 10, " turni rimanenti."],
-  Editable->False]], "Print",
- CellChangeTimes->{3.9408570474672813`*^9, 3.9408571007859*^9, 
-  3.941018630439907*^9, 3.9411019187776203`*^9, 3.941107938381422*^9},
- CellLabel->
-  "During evaluation of \
-In[28]:=",ExpressionUUID->"f98646a7-7274-9f4f-84cc-da9f350787e7"]
-}, Open  ]],
-
-Cell[CellGroupData[{
-
-Cell[BoxData[
- RowBox[{"RaccogliRisorse", "[", "]"}]], "Code",
- CellChangeTimes->{{3.940857075542391*^9, 3.9408570976993637`*^9}},
- CellLabel->"In[29]:=",ExpressionUUID->"fee5aba7-becf-a94a-a000-5f53d8b829eb"],
-
-Cell[CellGroupData[{
-
-Cell[BoxData[
- InterpretationBox[
-  RowBox[{"\<\"Operazione riuscita! Guadagnate \"\>", "\[InvisibleSpace]", 
-   "15", "\[InvisibleSpace]", "\<\" risorse.\"\>"}],
-  SequenceForm["Operazione riuscita! Guadagnate ", 15, " risorse."],
-  Editable->False]], "Print",
- CellChangeTimes->{
-  3.940857101853512*^9, 3.940857161937359*^9, {3.940857283414419*^9, 
-   3.94085732180068*^9}, 3.941018630448414*^9, 3.941101918793722*^9, 
-   3.9411079384042835`*^9},
- CellLabel->
-  "During evaluation of \
-In[29]:=",ExpressionUUID->"4000e4a5-23ad-c045-afca-d2bc70b10306"],
-
-Cell[BoxData[
- InterpretationBox[
-  RowBox[{"\<\"Risorse attuali: \"\>", "\[InvisibleSpace]", "105"}],
-  SequenceForm["Risorse attuali: ", 105],
-  Editable->False]], "Print",
- CellChangeTimes->{
-  3.940857101853512*^9, 3.940857161937359*^9, {3.940857283414419*^9, 
-   3.94085732180068*^9}, 3.941018630448414*^9, 3.941101918793722*^9, 
-   3.941107938411476*^9},
- CellLabel->
-  "During evaluation of \
-In[29]:=",ExpressionUUID->"018698d5-a681-c94a-a5db-3ff7f4a05ad6"],
-
-Cell[BoxData[
- InterpretationBox[
-  RowBox[{"\<\"Turni rimanenti: \"\>", "\[InvisibleSpace]", "9"}],
-  SequenceForm["Turni rimanenti: ", 9],
-  Editable->False]], "Print",
- CellChangeTimes->{
-  3.940857101853512*^9, 3.940857161937359*^9, {3.940857283414419*^9, 
-   3.94085732180068*^9}, 3.941018630448414*^9, 3.941101918793722*^9, 
-   3.9411079384185486`*^9},
- CellLabel->
-  "During evaluation of \
-In[29]:=",ExpressionUUID->"cf48ac4f-1e7f-6e41-952a-e02cde8162d7"]
-}, Open  ]]
-}, Open  ]],
-
-Cell[CellGroupData[{
-
-Cell[BoxData[
- RowBox[{"CostruisciStruttura", "[", "]"}]], "Code",
- CellChangeTimes->{{3.940857075542391*^9, 3.9408570971935463`*^9}},
- CellLabel->"In[30]:=",ExpressionUUID->"fb61b351-7ec9-0242-962e-aeaef7d257c8"],
-
-Cell[CellGroupData[{
-
-Cell[BoxData[
- InterpretationBox[
-  RowBox[{"\<\"Struttura costruita! Guadagnerai \"\>", "\[InvisibleSpace]", 
-   "10", "\[InvisibleSpace]", "\<\" risorse per i prossimi \"\>", 
-   "\[InvisibleSpace]", "3", "\[InvisibleSpace]", "\<\" turni.\"\>"}],
-  SequenceForm[
-  "Struttura costruita! Guadagnerai ", 10, " risorse per i prossimi ", 3, 
-   " turni."],
-  Editable->False]], "Print",
- CellChangeTimes->{
-  3.9408571026863804`*^9, {3.9408571728969975`*^9, 3.940857179207899*^9}, {
-   3.940857287293852*^9, 3.9408573251773815`*^9}, 3.941018630460453*^9, 
-   3.941101918807289*^9, 3.9411079384229507`*^9},
- CellLabel->
-  "During evaluation of \
-In[30]:=",ExpressionUUID->"0e012148-3547-774c-b21b-32d0f0b2ec75"],
-
-Cell[BoxData[
- InterpretationBox[
-  RowBox[{"\<\"Risorse attuali: \"\>", "\[InvisibleSpace]", "75"}],
-  SequenceForm["Risorse attuali: ", 75],
-  Editable->False]], "Print",
- CellChangeTimes->{
-  3.9408571026863804`*^9, {3.9408571728969975`*^9, 3.940857179207899*^9}, {
-   3.940857287293852*^9, 3.9408573251773815`*^9}, 3.941018630460453*^9, 
-   3.941101918807289*^9, 3.941107938426985*^9},
- CellLabel->
-  "During evaluation of \
-In[30]:=",ExpressionUUID->"1bcef22c-d943-2b42-932c-2ee488439fa1"],
-
-Cell[BoxData[
- InterpretationBox[
-  RowBox[{"\<\"Turni rimanenti: \"\>", "\[InvisibleSpace]", "8"}],
-  SequenceForm["Turni rimanenti: ", 8],
-  Editable->False]], "Print",
- CellChangeTimes->{
-  3.9408571026863804`*^9, {3.9408571728969975`*^9, 3.940857179207899*^9}, {
-   3.940857287293852*^9, 3.9408573251773815`*^9}, 3.941018630460453*^9, 
-   3.941101918807289*^9, 3.9411079384367065`*^9},
- CellLabel->
-  "During evaluation of \
-In[30]:=",ExpressionUUID->"7ebc3e70-e97f-e94f-b468-7f76a1430eb8"]
-}, Open  ]]
-}, Open  ]],
-
-Cell[CellGroupData[{
-
-Cell[BoxData[
- RowBox[{"Esplora", "[", "]"}]], "Code",
- CellChangeTimes->{{3.940857075542391*^9, 3.940857096646887*^9}},
- CellLabel->"In[31]:=",ExpressionUUID->"ac85bf5f-751a-0c43-99ae-0bbc7bc4bcc8"],
-
-Cell[CellGroupData[{
-
-Cell[BoxData[
- InterpretationBox[
-  RowBox[{"\<\"Turni rimanenti: \"\>", "\[InvisibleSpace]", "7"}],
-  SequenceForm["Turni rimanenti: ", 7],
-  Editable->False]], "Print",
- GeneratedCell->False,
- CellAutoOverwrite->False,
- CellChangeTimes->{
-  3.940857103560137*^9, {3.940857289317663*^9, 3.940857328818241*^9}, 
-   3.9410186304931183`*^9, 3.9411019188259544`*^9, 3.9411079384688206`*^9},
- CellLabel->
-  "During evaluation of \
-In[31]:=",ExpressionUUID->"33a68c3f-6aa8-824b-9e76-00986f9a1972"],
-
-Cell[BoxData[
- InterpretationBox[
-  RowBox[{"\<\"Risorse attuali: \"\>", "\[InvisibleSpace]", "95"}],
-  SequenceForm["Risorse attuali: ", 95],
-  Editable->False]], "Print",
- GeneratedCell->False,
- CellAutoOverwrite->False,
- CellChangeTimes->{
-  3.940857103560137*^9, {3.940857289317663*^9, 3.940857328818241*^9}, 
-   3.9410186304931183`*^9, 3.9411019188259544`*^9, 3.9411079384570274`*^9},
- CellLabel->
-  "During evaluation of \
-In[31]:=",ExpressionUUID->"43930824-5f0d-e64c-bed6-15f870e66a27"],
-
-Cell[BoxData[
- InterpretationBox[
-  RowBox[{"\<\"Hai esplorato e ottenuto \"\>", "\[InvisibleSpace]", "40", 
-   "\[InvisibleSpace]", "\<\" risorse.\"\>"}],
-  SequenceForm["Hai esplorato e ottenuto ", 40, " risorse."],
-  Editable->False]], "Print",
- GeneratedCell->False,
- CellAutoOverwrite->False,
- CellChangeTimes->{
-  3.940857103560137*^9, {3.940857289317663*^9, 3.940857328818241*^9}, 
-   3.9410186304931183`*^9, 3.9411019188259544`*^9, 3.941107938442402*^9},
- CellLabel->
-  "During evaluation of \
-In[31]:=",ExpressionUUID->"7299749b-9b9e-544f-b12f-a7c08df3a70c"],
-
-Cell[BoxData[
- InterpretationBox[
-  RowBox[{"\<\"Turni rimanenti: \"\>", "\[InvisibleSpace]", "7"}],
-  SequenceForm["Turni rimanenti: ", 7],
-  Editable->False]], "Print",
- GeneratedCell->False,
- CellAutoOverwrite->False,
- CellChangeTimes->{
-  3.940857103560137*^9, {3.940857289317663*^9, 3.940857328818241*^9}, 
-   3.9410186304931183`*^9, 3.9411019188259544`*^9},
- CellLabel->
-  "During evaluation of \
-In[6]:=",ExpressionUUID->"0527618e-d7d3-e94c-8aff-0c407680be30"],
-
-Cell[BoxData[
- InterpretationBox[
-  RowBox[{"\<\"Risorse attuali: \"\>", "\[InvisibleSpace]", "62"}],
-  SequenceForm["Risorse attuali: ", 62],
-  Editable->False]], "Print",
- GeneratedCell->False,
- CellAutoOverwrite->False,
- CellChangeTimes->{
-  3.940857103560137*^9, {3.940857289317663*^9, 3.940857328818241*^9}, 
-   3.9410186304931183`*^9, 3.941101918822424*^9},
- CellLabel->
-  "During evaluation of \
-In[6]:=",ExpressionUUID->"1a3eee94-7096-254a-8047-fb86c4371060"],
-
-Cell[BoxData[
- InterpretationBox[
-  RowBox[{"\<\"Hai esplorato e ottenuto \"\>", "\[InvisibleSpace]", "7", 
-   "\[InvisibleSpace]", "\<\" risorse.\"\>"}],
-  SequenceForm["Hai esplorato e ottenuto ", 7, " risorse."],
-  Editable->False]], "Print",
- GeneratedCell->False,
- CellAutoOverwrite->False,
- CellChangeTimes->{
-  3.940857103560137*^9, {3.940857289317663*^9, 3.940857328818241*^9}, 
-   3.9410186304931183`*^9, 3.9411019188183994`*^9},
- CellLabel->
-  "During evaluation of \
-In[6]:=",ExpressionUUID->"6c1f1144-fa46-8143-94b4-230d2d063918"],
-
-Cell[BoxData[
- InterpretationBox[
-  RowBox[{"\<\"Turni rimanenti: \"\>", "\[InvisibleSpace]", "7"}],
-  SequenceForm["Turni rimanenti: ", 7],
-  Editable->False]], "Print",
- GeneratedCell->False,
- CellAutoOverwrite->False,
- CellChangeTimes->{
-  3.940857103560137*^9, {3.940857289317663*^9, 3.940857328818241*^9}, 
-   3.9410186304931183`*^9},
- CellLabel->
-  "During evaluation of \
-In[6]:=",ExpressionUUID->"e40d6c3d-f954-a344-9aa4-c23a2edd7b03"],
-
-Cell[BoxData[
- InterpretationBox[
-  RowBox[{"\<\"Risorse attuali: \"\>", "\[InvisibleSpace]", "62"}],
-  SequenceForm["Risorse attuali: ", 62],
-  Editable->False]], "Print",
- GeneratedCell->False,
- CellAutoOverwrite->False,
- CellChangeTimes->{
-  3.940857103560137*^9, {3.940857289317663*^9, 3.940857328818241*^9}, 
-   3.941018630484556*^9},
- CellLabel->
-  "During evaluation of \
-In[6]:=",ExpressionUUID->"3be520cd-e351-674c-9b0c-aaa3d7b8488f"],
-
-Cell[BoxData[
- InterpretationBox[
-  RowBox[{"\<\"Hai esplorato e ottenuto \"\>", "\[InvisibleSpace]", "7", 
-   "\[InvisibleSpace]", "\<\" risorse.\"\>"}],
-  SequenceForm["Hai esplorato e ottenuto ", 7, " risorse."],
-  Editable->False]], "Print",
- GeneratedCell->False,
- CellAutoOverwrite->False,
- CellChangeTimes->{
-  3.940857103560137*^9, {3.940857289317663*^9, 3.940857328818241*^9}, 
-   3.9410186304805546`*^9},
- CellLabel->
-  "During evaluation of \
-In[6]:=",ExpressionUUID->"0fff7515-dc82-bb43-8097-658cea8157bd"],
-
-Cell[BoxData[
- InterpretationBox[
-  RowBox[{"\<\"Turni rimanenti: \"\>", "\[InvisibleSpace]", "0"}],
-  SequenceForm["Turni rimanenti: ", 0],
-  Editable->False]], "Print",
- GeneratedCell->False,
- CellAutoOverwrite->False,
- CellChangeTimes->{
-  3.940857103560137*^9, {3.940857289317663*^9, 3.940857328818241*^9}},
- CellLabel->
-  "During evaluation of \
-In[32]:=",ExpressionUUID->"edb1b242-7ada-3248-a380-ac03015c497f"],
-
-Cell[BoxData[
- InterpretationBox[
-  RowBox[{"\<\"Risorse attuali: \"\>", "\[InvisibleSpace]", "21"}],
-  SequenceForm["Risorse attuali: ", 21],
-  Editable->False]], "Print",
- GeneratedCell->False,
- CellAutoOverwrite->False,
- CellChangeTimes->{
-  3.940857103560137*^9, {3.940857289317663*^9, 3.9408573288056126`*^9}},
- CellLabel->
-  "During evaluation of \
-In[32]:=",ExpressionUUID->"e0f9fda3-b01a-de4f-835e-8d920d7c9aa4"],
-
-Cell[BoxData["\<\"Non ci sono abbastanza risorse o turni disponibili per \
-eseguire questa azione.\"\>"], "Print",
- GeneratedCell->False,
- CellAutoOverwrite->False,
- CellChangeTimes->{
-  3.940857103560137*^9, {3.940857289317663*^9, 3.9408573287920227`*^9}},
- CellLabel->
-  "During evaluation of \
-In[32]:=",ExpressionUUID->"925ca580-7869-544d-b9f1-7acc3d082924"],
-
-Cell[BoxData[
- InterpretationBox[
-  RowBox[{"\<\"Turni rimanenti: \"\>", "\[InvisibleSpace]", "1"}],
-  SequenceForm["Turni rimanenti: ", 1],
-  Editable->False]], "Print",
- GeneratedCell->False,
- CellAutoOverwrite->False,
- CellChangeTimes->{
-  3.940857103560137*^9, {3.940857289317663*^9, 3.9408573046887302`*^9}},
- CellLabel->
-  "During evaluation of \
-In[26]:=",ExpressionUUID->"b417dae2-448b-f54a-ae2d-fb6348a2fd85"],
-
-Cell[BoxData[
- InterpretationBox[
-  RowBox[{"\<\"Risorse attuali: \"\>", "\[InvisibleSpace]", "16"}],
-  SequenceForm["Risorse attuali: ", 16],
-  Editable->False]], "Print",
- GeneratedCell->False,
- CellAutoOverwrite->False,
- CellChangeTimes->{
-  3.940857103560137*^9, {3.940857289317663*^9, 3.940857304675188*^9}},
- CellLabel->
-  "During evaluation of \
-In[26]:=",ExpressionUUID->"f0d85112-f87e-7641-93b2-6fec1ced664c"],
-
-Cell[BoxData["\<\"Non ci sono abbastanza risorse o turni disponibili per \
-eseguire questa azione.\"\>"], "Print",
- GeneratedCell->False,
- CellAutoOverwrite->False,
- CellChangeTimes->{
-  3.940857103560137*^9, {3.940857289317663*^9, 3.9408573046646576`*^9}},
- CellLabel->
-  "During evaluation of \
-In[26]:=",ExpressionUUID->"0e17e6fd-cc83-b548-a8dc-2db69ecbc4a3"],
-
-Cell[BoxData[
- InterpretationBox[
-  RowBox[{"\<\"Turni rimanenti: \"\>", "\[InvisibleSpace]", "2"}],
-  SequenceForm["Turni rimanenti: ", 2],
-  Editable->False]], "Print",
- GeneratedCell->False,
- CellAutoOverwrite->False,
- CellChangeTimes->{
-  3.940857103560137*^9, {3.940857289317663*^9, 3.9408572914392757`*^9}},
- CellLabel->
-  "During evaluation of \
-In[22]:=",ExpressionUUID->"0be2711f-d591-a84d-88f6-337e39575191"],
-
-Cell[BoxData[
- InterpretationBox[
-  RowBox[{"\<\"Risorse attuali: \"\>", "\[InvisibleSpace]", "11"}],
-  SequenceForm["Risorse attuali: ", 11],
-  Editable->False]], "Print",
- GeneratedCell->False,
- CellAutoOverwrite->False,
- CellChangeTimes->{
-  3.940857103560137*^9, {3.940857289317663*^9, 3.940857291428316*^9}},
- CellLabel->
-  "During evaluation of \
-In[22]:=",ExpressionUUID->"d6272378-0efd-8843-9d46-61b4940d7cc3"],
-
-Cell[BoxData[
- InterpretationBox[
-  RowBox[{"\<\"Hai esplorato e ottenuto \"\>", "\[InvisibleSpace]", "6", 
-   "\[InvisibleSpace]", "\<\" risorse.\"\>"}],
-  SequenceForm["Hai esplorato e ottenuto ", 6, " risorse."],
-  Editable->False]], "Print",
- GeneratedCell->False,
- CellAutoOverwrite->False,
- CellChangeTimes->{
-  3.940857103560137*^9, {3.940857289317663*^9, 3.9408572914158535`*^9}},
- CellLabel->
-  "During evaluation of \
-In[22]:=",ExpressionUUID->"1110a8ad-7d3d-4a44-b349-1f51ff44b8fb"],
-
-Cell[BoxData[
- InterpretationBox[
-  RowBox[{"\<\"Hai esplorato e ottenuto \"\>", "\[InvisibleSpace]", "35", 
-   "\[InvisibleSpace]", "\"\< risorse.\>\""}],
-  SequenceForm["Hai esplorato e ottenuto ", 35, " risorse."],
-  Editable->False]], "Print",
- GeneratedCell->False,
- CellAutoOverwrite->False,
- CellChangeTimes->{3.940857103560137*^9, 
-  3.940857289317663*^9},ExpressionUUID->"9e4df152-ac69-0145-9313-\
-fb98ea183bca"],
-
-Cell[BoxData[
- InterpretationBox[
-  RowBox[{"\<\"Risorse attuali: \"\>", "\[InvisibleSpace]", "90"}],
-  SequenceForm["Risorse attuali: ", 90],
-  Editable->False]], "Print",
- CellChangeTimes->{3.940857103563196*^9},
- CellLabel->
-  "During evaluation of \
-In[13]:=",ExpressionUUID->"277889df-5c45-db4c-83e0-e771a23afd26"],
-
-Cell[BoxData[
- InterpretationBox[
-  RowBox[{"\<\"Turni rimanenti: \"\>", "\[InvisibleSpace]", "7"}],
-  SequenceForm["Turni rimanenti: ", 7],
-  Editable->False]], "Print",
- CellChangeTimes->{3.9408571035717297`*^9},
- CellLabel->
-  "During evaluation of \
-In[13]:=",ExpressionUUID->"5fc874b6-0c12-ba4d-bf4b-97f75ff0a5b3"]
-}, Open  ]]
-}, Open  ]],
-
-Cell[CellGroupData[{
-
-Cell[BoxData[
- RowBox[{"MostraRisultati", "[", "]"}]], "Code",
- CellChangeTimes->{{3.940857075542391*^9, 3.940857092387909*^9}, 
-   3.9408573112677917`*^9},
- CellLabel->"In[32]:=",ExpressionUUID->"6809b49f-bbf3-154d-b874-cd1903068935"],
-
-Cell[CellGroupData[{
-
-Cell[BoxData[
- InterpretationBox[
-  RowBox[{"\<\"Risorse attuali: \"\>", "\[InvisibleSpace]", "95"}],
-  SequenceForm["Risorse attuali: ", 95],
-  Editable->False]], "Print",
- CellChangeTimes->{
-  3.940857104242855*^9, {3.94085731156588*^9, 3.9408573314486294`*^9}, 
-   3.941018630501137*^9, 3.9411019188311844`*^9, 3.9411079384794617`*^9},
- CellLabel->
-  "During evaluation of \
-In[32]:=",ExpressionUUID->"4fbd0785-32e2-8f4b-a68f-48473ae9a4e3"],
-
-Cell[BoxData[
- InterpretationBox[
-  RowBox[{"\<\"Turni rimanenti: \"\>", "\[InvisibleSpace]", "7"}],
-  SequenceForm["Turni rimanenti: ", 7],
-  Editable->False]], "Print",
- CellChangeTimes->{
-  3.940857104242855*^9, {3.94085731156588*^9, 3.9408573314486294`*^9}, 
-   3.941018630501137*^9, 3.9411019188311844`*^9, 3.941107938486431*^9},
- CellLabel->
-  "During evaluation of \
-In[32]:=",ExpressionUUID->"58f3a74c-2014-5348-8035-a171e30487d3"]
-}, Open  ]]
-}, Open  ]],
-
-Cell[CellGroupData[{
-
-Cell[BoxData[
- RowBox[{"MostraSoluzione", "[", "]"}]], "Code",
- CellChangeTimes->{{3.940857075542391*^9, 3.9408570956535206`*^9}},
- CellLabel->"In[33]:=",ExpressionUUID->"19c1aff7-c73b-e14a-9d90-2d9948fa7f44"],
-
-Cell[CellGroupData[{
-
-Cell[BoxData["\<\"Simulazione completata! Ecco una strategia ottimale che \
-avresti potuto seguire:\"\>"], "Print",
- CellChangeTimes->{3.940857104902458*^9, 3.9408573356617794`*^9, 
-  3.9410186305171623`*^9, 3.941101918842079*^9, 3.9411079385068264`*^9},
- CellLabel->
-  "During evaluation of \
-In[33]:=",ExpressionUUID->"ac2bfb44-7aed-6040-b358-175fff31f699"],
-
-Cell[BoxData["\<\"1. RaccogliRisorse per aumentare rapidamente le risorse \
-iniziali.\"\>"], "Print",
- CellChangeTimes->{3.940857104902458*^9, 3.9408573356617794`*^9, 
-  3.9410186305171623`*^9, 3.941101918842079*^9, 3.94110793851293*^9},
- CellLabel->
-  "During evaluation of \
-In[33]:=",ExpressionUUID->"43437c06-5f7f-dd46-8c44-3ddae8b67ffe"],
-
-Cell[BoxData["\<\"2. CostruisciStruttura per ottenere benefici a lungo \
-termine.\"\>"], "Print",
- CellChangeTimes->{3.940857104902458*^9, 3.9408573356617794`*^9, 
-  3.9410186305171623`*^9, 3.941101918842079*^9, 3.941107938522461*^9},
- CellLabel->
-  "During evaluation of \
-In[33]:=",ExpressionUUID->"d3ef2d93-7cae-6745-ad32-c28a4b9533c4"],
-
-Cell[BoxData["\<\"3. Esplora con cautela per massimizzare i guadagni senza \
-rischiare troppo.\"\>"], "Print",
- CellChangeTimes->{3.940857104902458*^9, 3.9408573356617794`*^9, 
-  3.9410186305171623`*^9, 3.941101918842079*^9, 3.9411079385269737`*^9},
- CellLabel->
-  "During evaluation of \
-In[33]:=",ExpressionUUID->"c2b4b5fd-6ad9-8c40-addf-991e88067e98"]
-}, Open  ]]
-}, Open  ]],
-
-Cell[CellGroupData[{
-
-Cell[BoxData[
- RowBox[{
-  RowBox[{"DynamicModule", "[", "\n", " ", 
-   RowBox[{
-    RowBox[{"{", "\n", "  ", 
-     RowBox[{
-      RowBox[{"risorseCorrenti", " ", "=", " ", "100"}], ",", " ", 
-      RowBox[{"turniRestanti", " ", "=", " ", "10"}], ",", " ", 
-      RowBox[{"log", " ", "=", " ", "\"\<\>\""}], ",", " ", "\n", "  ", 
-      RowBox[{"azioniRaccolta", " ", "=", " ", "0"}], ",", " ", 
-      RowBox[{"azioniCostruzione", " ", "=", " ", "0"}], ",", " ", 
-      RowBox[{"azioniEsplorazione", " ", "=", " ", "0"}], ",", " ", "\n", 
-      "  ", 
-      RowBox[{"simulazioneIniziata", " ", "=", " ", "False"}], ",", " ", 
-      RowBox[{"risorseIniziali", " ", "=", " ", "100"}], ",", " ", 
-      RowBox[{"turniIniziali", " ", "=", " ", "10"}], ",", " ", "\n", "  ", 
-      RowBox[{"difficolta", " ", "=", " ", "\"\<Medio\>\""}], ",", " ", 
-      "costoRaccolta", ",", " ", "beneficioRaccolta", ",", " ", "\n", "  ", 
-      "costoCostruzione", ",", " ", "beneficioCostruzione", ",", " ", 
-      "costoEsplorazione", ",", " ", "\n", "  ", "beneficioEsplorazione", ",",
-       " ", 
-      RowBox[{"rendimentoCostruzione", " ", "=", " ", "0"}], ",", " ", "\n", 
-      "  ", 
-      RowBox[{"risorseOttimali", " ", "=", " ", "0"}], ",", " ", 
-      RowBox[{"strategiaOttimale", " ", "=", " ", "\"\<\>\""}]}], "\n", "  ", 
-     "}"}], ",", "\n", " ", "\n", " ", 
-    RowBox[{"Column", "[", 
-     RowBox[{"{", "\n", "   ", 
-      RowBox[{
-       RowBox[{"Style", "[", 
-        RowBox[{
-        "\"\<Simulatore di Ottimizzazione delle Scelte\>\"", ",", " ", "Bold",
-          ",", " ", "18"}], "]"}], ",", "\n", "   ", 
-       RowBox[{"Style", "[", 
-        RowBox[{
-        "\"\<Per iniziare, personalizzare i parametri e cliccare su 'Inizia \
-Simulazione'\>\"", ",", " ", "Italic", ",", " ", 
-         RowBox[{"Darker", "@", "Gray"}]}], "]"}], ",", "\n", "   ", 
-       RowBox[{"Row", "[", 
-        RowBox[{"{", "\n", "     ", 
-         RowBox[{"\"\<Numero di Turni: \>\"", ",", " ", "\n", "     ", 
-          RowBox[{"Slider", "[", 
-           RowBox[{
-            RowBox[{"Dynamic", "[", 
-             RowBox[{"turniIniziali", ",", " ", 
-              RowBox[{
-               RowBox[{"(", 
-                RowBox[{"turniIniziali", " ", "=", " ", 
-                 RowBox[{"Round", "[", "#", "]"}]}], ")"}], " ", "&"}]}], 
-             "]"}], ",", " ", 
-            RowBox[{"{", 
-             RowBox[{"5", ",", " ", "20"}], "}"}], ",", " ", "\n", "      ", 
-            RowBox[{"Enabled", " ", "->", " ", 
-             RowBox[{"Dynamic", "[", 
-              RowBox[{"!", "simulazioneIniziata"}], "]"}]}]}], "]"}], ",", 
-          "\n", "     ", 
-          RowBox[{"Dynamic", "[", 
-           RowBox[{"Style", "[", 
-            RowBox[{"turniIniziali", ",", " ", "Bold"}], "]"}], "]"}], ",", 
-          " ", 
-          RowBox[{"Spacer", "[", "10", "]"}], ",", "\n", "     ", 
-          "\"\<Risorse Iniziali: \>\"", ",", " ", "\n", "     ", 
-          RowBox[{"Slider", "[", 
-           RowBox[{
-            RowBox[{"Dynamic", "[", 
-             RowBox[{"risorseIniziali", ",", " ", 
-              RowBox[{
-               RowBox[{"(", 
-                RowBox[{"risorseIniziali", " ", "=", " ", 
-                 RowBox[{"Round", "[", "#", "]"}]}], ")"}], " ", "&"}]}], 
-             "]"}], ",", " ", 
-            RowBox[{"{", 
-             RowBox[{"50", ",", " ", "200"}], "}"}], ",", " ", "\n", "      ", 
-            RowBox[{"Enabled", " ", "->", " ", 
-             RowBox[{"Dynamic", "[", 
-              RowBox[{"!", "simulazioneIniziata"}], "]"}]}]}], "]"}], ",", 
-          "\n", "     ", 
-          RowBox[{"Dynamic", "[", 
-           RowBox[{"Style", "[", 
-            RowBox[{"risorseIniziali", ",", " ", "Bold"}], "]"}], "]"}], ",", 
-          " ", 
-          RowBox[{"Spacer", "[", "10", "]"}], ",", "\n", "     ", 
-          RowBox[{"Tooltip", "[", "\n", "      ", 
-           RowBox[{
-           "\"\<Difficolt\[AGrave]: \>\"", ",", " ", "\n", "      ", 
-            
-            "\"\<Facile: guadagni elevati e costi ridotti.\\nMedio: \
-bilanciato.\\nDifficile: guadagni bassi e costi elevati.\>\""}], "\n", 
-           "      ", "]"}], ",", "\n", "     ", 
-          RowBox[{"PopupMenu", "[", 
-           RowBox[{
-            RowBox[{"Dynamic", "[", "difficolta", "]"}], ",", " ", 
-            RowBox[{"{", 
-             RowBox[{
-             "\"\<Facile\>\"", ",", " ", "\"\<Medio\>\"", ",", " ", 
-              "\"\<Difficile\>\""}], "}"}], ",", " ", "\n", "      ", 
-            RowBox[{"Enabled", " ", "->", " ", 
-             RowBox[{"Dynamic", "[", 
-              RowBox[{"!", "simulazioneIniziata"}], "]"}]}]}], "]"}]}], "\n", 
-         "     ", "}"}], "]"}], ",", "\n", "   ", 
-       RowBox[{"Spacer", "[", "10", "]"}], ",", "\n", "   ", 
-       RowBox[{"Row", "[", 
-        RowBox[{"{", "\n", "     ", 
-         RowBox[{
-          RowBox[{"Style", "[", 
-           RowBox[{"\"\<Parametri Attuali: \>\"", ",", " ", "Bold"}], "]"}], 
-          ",", "\n", "     ", 
-          RowBox[{"Dynamic", "[", "\n", "       ", 
-           RowBox[{"Row", "[", 
-            RowBox[{"{", "\n", "         ", 
-             RowBox[{
-             "\"\<Turni: \>\"", ",", " ", "turniIniziali", ",", " ", 
-              "\"\<   \>\"", ",", "\n", "         ", 
-              "\"\<Risorse Iniziali: \>\"", ",", " ", "risorseIniziali", ",", 
-              " ", "\"\<   \>\"", ",", "\n", "         ", 
-              "\"\<Difficolt\[AGrave]: \>\"", ",", " ", "difficolta"}], "\n", 
-             "         ", "}"}], "]"}], "\n", "       ", "]"}]}], "\n", 
-         "     ", "}"}], "]"}], ",", "\n", "   ", 
-       RowBox[{"Spacer", "[", "10", "]"}], ",", "\n", "   ", 
-       RowBox[{"Tooltip", "[", "\n", "    ", 
-        RowBox[{
-         RowBox[{"Button", "[", 
-          RowBox[{"\"\<Inizia Simulazione\>\"", ",", " ", "\n", "     ", 
-           RowBox[{"(", "\n", "      ", 
-            RowBox[{
-             RowBox[{"risorseCorrenti", " ", "=", " ", "risorseIniziali"}], 
-             ";", " ", "\n", "      ", 
-             RowBox[{"turniRestanti", " ", "=", " ", "turniIniziali"}], ";", 
-             " ", "\n", "      ", 
-             RowBox[{"azioniRaccolta", " ", "=", " ", "0"}], ";", " ", 
-             RowBox[{"azioniCostruzione", " ", "=", " ", "0"}], ";", " ", 
-             RowBox[{"azioniEsplorazione", " ", "=", " ", "0"}], ";", "\n", 
-             "      ", 
-             RowBox[{"rendimentoCostruzione", " ", "=", " ", "0"}], ";", " ", 
-             "\n", "      ", 
-             RowBox[{"log", " ", "=", " ", "\"\<\>\""}], ";", "\n", "      ", 
-             RowBox[{"(*", " ", 
-              RowBox[{
-              "Imposta", " ", "parametri", " ", "in", " ", "base", " ", 
-               "alla", " ", "difficolt\[AGrave]"}], " ", "*)"}], "\n", 
-             "      ", 
-             RowBox[{"Switch", "[", 
-              RowBox[{
-              "difficolta", ",", "\n", "       ", "\"\<Facile\>\"", ",", " ", 
-               RowBox[{"(", 
-                RowBox[{
-                 RowBox[{"costoRaccolta", " ", "=", " ", "10"}], ";", " ", 
-                 RowBox[{"beneficioRaccolta", " ", "=", " ", "30"}], ";", " ",
-                  "\n", "         ", 
-                 RowBox[{"costoCostruzione", " ", "=", " ", "35"}], ";", " ", 
-                 RowBox[{"beneficioCostruzione", " ", "=", " ", "60"}], ";", 
-                 " ", "\n", "         ", 
-                 RowBox[{"rendimentoCostruzione", " ", "=", " ", "10"}], ";", 
-                 " ", "\n", "         ", 
-                 RowBox[{"costoEsplorazione", " ", "=", " ", "15"}], ";", " ", 
-                 RowBox[{"beneficioEsplorazione", " ", "=", " ", 
-                  RowBox[{"{", 
-                   RowBox[{"20", ",", " ", "70"}], "}"}]}]}], ")"}], ",", 
-               "\n", "       ", "\"\<Medio\>\"", ",", " ", 
-               RowBox[{"(", 
-                RowBox[{
-                 RowBox[{"costoRaccolta", " ", "=", " ", "15"}], ";", " ", 
-                 RowBox[{"beneficioRaccolta", " ", "=", " ", "25"}], ";", " ",
-                  "\n", "         ", 
-                 RowBox[{"costoCostruzione", " ", "=", " ", "40"}], ";", " ", 
-                 RowBox[{"beneficioCostruzione", " ", "=", " ", "50"}], ";", 
-                 " ", "\n", "         ", 
-                 RowBox[{"rendimentoCostruzione", " ", "=", " ", "7"}], ";", 
-                 " ", "\n", "         ", 
-                 RowBox[{"costoEsplorazione", " ", "=", " ", "20"}], ";", " ", 
-                 RowBox[{"beneficioEsplorazione", " ", "=", " ", 
-                  RowBox[{"{", 
-                   RowBox[{"10", ",", " ", "50"}], "}"}]}]}], ")"}], ",", 
-               "\n", "       ", "\"\<Difficile\>\"", ",", " ", 
-               RowBox[{"(", 
-                RowBox[{
-                 RowBox[{"costoRaccolta", " ", "=", " ", "20"}], ";", " ", 
-                 RowBox[{"beneficioRaccolta", " ", "=", " ", "20"}], ";", " ",
-                  "\n", "         ", 
-                 RowBox[{"costoCostruzione", " ", "=", " ", "50"}], ";", " ", 
-                 RowBox[{"beneficioCostruzione", " ", "=", " ", "40"}], ";", 
-                 " ", "\n", "         ", 
-                 RowBox[{"rendimentoCostruzione", " ", "=", " ", "5"}], ";", 
-                 " ", "\n", "         ", 
-                 RowBox[{"costoEsplorazione", " ", "=", " ", "25"}], ";", " ", 
-                 RowBox[{"beneficioEsplorazione", " ", "=", " ", 
-                  RowBox[{"{", 
-                   RowBox[{"5", ",", " ", "30"}], "}"}]}]}], ")"}]}], "\n", 
-              "       ", "]"}], ";", "\n", "      ", 
-             RowBox[{"(*", " ", 
-              RowBox[{
-              "Calcolo", " ", "delle", " ", "risorse", " ", "ottimali"}], " ",
-               "*)"}], "\n", "      ", 
-             RowBox[{"risorseOttimali", " ", "=", " ", 
-              RowBox[{"risorseIniziali", " ", "+", " ", "\n", "        ", 
-               RowBox[{"turniIniziali", "*", 
-                RowBox[{"Max", "[", 
-                 RowBox[{
-                 "beneficioRaccolta", ",", " ", "beneficioCostruzione", ",", 
-                  " ", "\n", "          ", 
-                  RowBox[{"Max", "[", "beneficioEsplorazione", "]"}]}], 
-                 "]"}]}]}]}], ";", "\n", "      ", 
-             RowBox[{
-             "strategiaOttimale", " ", "=", " ", "\n", "       ", 
-              "\"\<Per massimizzare le risorse:\\n1. Usa 'Raccogli Risorse' \
-per accumulare capitale.\\n2. Procedi con 'Costruisci Struttura' nei turni \
-iniziali: ogni struttura offre un rendimento incrementale fino alla \
-fine.\\n3. Usa 'Esplora' per rischiare solo in casi di necessit\[AGrave] o \
-con molti turni disponibili.\>\""}], ";", "\n", "      ", 
-             RowBox[{"simulazioneIniziata", " ", "=", " ", "True"}], ";"}], 
-            "\n", "      ", ")"}], ",", " ", 
-           RowBox[{"Enabled", " ", "->", " ", 
-            RowBox[{"Dynamic", "[", 
-             RowBox[{"!", "simulazioneIniziata"}], "]"}]}]}], "\n", "     ", 
-          "]"}], ",", "\n", "    ", 
-         "\"\<Avvia la simulazione con i parametri attuali.\>\""}], "\n", 
-        "    ", "]"}], ",", "\n", "   ", 
-       RowBox[{"Tooltip", "[", "\n", "    ", 
-        RowBox[{
-         RowBox[{"Button", "[", 
-          RowBox[{"\"\<Ricomincia\>\"", ",", " ", "\n", "     ", 
-           RowBox[{"(", "\n", "      ", 
-            RowBox[{
-             RowBox[{"simulazioneIniziata", " ", "=", " ", "False"}], ";", 
-             "\n", "      ", 
-             RowBox[{"risorseCorrenti", " ", "=", " ", "100"}], ";", "\n", 
-             "      ", 
-             RowBox[{"turniRestanti", " ", "=", " ", "10"}], ";", "\n", 
-             "      ", 
-             RowBox[{"risorseIniziali", " ", "=", " ", "100"}], ";", "\n", 
-             "      ", 
-             RowBox[{"turniIniziali", " ", "=", " ", "10"}], ";", "\n", 
-             "      ", 
-             RowBox[{"difficolta", " ", "=", " ", "\"\<Medio\>\""}], ";", 
-             "\n", "      ", 
-             RowBox[{"log", " ", "=", " ", "\"\<\>\""}], ";", "\n", "      ", 
-             RowBox[{"rendimentoCostruzione", " ", "=", " ", "0"}], ";"}], 
-            "\n", "      ", ")"}], ",", " ", 
-           RowBox[{"Enabled", " ", "->", " ", 
-            RowBox[{"Dynamic", "[", "simulazioneIniziata", "]"}]}]}], "\n", 
-          "     ", "]"}], ",", "\n", "    ", 
-         "\"\<Reimposta il gioco ai valori iniziali.\>\""}], "\n", "    ", 
-        "]"}], ",", "\n", "   ", 
-       RowBox[{"Row", "[", 
-        RowBox[{"{", "\n", "     ", 
-         RowBox[{
-          RowBox[{"Style", "[", 
-           RowBox[{"\"\<Risorse: \>\"", ",", " ", "Bold"}], "]"}], ",", " ", 
-          RowBox[{"Dynamic", "[", "risorseCorrenti", "]"}], ",", "\n", 
-          "     ", 
-          RowBox[{"Spacer", "[", "20", "]"}], ",", " ", 
-          RowBox[{"Style", "[", 
-           RowBox[{"\"\<Turni Rimanenti: \>\"", ",", " ", "Bold"}], "]"}], 
-          ",", " ", 
-          RowBox[{"Dynamic", "[", "turniRestanti", "]"}]}], "\n", "     ", 
-         "}"}], "]"}], ",", "\n", "   ", 
-       RowBox[{"Spacer", "[", "10", "]"}], ",", "\n", "   ", 
-       RowBox[{"Row", "[", 
-        RowBox[{"{", "\n", "     ", 
-         RowBox[{
-          RowBox[{"Tooltip", "[", "\n", "      ", 
-           RowBox[{
-            RowBox[{"Button", "[", 
-             RowBox[{"\"\<Raccogli Risorse\>\"", ",", " ", "\n", "       ", 
-              RowBox[{"If", "[", 
-               RowBox[{
-                RowBox[{
-                 RowBox[{"turniRestanti", " ", ">", " ", "0"}], " ", "&&", 
-                 " ", 
-                 RowBox[{
-                 "risorseCorrenti", " ", ">=", " ", "costoRaccolta"}]}], ",", 
-                " ", "\n", "        ", 
-                RowBox[{
-                 RowBox[{"turniRestanti", "--"}], ";", "\n", "        ", 
-                 RowBox[{"risorseCorrenti", " ", "-=", " ", "costoRaccolta"}],
-                  ";", "\n", "        ", 
-                 RowBox[{
-                 "risorseCorrenti", " ", "+=", " ", "beneficioRaccolta"}], 
-                 ";", "\n", "        ", 
-                 RowBox[{"azioniRaccolta", "++"}], ";", "\n", "        ", 
-                 RowBox[{"log", " ", "=", " ", 
-                  RowBox[{"Row", "[", 
-                   RowBox[{"{", 
-                    RowBox[{
-                    RowBox[{"Style", "[", 
-                    RowBox[{
-                    "\"\<Azione: Raccogli Risorse\\n\>\"", ",", " ", "Bold"}],
-                     "]"}], ",", " ", "\n", "          ", 
-                    "\"\<Risorse spese: \>\"", ",", " ", 
-                    RowBox[{"ToString", "[", "costoRaccolta", "]"}], ",", 
-                    " ", "\"\<\\n\>\"", ",", "\n", "          ", 
-                    "\"\<Risorse guadagnate: \>\"", ",", " ", 
-                    RowBox[{"ToString", "[", "beneficioRaccolta", "]"}], ",", 
-                    " ", "\"\<\\n\>\"", ",", " ", "log"}], "}"}], "]"}]}], 
-                 ";"}], "\n", "        ", ",", " ", "\n", "        ", 
-                RowBox[{
-                 RowBox[{"log", " ", "=", " ", 
-                  RowBox[{"Row", "[", 
-                   RowBox[{"{", 
-                    RowBox[{
-                    RowBox[{"Style", "[", 
-                    RowBox[{
-                    "\"\<Azione non disponibile.\\n\>\"", ",", " ", "Red"}], 
-                    "]"}], ",", " ", "log"}], "}"}], "]"}]}], ";"}]}], "\n", 
-               "        ", "]"}], ",", " ", 
-              RowBox[{"Enabled", " ", "->", " ", 
-               RowBox[{"Dynamic", "[", 
-                RowBox[{"simulazioneIniziata", " ", "&&", " ", 
-                 RowBox[{"turniRestanti", " ", ">", " ", "0"}]}], "]"}]}]}], 
-             "\n", "       ", "]"}], ",", "\n", "      ", 
-            "\"\<Consuma risorse per un guadagno moderato.\>\""}], "\n", 
-           "      ", "]"}], ",", "\n", "     ", 
-          RowBox[{"Tooltip", "[", "\n", "      ", 
-           RowBox[{
-            RowBox[{"Button", "[", 
-             RowBox[{
-             "\"\<Costruisci Struttura\>\"", ",", " ", "\n", "       ", 
-              RowBox[{"If", "[", 
-               RowBox[{
-                RowBox[{
-                 RowBox[{"turniRestanti", " ", ">", " ", "0"}], " ", "&&", 
-                 " ", 
-                 RowBox[{
-                 "risorseCorrenti", " ", ">=", " ", "costoCostruzione"}]}], 
-                ",", " ", "\n", "        ", 
-                RowBox[{
-                 RowBox[{"turniRestanti", "--"}], ";", " ", "\n", "        ", 
-                 RowBox[{
-                 "risorseCorrenti", " ", "-=", " ", "costoCostruzione"}], ";",
-                  " ", "\n", "        ", 
-                 RowBox[{
-                 "risorseCorrenti", " ", "+=", " ", "beneficioCostruzione"}], 
-                 ";", " ", "\n", "        ", 
-                 RowBox[{
-                 "rendimentoCostruzione", " ", "+=", " ", 
-                  "rendimentoCostruzione"}], ";", " ", "\n", "        ", 
-                 RowBox[{"azioniCostruzione", "++"}], ";", " ", "\n", 
-                 "        ", 
-                 RowBox[{"log", " ", "=", " ", 
-                  RowBox[{"Row", "[", 
-                   RowBox[{"{", 
-                    RowBox[{
-                    RowBox[{"Style", "[", 
-                    RowBox[{
-                    "\"\<Azione: Costruisci Struttura\\n\>\"", ",", " ", 
-                    "Bold"}], "]"}], ",", " ", "\n", "          ", 
-                    "\"\<Risorse spese: \>\"", ",", " ", 
-                    RowBox[{"ToString", "[", "costoCostruzione", "]"}], ",", 
-                    " ", "\"\<\\n\>\"", ",", "\n", "          ", 
-                    "\"\<Rendimento incrementale: +\>\"", ",", " ", 
-                    RowBox[{"ToString", "[", "rendimentoCostruzione", "]"}], 
-                    ",", " ", "\n", "          ", "\"\< per turno.\\n\>\"", 
-                    ",", " ", "log"}], "}"}], "]"}]}], ";"}], "\n", 
-                "        ", ",", " ", "\n", "        ", 
-                RowBox[{
-                 RowBox[{"log", " ", "=", " ", 
-                  RowBox[{"Row", "[", 
-                   RowBox[{"{", 
-                    RowBox[{
-                    RowBox[{"Style", "[", 
-                    RowBox[{
-                    "\"\<Azione non disponibile.\\n\>\"", ",", " ", "Red"}], 
-                    "]"}], ",", " ", "log"}], "}"}], "]"}]}], ";"}]}], "\n", 
-               "        ", "]"}], ",", " ", 
-              RowBox[{"Enabled", " ", "->", " ", 
-               RowBox[{"Dynamic", "[", 
-                RowBox[{"simulazioneIniziata", " ", "&&", " ", 
-                 RowBox[{"turniRestanti", " ", ">", " ", "0"}]}], "]"}]}]}], 
-             "\n", "       ", "]"}], ",", "\n", "      ", 
-            "\"\<Costruisci una struttura per guadagni futuri.\>\""}], "\n", 
-           "      ", "]"}], ",", "\n", "     ", 
-          RowBox[{"Tooltip", "[", "\n", "      ", 
-           RowBox[{
-            RowBox[{"Button", "[", 
-             RowBox[{"\"\<Esplora\>\"", ",", " ", "\n", "       ", 
-              RowBox[{"If", "[", 
-               RowBox[{
-                RowBox[{
-                 RowBox[{"turniRestanti", " ", ">", " ", "0"}], " ", "&&", 
-                 " ", 
-                 RowBox[{
-                 "risorseCorrenti", " ", ">=", " ", "costoEsplorazione"}]}], 
-                ",", " ", "\n", "        ", 
-                RowBox[{
-                 RowBox[{"turniRestanti", "--"}], ";", "\n", "        ", 
-                 RowBox[{
-                 "risorseCorrenti", " ", "-=", " ", "costoEsplorazione"}], 
-                 ";", "\n", "        ", 
-                 RowBox[{"Module", "[", 
-                  RowBox[{
-                   RowBox[{"{", 
-                    RowBox[{"guadagno", " ", "=", " ", 
-                    RowBox[{
-                    "RandomInteger", "[", "beneficioEsplorazione", "]"}]}], 
-                    "}"}], ",", "\n", "         ", 
-                   RowBox[{
-                    RowBox[{"risorseCorrenti", " ", "+=", " ", "guadagno"}], 
-                    ";", "\n", "         ", 
-                    RowBox[{"log", " ", "=", " ", 
-                    RowBox[{"Row", "[", 
-                    RowBox[{"{", 
-                    RowBox[{
-                    RowBox[{"Style", "[", 
-                    RowBox[{"\"\<Azione: Esplora\\n\>\"", ",", " ", "Bold"}], 
-                    "]"}], ",", " ", "\n", "           ", 
-                    "\"\<Risorse spese: \>\"", ",", " ", 
-                    RowBox[{"ToString", "[", "costoEsplorazione", "]"}], ",", 
-                    " ", "\"\<\\n\>\"", ",", "\n", "           ", 
-                    "\"\<Guadagno variabile: \>\"", ",", " ", 
-                    RowBox[{"ToString", "[", "guadagno", "]"}], ",", " ", 
-                    "\"\<\\n\>\"", ",", " ", "log"}], "}"}], "]"}]}], ";"}]}],
-                   "\n", "         ", "]"}], ";", "\n", "        ", 
-                 RowBox[{"azioniEsplorazione", "++"}], ";"}], "\n", 
-                "        ", ",", " ", "\n", "        ", 
-                RowBox[{
-                 RowBox[{"log", " ", "=", " ", 
-                  RowBox[{"Row", "[", 
-                   RowBox[{"{", 
-                    RowBox[{
-                    RowBox[{"Style", "[", 
-                    RowBox[{
-                    "\"\<Azione non disponibile.\\n\>\"", ",", " ", "Red"}], 
-                    "]"}], ",", " ", "log"}], "}"}], "]"}]}], ";"}]}], "\n", 
-               "        ", "]"}], ",", " ", 
-              RowBox[{"Enabled", " ", "->", " ", 
-               RowBox[{"Dynamic", "[", 
-                RowBox[{"simulazioneIniziata", " ", "&&", " ", 
-                 RowBox[{"turniRestanti", " ", ">", " ", "0"}]}], "]"}]}]}], 
-             "\n", "       ", "]"}], ",", "\n", "      ", 
-            "\"\<Esplora per un guadagno variabile.\>\""}], "\n", "      ", 
-           "]"}]}], "\n", "     ", "}"}], "]"}], ",", "\n", "   ", 
-       RowBox[{"Spacer", "[", "10", "]"}], ",", "\n", "   ", 
-       RowBox[{"Tooltip", "[", "\n", "   ", 
-        RowBox[{
-         RowBox[{"Button", "[", 
-          RowBox[{"\"\<Mostra Risultati\>\"", ",", " ", "\n", "    ", 
-           RowBox[{"(", "\n", "     ", 
-            RowBox[{
-             RowBox[{"log", " ", "=", " ", 
-              RowBox[{"Row", "[", 
-               RowBox[{"{", 
-                RowBox[{
-                 RowBox[{"Style", "[", 
-                  RowBox[{
-                  "\"\<\\nStatistiche Finali:\\n\>\"", ",", " ", "Bold"}], 
-                  "]"}], ",", " ", "\n", "       ", 
-                 "\"\<Risorse Finali: \>\"", ",", " ", 
-                 RowBox[{"ToString", "[", "risorseCorrenti", "]"}], ",", " ", 
-                 "\"\<\\n\>\"", ",", "\n", "       ", 
-                 "\"\<Turni Rimanenti: \>\"", ",", " ", 
-                 RowBox[{"ToString", "[", "turniRestanti", "]"}], ",", " ", 
-                 "\"\<\\n\>\"", ",", "\n", "       ", 
-                 "\"\<Azioni Eseguite:\\n\>\"", ",", "\n", "       ", 
-                 "\"\<  Raccolta: \>\"", ",", " ", 
-                 RowBox[{"ToString", "[", "azioniRaccolta", "]"}], ",", " ", 
-                 "\"\<\\n\>\"", ",", "\n", "       ", 
-                 "\"\<  Costruzioni: \>\"", ",", " ", 
-                 RowBox[{"ToString", "[", "azioniCostruzione", "]"}], ",", 
-                 " ", "\"\<\\n\>\"", ",", "\n", "       ", 
-                 "\"\<  Esplorazioni: \>\"", ",", " ", 
-                 RowBox[{"ToString", "[", "azioniEsplorazione", "]"}], ",", 
-                 " ", "\"\<\\n\>\"", ",", " ", "log"}], "}"}], "]"}]}], ";"}],
-             "\n", "     ", ")"}], ",", " ", 
-           RowBox[{"Enabled", " ", "->", " ", 
-            RowBox[{"Dynamic", "[", 
-             RowBox[{"simulazioneIniziata", " ", "&&", " ", 
-              RowBox[{"turniRestanti", " ", "<", " ", "turniIniziali"}]}], 
-             "]"}]}]}], "\n", "    ", "]"}], ",", "\n", "    ", 
-         "\"\<Visualizza le statistiche della simulazione, incluse le risorse \
-totali rimaste e il numero di azioni eseguite.\>\""}], "\n", "    ", "]"}], 
-       ",", "\n", "   ", 
-       RowBox[{"Tooltip", "[", "\n", "    ", 
-        RowBox[{
-         RowBox[{"Button", "[", 
-          RowBox[{
-          "\"\<Mostra Strategia Ottimale\>\"", ",", " ", "\n", "     ", 
-           RowBox[{"(", "\n", "      ", 
-            RowBox[{
-             RowBox[{"log", " ", "=", " ", 
-              RowBox[{"Row", "[", 
-               RowBox[{"{", 
-                RowBox[{
-                 RowBox[{"Style", "[", 
-                  RowBox[{
-                  "\"\<\\nStrategia Ottimale:\\n\>\"", ",", " ", "Bold"}], 
-                  "]"}], ",", " ", "\n", "        ", "strategiaOttimale", ",",
-                  " ", "\"\<\\n\>\"", ",", " ", "log"}], "}"}], "]"}]}], 
-             ";"}], "\n", "      ", ")"}], ",", " ", 
-           RowBox[{"Enabled", " ", "->", " ", 
-            RowBox[{"Dynamic", "[", 
-             RowBox[{"simulazioneIniziata", " ", "&&", " ", 
-              RowBox[{"turniRestanti", " ", "==", " ", "0"}]}], "]"}]}]}], 
-          "\n", "     ", "]"}], ",", "\n", "    ", 
-         "\"\<Scopri la strategia ottimale e confrontala con le tue scelte.\>\
-\""}], "\n", "    ", "]"}], ",", "\n", "   ", 
-       RowBox[{"Style", "[", 
-        RowBox[{"\"\<Log degli Eventi:\>\"", ",", " ", "Bold"}], "]"}], ",", 
-       "\n", "   ", 
-       RowBox[{"Pane", "[", 
-        RowBox[{
-         RowBox[{"Dynamic", "[", "log", "]"}], ",", " ", 
-         RowBox[{"{", 
-          RowBox[{"400", ",", " ", "200"}], "}"}], ",", " ", 
-         RowBox[{"Scrollbars", " ", "->", " ", "True"}]}], "]"}]}], "\n", 
-      "   ", "}"}], "]"}]}], "\n", " ", "]"}], "\n"}]], "Code",
- CellChangeTimes->{
-  3.941018623582468*^9, 3.9410189531298275`*^9, {3.9410192205445576`*^9, 
-   3.941019234017927*^9}, 3.941019277890032*^9, 3.941019569896658*^9, 
-   3.94102105967535*^9, 3.941021247281975*^9, 3.9410215379649296`*^9, 
-   3.94102202968375*^9, 3.9410222034576683`*^9, 3.941022427929884*^9, 
-   3.941023429545967*^9, 3.9410258105317554`*^9, {3.941025959052971*^9, 
-   3.9410259676426105`*^9}, {3.9410265559064198`*^9, 3.941026575510477*^9}, 
-   3.9410288751982937`*^9, 3.9410294228961697`*^9, 3.9410295574395695`*^9, 
-   3.9410296359191113`*^9, 3.9410297349867706`*^9, 3.94102981329163*^9, 
-   3.941030875570095*^9, 3.941104020143032*^9, 3.941104151396387*^9, 
-   3.941104459259924*^9, {3.9411046447380924`*^9, 3.941104666591469*^9}, 
-   3.9411048408810616`*^9, 3.941105219527094*^9, 3.9411057879420795`*^9, 
-   3.9411067845698757`*^9, 3.941107340061016*^9, {3.9411078478037624`*^9, 
-   3.941107867881857*^9}, {3.941107924466852*^9, 3.941107931942011*^9}},
- CellLabel->"In[35]:=",ExpressionUUID->"7f4a16af-7292-ea43-885e-45386109ea56"],
-
-Cell[BoxData[
- DynamicModuleBox[{SimulatoreDecisioni`risorseCorrenti$$ = 100, 
-  SimulatoreDecisioni`turniRestanti$$ = 10, $CellContext`log$$ = 
-  "", $CellContext`azioniRaccolta$$ = 0, $CellContext`azioniCostruzione$$ = 
-  0, $CellContext`azioniEsplorazione$$ = 
-  0, $CellContext`simulazioneIniziata$$ = True, 
-  SimulatoreDecisioni`risorseIniziali$$ = 100, $CellContext`turniIniziali$$ = 
-  10, $CellContext`difficolta$$ = "Medio", $CellContext`costoRaccolta$$ = 
-  15, $CellContext`beneficioRaccolta$$ = 25, $CellContext`costoCostruzione$$ =
-   40, $CellContext`beneficioCostruzione$$ = 
-  50, $CellContext`costoEsplorazione$$ = 
-  20, $CellContext`beneficioEsplorazione$$ = {10, 
-  50}, $CellContext`rendimentoCostruzione$$ = 
-  7, $CellContext`risorseOttimali$$ = 600, $CellContext`strategiaOttimale$$ = 
-  "Per massimizzare le risorse:\n1. Usa 'Raccogli Risorse' per accumulare \
-capitale.\n2. Procedi con 'Costruisci Struttura' nei turni iniziali: ogni \
-struttura offre un rendimento incrementale fino alla fine.\n3. Usa 'Esplora' \
-per rischiare solo in casi di necessit\[AGrave] o con molti turni \
-disponibili."}, 
-  TagBox[GridBox[{
-     {
-      StyleBox["\<\"Simulatore di Ottimizzazione delle Scelte\"\>",
-       StripOnInput->False,
-       FontSize->18,
-       FontWeight->Bold]},
-     {
-      StyleBox["\<\"Per iniziare, personalizzare i parametri e cliccare su \
-'Inizia Simulazione'\"\>",
-       StripOnInput->False,
-       LineColor->RGBColor[
-        0.33333333333333337`, 0.33333333333333337`, 0.33333333333333337`],
-       FrontFaceColor->RGBColor[
-        0.33333333333333337`, 0.33333333333333337`, 0.33333333333333337`],
-       BackFaceColor->RGBColor[
-        0.33333333333333337`, 0.33333333333333337`, 0.33333333333333337`],
-       GraphicsColor->RGBColor[
-        0.33333333333333337`, 0.33333333333333337`, 0.33333333333333337`],
-       FontSlant->Italic,
-       FontColor->RGBColor[
-        0.33333333333333337`, 0.33333333333333337`, 0.33333333333333337`]]},
-     {
-      TemplateBox[{"\"Numero di Turni: \"", 
-        SliderBox[
-         Dynamic[$CellContext`turniIniziali$$, ($CellContext`turniIniziali$$ = 
-          Round[#])& ], {5, 20}, Enabled -> Dynamic[
-           Not[$CellContext`simulazioneIniziata$$]]], 
-        DynamicBox[
-         ToBoxes[
-          Style[$CellContext`turniIniziali$$, Bold], StandardForm]], 
-        TemplateBox[{10}, "Spacer1"], "\"Risorse Iniziali: \"", 
-        SliderBox[
-         Dynamic[
-         SimulatoreDecisioni`risorseIniziali$$, (
-          SimulatoreDecisioni`risorseIniziali$$ = Round[#])& ], {50, 200}, 
-         Enabled -> Dynamic[
-           Not[$CellContext`simulazioneIniziata$$]]], 
-        DynamicBox[
-         ToBoxes[
-          Style[SimulatoreDecisioni`risorseIniziali$$, Bold], StandardForm]], 
-        TemplateBox[{10}, "Spacer1"], 
-        TagBox[
-         TooltipBox[
-         "\"Difficolt\[AGrave]: \"", 
-          "\"Facile: guadagni elevati e costi ridotti.\\nMedio: \
-bilanciato.\\nDifficile: guadagni bassi e costi elevati.\"", TooltipStyle -> 
-          "TextStyling"], 
-         Annotation[#, 
-          "Facile: guadagni elevati e costi ridotti.\nMedio: bilanciato.\n\
-Difficile: guadagni bassi e costi elevati.", "Tooltip"]& ], 
-        PopupMenuBox[
-         Dynamic[$CellContext`difficolta$$], {
-         "Facile" -> "\"Facile\"", "Medio" -> "\"Medio\"", "Difficile" -> 
-          "\"Difficile\""}, Enabled -> Dynamic[
-           Not[$CellContext`simulazioneIniziata$$]]]},
-       "RowDefault"]},
-     {
-      TemplateBox[{10},
-       "Spacer1"]},
-     {
-      TemplateBox[{
-        StyleBox["\"Parametri Attuali: \"", Bold, StripOnInput -> False], 
-        DynamicBox[
-         ToBoxes[
-          
-          Row[{"Turni: ", $CellContext`turniIniziali$$, "   ", 
-            "Risorse Iniziali: ", SimulatoreDecisioni`risorseIniziali$$, 
-            "   ", "Difficolt\[AGrave]: ", $CellContext`difficolta$$}], 
-          StandardForm]]},
-       "RowDefault"]},
-     {
-      TemplateBox[{10},
-       "Spacer1"]},
-     {
-      TagBox[
-       TooltipBox[
-        ButtonBox["\<\"Inizia Simulazione\"\>",
-         Appearance->Automatic,
-         ButtonFunction:>(
-          SimulatoreDecisioni`risorseCorrenti$$ = 
-           SimulatoreDecisioni`risorseIniziali$$; 
-          SimulatoreDecisioni`turniRestanti$$ = $CellContext`turniIniziali$$; \
-$CellContext`azioniRaccolta$$ = 0; $CellContext`azioniCostruzione$$ = 
-           0; $CellContext`azioniEsplorazione$$ = 
-           0; $CellContext`rendimentoCostruzione$$ = 0; $CellContext`log$$ = 
-           ""; Switch[$CellContext`difficolta$$, 
-            "Facile", $CellContext`costoRaccolta$$ = 
-             10; $CellContext`beneficioRaccolta$$ = 
-             30; $CellContext`costoCostruzione$$ = 
-             35; $CellContext`beneficioCostruzione$$ = 
-             60; $CellContext`rendimentoCostruzione$$ = 
-             10; $CellContext`costoEsplorazione$$ = 
-             15; $CellContext`beneficioEsplorazione$$ = {20, 70}, 
-            "Medio", $CellContext`costoRaccolta$$ = 
-             15; $CellContext`beneficioRaccolta$$ = 
-             25; $CellContext`costoCostruzione$$ = 
-             40; $CellContext`beneficioCostruzione$$ = 
-             50; $CellContext`rendimentoCostruzione$$ = 
-             7; $CellContext`costoEsplorazione$$ = 
-             20; $CellContext`beneficioEsplorazione$$ = {10, 50}, 
-            "Difficile", $CellContext`costoRaccolta$$ = 
-             20; $CellContext`beneficioRaccolta$$ = 
-             20; $CellContext`costoCostruzione$$ = 
-             50; $CellContext`beneficioCostruzione$$ = 
-             40; $CellContext`rendimentoCostruzione$$ = 
-             5; $CellContext`costoEsplorazione$$ = 
-             25; $CellContext`beneficioEsplorazione$$ = {5, 
-              30}]; $CellContext`risorseOttimali$$ = 
-           SimulatoreDecisioni`risorseIniziali$$ + \
-$CellContext`turniIniziali$$ 
-             Max[$CellContext`beneficioRaccolta$$, \
-$CellContext`beneficioCostruzione$$, 
-               
-               Max[$CellContext`beneficioEsplorazione$$]]; \
-$CellContext`strategiaOttimale$$ = 
-           "Per massimizzare le risorse:\n1. Usa 'Raccogli Risorse' per \
-accumulare capitale.\n2. Procedi con 'Costruisci Struttura' nei turni \
-iniziali: ogni struttura offre un rendimento incrementale fino alla fine.\n3. \
-Usa 'Esplora' per rischiare solo in casi di necessit\[AGrave] o con molti \
-turni disponibili."; $CellContext`simulazioneIniziata$$ = True; Null),
-         Enabled->Dynamic[
-           Not[$CellContext`simulazioneIniziata$$]],
-         Evaluator->Automatic,
-         Method->"Preemptive"],
-        "\"Avvia la simulazione con i parametri attuali.\"",
-        TooltipStyle->"TextStyling"],
-       Annotation[#, "Avvia la simulazione con i parametri attuali.", 
-        "Tooltip"]& ]},
-     {
-      TagBox[
-       TooltipBox[
-        ButtonBox["\<\"Ricomincia\"\>",
-         Appearance->Automatic,
-         ButtonFunction:>($CellContext`simulazioneIniziata$$ = False; 
-          SimulatoreDecisioni`risorseCorrenti$$ = 100; 
-          SimulatoreDecisioni`turniRestanti$$ = 10; 
-          SimulatoreDecisioni`risorseIniziali$$ = 
-           100; $CellContext`turniIniziali$$ = 10; $CellContext`difficolta$$ = 
-           "Medio"; $CellContext`log$$ = 
-           ""; $CellContext`rendimentoCostruzione$$ = 0; Null),
-         Enabled->Dynamic[$CellContext`simulazioneIniziata$$],
-         Evaluator->Automatic,
-         Method->"Preemptive"],
-        "\"Reimposta il gioco ai valori iniziali.\"",
-        TooltipStyle->"TextStyling"],
-       Annotation[#, "Reimposta il gioco ai valori iniziali.", "Tooltip"]& ]},
-     {
-      TemplateBox[{
-        StyleBox["\"Risorse: \"", Bold, StripOnInput -> False], 
-        DynamicBox[
-         ToBoxes[SimulatoreDecisioni`risorseCorrenti$$, StandardForm]], 
-        TemplateBox[{20}, "Spacer1"], 
-        StyleBox["\"Turni Rimanenti: \"", Bold, StripOnInput -> False], 
-        DynamicBox[
-         ToBoxes[SimulatoreDecisioni`turniRestanti$$, StandardForm]]},
-       "RowDefault"]},
-     {
-      TemplateBox[{10},
-       "Spacer1"]},
-     {
-      TemplateBox[{
-        TagBox[
-         TooltipBox[
-          ButtonBox["\"Raccogli Risorse\"", ButtonFunction :> If[
-             And[
-             SimulatoreDecisioni`turniRestanti$$ > 0, 
-              SimulatoreDecisioni`risorseCorrenti$$ >= \
-$CellContext`costoRaccolta$$], Decrement[SimulatoreDecisioni`turniRestanti$$]; 
-             SubtractFrom[
-              SimulatoreDecisioni`risorseCorrenti$$, \
-$CellContext`costoRaccolta$$]; 
-             AddTo[SimulatoreDecisioni`risorseCorrenti$$, \
-$CellContext`beneficioRaccolta$$]; 
-             Increment[$CellContext`azioniRaccolta$$]; $CellContext`log$$ = 
-              Row[{
-                 Style["Azione: Raccogli Risorse\n", Bold], "Risorse spese: ", 
-                 ToString[$CellContext`costoRaccolta$$], "\n", 
-                 "Risorse guadagnate: ", 
-                 ToString[$CellContext`beneficioRaccolta$$], 
-                 "\n", $CellContext`log$$}]; Null, $CellContext`log$$ = Row[{
-                 Style[
-                 "Azione non disponibile.\n", Red], $CellContext`log$$}]; 
-             Null], Enabled -> Dynamic[
-             
-             And[$CellContext`simulazioneIniziata$$, 
-              SimulatoreDecisioni`turniRestanti$$ > 0]], Appearance -> 
-           Automatic, Evaluator -> Automatic, Method -> "Preemptive"], 
-          "\"Consuma risorse per un guadagno moderato.\"", TooltipStyle -> 
-          "TextStyling"], 
-         Annotation[#, "Consuma risorse per un guadagno moderato.", 
-          "Tooltip"]& ], 
-        TagBox[
-         TooltipBox[
-          ButtonBox["\"Costruisci Struttura\"", ButtonFunction :> If[
-             And[
-             SimulatoreDecisioni`turniRestanti$$ > 0, 
-              SimulatoreDecisioni`risorseCorrenti$$ >= \
-$CellContext`costoCostruzione$$], 
-             Decrement[SimulatoreDecisioni`turniRestanti$$]; 
-             SubtractFrom[
-              SimulatoreDecisioni`risorseCorrenti$$, \
-$CellContext`costoCostruzione$$]; 
-             AddTo[SimulatoreDecisioni`risorseCorrenti$$, \
-$CellContext`beneficioCostruzione$$]; 
-             AddTo[$CellContext`rendimentoCostruzione$$, \
-$CellContext`rendimentoCostruzione$$]; 
-             Increment[$CellContext`azioniCostruzione$$]; $CellContext`log$$ = 
-              Row[{
-                 Style["Azione: Costruisci Struttura\n", Bold], 
-                 "Risorse spese: ", 
-                 ToString[$CellContext`costoCostruzione$$], "\n", 
-                 "Rendimento incrementale: +", 
-                 ToString[$CellContext`rendimentoCostruzione$$], 
-                 " per turno.\n", $CellContext`log$$}]; 
-             Null, $CellContext`log$$ = Row[{
-                 Style[
-                 "Azione non disponibile.\n", Red], $CellContext`log$$}]; 
-             Null], Enabled -> Dynamic[
-             
-             And[$CellContext`simulazioneIniziata$$, 
-              SimulatoreDecisioni`turniRestanti$$ > 0]], Appearance -> 
-           Automatic, Evaluator -> Automatic, Method -> "Preemptive"], 
-          "\"Costruisci una struttura per guadagni futuri.\"", TooltipStyle -> 
-          "TextStyling"], 
-         Annotation[#, "Costruisci una struttura per guadagni futuri.", 
-          "Tooltip"]& ], 
-        TagBox[
-         TooltipBox[
-          ButtonBox["\"Esplora\"", ButtonFunction :> If[
-             And[
-             SimulatoreDecisioni`turniRestanti$$ > 0, 
-              SimulatoreDecisioni`risorseCorrenti$$ >= \
-$CellContext`costoEsplorazione$$], 
-             Decrement[SimulatoreDecisioni`turniRestanti$$]; 
-             SubtractFrom[
-              SimulatoreDecisioni`risorseCorrenti$$, \
-$CellContext`costoEsplorazione$$]; 
-             Module[{$CellContext`guadagno$ = 
-                RandomInteger[$CellContext`beneficioEsplorazione$$]}, 
-               AddTo[SimulatoreDecisioni`risorseCorrenti$$, \
-$CellContext`guadagno$]; $CellContext`log$$ = Row[{
-                   Style["Azione: Esplora\n", Bold], "Risorse spese: ", 
-                   ToString[$CellContext`costoEsplorazione$$], "\n", 
-                   "Guadagno variabile: ", 
-                   ToString[$CellContext`guadagno$], 
-                   "\n", $CellContext`log$$}]; Null]; 
-             Increment[$CellContext`azioniEsplorazione$$]; 
-             Null, $CellContext`log$$ = Row[{
-                 Style[
-                 "Azione non disponibile.\n", Red], $CellContext`log$$}]; 
-             Null], Enabled -> Dynamic[
-             
-             And[$CellContext`simulazioneIniziata$$, 
-              SimulatoreDecisioni`turniRestanti$$ > 0]], Appearance -> 
-           Automatic, Evaluator -> Automatic, Method -> "Preemptive"], 
-          "\"Esplora per un guadagno variabile.\"", TooltipStyle -> 
-          "TextStyling"], 
-         Annotation[#, "Esplora per un guadagno variabile.", "Tooltip"]& ]},
-       "RowDefault"]},
-     {
-      TemplateBox[{10},
-       "Spacer1"]},
-     {
-      TagBox[
-       TooltipBox[
-        ButtonBox["\<\"Mostra Risultati\"\>",
-         Appearance->Automatic,
-         ButtonFunction:>($CellContext`log$$ = Row[{
-              Style["\nStatistiche Finali:\n", Bold], "Risorse Finali: ", 
-              ToString[SimulatoreDecisioni`risorseCorrenti$$], "\n", 
-              "Turni Rimanenti: ", 
-              ToString[SimulatoreDecisioni`turniRestanti$$], "\n", 
-              "Azioni Eseguite:\n", "  Raccolta: ", 
-              ToString[$CellContext`azioniRaccolta$$], "\n", 
-              "  Costruzioni: ", 
-              ToString[$CellContext`azioniCostruzione$$], "\n", 
-              "  Esplorazioni: ", 
-              ToString[$CellContext`azioniEsplorazione$$], 
-              "\n", $CellContext`log$$}]; Null),
-         Enabled->Dynamic[
-           
-           And[$CellContext`simulazioneIniziata$$, 
-            SimulatoreDecisioni`turniRestanti$$ < \
-$CellContext`turniIniziali$$]],
-         Evaluator->Automatic,
-         Method->"Preemptive"],
-        "\"Visualizza le statistiche della simulazione, incluse le risorse \
-totali rimaste e il numero di azioni eseguite.\"",
-        TooltipStyle->"TextStyling"],
-       Annotation[#, 
-        "Visualizza le statistiche della simulazione, incluse le risorse \
-totali rimaste e il numero di azioni eseguite.", "Tooltip"]& ]},
-     {
-      TagBox[
-       TooltipBox[
-        ButtonBox["\<\"Mostra Strategia Ottimale\"\>",
-         Appearance->Automatic,
-         ButtonFunction:>($CellContext`log$$ = Row[{
-              Style[
-              "\nStrategia Ottimale:\n", 
-               Bold], $CellContext`strategiaOttimale$$, 
-              "\n", $CellContext`log$$}]; Null),
-         Enabled->Dynamic[
-           
-           And[$CellContext`simulazioneIniziata$$, 
-            SimulatoreDecisioni`turniRestanti$$ == 0]],
-         Evaluator->Automatic,
-         Method->"Preemptive"],
-        "\"Scopri la strategia ottimale e confrontala con le tue scelte.\"",
-        TooltipStyle->"TextStyling"],
-       Annotation[#, 
-        "Scopri la strategia ottimale e confrontala con le tue scelte.", 
-        "Tooltip"]& ]},
-     {
-      StyleBox["\<\"Log degli Eventi:\"\>",
-       StripOnInput->False,
-       FontWeight->Bold]},
-     {
-      PaneBox[
-       DynamicBox[ToBoxes[$CellContext`log$$, StandardForm],
-        ImageSizeCache->{0., {0., 6.373047108761966}}],
-       ImageSize->{400, 200},
-       Scrollbars->True]}
-    },
-    DefaultBaseStyle->"Column",
-    GridBoxAlignment->{"Columns" -> {{Left}}},
-    GridBoxItemSize->{"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
-   "Column"],
-  DynamicModuleValues:>{}]], "Output",
- CellChangeTimes->{{3.9410186305702953`*^9, 3.9410186306300735`*^9}, 
-   3.94101895572657*^9, 3.941019283097851*^9, 3.941019571495516*^9, 
-   3.9410210615701923`*^9, 3.941021250658621*^9, 3.9410215395386944`*^9, 
-   3.9410220314716034`*^9, 3.941022205953209*^9, 3.941022429681677*^9, 
-   3.941025813568218*^9, 3.941025977860628*^9, {3.9410265580364704`*^9, 
-   3.9410265775186653`*^9}, 3.9410288881403885`*^9, 3.941029424718603*^9, 
-   3.9410295598496284`*^9, 3.9410296378867702`*^9, 3.941029815238165*^9, 
-   3.941030876957716*^9, {3.941101918884083*^9, 3.9411019189403095`*^9}, {
-   3.941103774276907*^9, 3.941103819801792*^9}, 3.9411040212586327`*^9, 
-   3.9411041524776115`*^9, 3.9411045192438145`*^9, {3.941104646204378*^9, 
-   3.941104669419489*^9}, 3.9411048437359467`*^9, 3.9411052222778664`*^9, 
-   3.941105790325794*^9, 3.9411067855893593`*^9, 3.9411073424515457`*^9, 
-   3.941107872250084*^9, {3.9411079385851517`*^9, 3.9411079532899055`*^9}},
- CellLabel->"Out[35]=",ExpressionUUID->"19d2a6d6-8317-1740-bf1f-80c2240bcf49"]
-}, Open  ]]
-}, Open  ]]
+93ac7cbcbcfa"]
 }, Open  ]]
 }, Open  ]]
 }, Open  ]]
 },
-WindowSize->{1095.75, 915.75},
-WindowMargins->{{111, Automatic}, {Automatic, 37.5}},
+WindowSize->{900.75, 998.25},
+WindowMargins->{{0.75, Automatic}, {Automatic, 0.75}},
 FrontEndVersion->"14.1 for Microsoft Windows (64-bit) (July 16, 2024)",
 StyleDefinitions->"Default.nb",
 ExpressionUUID->"cc6f7391-52e3-6241-81c2-812dcba060e3"
@@ -1858,147 +912,79 @@ Cell[CellGroupData[{
 Cell[576, 22, 308, 6, 157, "Title",ExpressionUUID->"7ae59919-c21b-c24b-81ff-098a61c71b43"],
 Cell[887, 30, 350, 8, 83, "Subtitle",ExpressionUUID->"adc47122-617c-a643-9927-24af478375f4"],
 Cell[1240, 40, 160, 3, 52, "Subtitle",ExpressionUUID->"7e62e95f-914d-d54f-9707-7a1a93bd31a6"],
-Cell[1403, 45, 1245, 20, 186, "Text",ExpressionUUID->"c2076a51-ad9e-fd4e-8828-488e4928fda7"],
+Cell[1403, 45, 1245, 20, 208, "Text",ExpressionUUID->"c2076a51-ad9e-fd4e-8828-488e4928fda7"],
 Cell[CellGroupData[{
 Cell[2673, 69, 154, 3, 66, "Section",ExpressionUUID->"0c902542-2c47-f241-986c-6381263d0929"],
-Cell[2830, 74, 323, 6, 33, "Text",ExpressionUUID->"4895b429-955c-714f-974e-03cac51a6e32"],
+Cell[2830, 74, 323, 6, 55, "Text",ExpressionUUID->"4895b429-955c-714f-974e-03cac51a6e32"],
 Cell[CellGroupData[{
-Cell[3178, 84, 394, 6, 67, "Code",ExpressionUUID->"b961b460-9484-4c48-94f0-1dcb265ac6f3"],
-Cell[3575, 92, 360, 4, 32, "Output",ExpressionUUID->"50f2b70c-fc69-e24c-b845-441c7f98e6d7"]
+Cell[3178, 84, 600, 11, 85, "Code",ExpressionUUID->"b961b460-9484-4c48-94f0-1dcb265ac6f3"],
+Cell[3781, 97, 1664, 22, 51, "Output",ExpressionUUID->"350390ff-c21c-d549-8929-b0d8230efdf5"],
+Cell[5448, 121, 20387, 413, 545, "Output",ExpressionUUID->"1958d285-b905-5b49-ae45-613bbf8f7481"]
 }, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[3984, 102, 157, 2, 66, "Section",ExpressionUUID->"c84233de-e08b-1d4d-b072-06002710d0a9"],
-Cell[4144, 106, 702, 13, 121, "Text",ExpressionUUID->"06bac840-f6db-454c-be7a-46afebeab5bc"],
-Cell[4849, 121, 363, 5, 50, "Item",ExpressionUUID->"877d645e-4d17-1b45-a44f-9545d552eccc"],
-Cell[5215, 128, 365, 6, 50, "Item",ExpressionUUID->"6f77e915-8049-ff49-8ae1-e1571ca4e1e7"],
-Cell[5583, 136, 350, 5, 30, "Item",ExpressionUUID->"333485cd-e121-5b4f-b300-4360d6c7ddd0"],
-Cell[5936, 143, 342, 5, 55, "Text",ExpressionUUID->"2d84f3eb-4db4-6843-91e9-ff4c845e8dea"]
+Cell[25884, 540, 157, 2, 66, "Section",ExpressionUUID->"c84233de-e08b-1d4d-b072-06002710d0a9"],
+Cell[26044, 544, 702, 13, 121, "Text",ExpressionUUID->"06bac840-f6db-454c-be7a-46afebeab5bc"],
+Cell[26749, 559, 363, 5, 50, "Item",ExpressionUUID->"877d645e-4d17-1b45-a44f-9545d552eccc"],
+Cell[27115, 566, 365, 6, 50, "Item",ExpressionUUID->"6f77e915-8049-ff49-8ae1-e1571ca4e1e7"],
+Cell[27483, 574, 350, 5, 50, "Item",ExpressionUUID->"333485cd-e121-5b4f-b300-4360d6c7ddd0"],
+Cell[27836, 581, 342, 5, 55, "Text",ExpressionUUID->"2d84f3eb-4db4-6843-91e9-ff4c845e8dea"]
 }, Open  ]],
-Cell[6293, 151, 226, 4, 66, "Section",ExpressionUUID->"bdd6fe9d-6eaa-4743-8caa-ba9229215ac8"],
+Cell[28193, 589, 226, 4, 66, "Section",ExpressionUUID->"bdd6fe9d-6eaa-4743-8caa-ba9229215ac8"],
 Cell[CellGroupData[{
-Cell[6544, 159, 157, 3, 52, "Subtitle",ExpressionUUID->"12c9271c-9cbb-4f46-82bf-6aedba4e46cf"],
+Cell[28444, 597, 157, 3, 52, "Subtitle",ExpressionUUID->"12c9271c-9cbb-4f46-82bf-6aedba4e46cf"],
 Cell[CellGroupData[{
-Cell[6726, 166, 339, 5, 30, "Item",ExpressionUUID->"deb40a06-66bb-bb4d-8d9a-e156886c595d"],
-Cell[7068, 173, 542, 10, 44, "Subitem",ExpressionUUID->"46ae941b-2818-3849-b066-bff76331e0cd"]
+Cell[28626, 604, 339, 5, 30, "Item",ExpressionUUID->"deb40a06-66bb-bb4d-8d9a-e156886c595d"],
+Cell[28968, 611, 542, 10, 44, "Subitem",ExpressionUUID->"46ae941b-2818-3849-b066-bff76331e0cd"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[7647, 188, 311, 5, 30, "Item",ExpressionUUID->"8a93979d-c67e-7e4c-9c2c-c0fa0b1c99de"],
+Cell[29547, 626, 311, 5, 30, "Item",ExpressionUUID->"8a93979d-c67e-7e4c-9c2c-c0fa0b1c99de"],
 Cell[CellGroupData[{
-Cell[7983, 197, 542, 10, 44, "Subitem",ExpressionUUID->"b30eff05-c6fb-1547-af8b-c8c497232ee1"],
-Cell[8528, 209, 374, 8, 24, "Subsubitem",ExpressionUUID->"396da51b-69a5-0a48-ba55-cfefbf24f1ce"],
-Cell[8905, 219, 391, 8, 24, "Subsubitem",ExpressionUUID->"817d8be0-c8dd-a247-9bd1-58411bef61ff"],
-Cell[9299, 229, 322, 7, 24, "Subsubitem",ExpressionUUID->"17fbef04-8a05-fc48-b6b9-5d01eb13857c"]
+Cell[29883, 635, 542, 10, 44, "Subitem",ExpressionUUID->"b30eff05-c6fb-1547-af8b-c8c497232ee1"],
+Cell[30428, 647, 374, 8, 24, "Subsubitem",ExpressionUUID->"396da51b-69a5-0a48-ba55-cfefbf24f1ce"],
+Cell[30805, 657, 391, 8, 24, "Subsubitem",ExpressionUUID->"817d8be0-c8dd-a247-9bd1-58411bef61ff"],
+Cell[31199, 667, 322, 7, 24, "Subsubitem",ExpressionUUID->"17fbef04-8a05-fc48-b6b9-5d01eb13857c"]
 }, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[9670, 242, 316, 5, 30, "Item",ExpressionUUID->"f791ac0d-f097-4d4f-8a09-35121bbc478d"],
-Cell[9989, 249, 519, 9, 44, "Subitem",ExpressionUUID->"cf424be3-897a-5941-8513-d5a3cca1d9fc"]
+Cell[31570, 680, 316, 5, 30, "Item",ExpressionUUID->"f791ac0d-f097-4d4f-8a09-35121bbc478d"],
+Cell[31889, 687, 519, 9, 44, "Subitem",ExpressionUUID->"cf424be3-897a-5941-8513-d5a3cca1d9fc"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[10545, 263, 300, 5, 30, "Item",ExpressionUUID->"c579bc89-a320-cd4a-8d38-b7067e70c98b"],
-Cell[10848, 270, 367, 7, 25, "Subitem",ExpressionUUID->"3222ebd2-da6d-1145-8f39-83317b8767bb"]
+Cell[32445, 701, 300, 5, 30, "Item",ExpressionUUID->"c579bc89-a320-cd4a-8d38-b7067e70c98b"],
+Cell[32748, 708, 367, 7, 25, "Subitem",ExpressionUUID->"3222ebd2-da6d-1145-8f39-83317b8767bb"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[11252, 282, 311, 5, 30, "Item",ExpressionUUID->"9155b6b6-f902-4846-92af-f58dbd42536a"],
-Cell[11566, 289, 410, 8, 25, "Subitem",ExpressionUUID->"58efdf9d-ae4a-3149-9312-f1b655bac4fb"]
+Cell[33152, 720, 311, 5, 30, "Item",ExpressionUUID->"9155b6b6-f902-4846-92af-f58dbd42536a"],
+Cell[33466, 727, 410, 8, 44, "Subitem",ExpressionUUID->"58efdf9d-ae4a-3149-9312-f1b655bac4fb"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[12013, 302, 146, 3, 66, "Section",ExpressionUUID->"4e11cbc1-aab0-1245-b436-3d3668c48602"],
-Cell[12162, 307, 235, 6, 33, "Text",ExpressionUUID->"24ba6b46-8c08-4442-9390-5cfd09d054f7"],
-Cell[12400, 315, 429, 8, 30, "Item",ExpressionUUID->"7df2e634-7505-bd4e-8d1e-7f8836bf2b63"],
-Cell[12832, 325, 437, 9, 30, "Item",ExpressionUUID->"b6d88ffe-be42-1b49-9bf4-0b78093a7bc8"],
-Cell[13272, 336, 471, 9, 30, "Item",ExpressionUUID->"1129f143-1ea5-8843-82b1-463d89dbc983"]
+Cell[33913, 740, 146, 3, 66, "Section",ExpressionUUID->"4e11cbc1-aab0-1245-b436-3d3668c48602"],
+Cell[34062, 745, 235, 6, 33, "Text",ExpressionUUID->"24ba6b46-8c08-4442-9390-5cfd09d054f7"],
+Cell[34300, 753, 429, 8, 30, "Item",ExpressionUUID->"7df2e634-7505-bd4e-8d1e-7f8836bf2b63"],
+Cell[34732, 763, 437, 9, 30, "Item",ExpressionUUID->"b6d88ffe-be42-1b49-9bf4-0b78093a7bc8"],
+Cell[35172, 774, 471, 9, 30, "Item",ExpressionUUID->"1129f143-1ea5-8843-82b1-463d89dbc983"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[13780, 350, 158, 3, 66, "Section",ExpressionUUID->"7b243508-d43c-f844-bd7b-5330dcf3f583"],
-Cell[13941, 355, 241, 4, 33, "Text",ExpressionUUID->"703d0561-cfdc-a844-8cc0-5ba4bfc7fd91"],
-Cell[14185, 361, 259, 6, 30, "Item",ExpressionUUID->"034f01e5-e23c-d84f-87bf-2bc8a22a4c9e"],
-Cell[14447, 369, 162, 3, 33, "Text",ExpressionUUID->"2cc98050-5405-754d-8442-b311394a163c"],
-Cell[14612, 374, 383, 7, 50, "Item",ExpressionUUID->"2c3f0f5a-6fbb-3a4b-94be-7075b4d98b73"],
-Cell[14998, 383, 163, 3, 33, "Text",ExpressionUUID->"b170797b-28dd-bc4f-ac53-35cfb991d88f"],
-Cell[15164, 388, 350, 7, 50, "Item",ExpressionUUID->"4e66bcd0-d193-3a4d-ab82-09ac3efd0f36"]
+Cell[35680, 788, 158, 3, 66, "Section",ExpressionUUID->"7b243508-d43c-f844-bd7b-5330dcf3f583"],
+Cell[35841, 793, 241, 4, 33, "Text",ExpressionUUID->"703d0561-cfdc-a844-8cc0-5ba4bfc7fd91"],
+Cell[36085, 799, 259, 6, 30, "Item",ExpressionUUID->"034f01e5-e23c-d84f-87bf-2bc8a22a4c9e"],
+Cell[36347, 807, 162, 3, 33, "Text",ExpressionUUID->"2cc98050-5405-754d-8442-b311394a163c"],
+Cell[36512, 812, 383, 7, 30, "Item",ExpressionUUID->"2c3f0f5a-6fbb-3a4b-94be-7075b4d98b73"],
+Cell[36898, 821, 163, 3, 33, "Text",ExpressionUUID->"b170797b-28dd-bc4f-ac53-35cfb991d88f"],
+Cell[37064, 826, 350, 7, 30, "Item",ExpressionUUID->"4e66bcd0-d193-3a4d-ab82-09ac3efd0f36"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[15551, 400, 146, 3, 66, "Section",ExpressionUUID->"d68c5f7a-c3d3-4c49-82ce-1eeec330aa05"],
-Cell[15700, 405, 198, 4, 33, "Text",ExpressionUUID->"b43f9b0d-8687-7948-b55c-5deef02c6a5c"],
-Cell[15901, 411, 176, 3, 30, "Item",ExpressionUUID->"ec574597-2ace-e341-9d32-10a19b740552"],
-Cell[16080, 416, 194, 3, 30, "Item",ExpressionUUID->"94be3182-7a0c-3242-8ef3-35a8bc291e2e"],
-Cell[16277, 421, 150, 3, 30, "Item",ExpressionUUID->"f141b9e1-66c4-d848-a6f4-e57f180a36f4"]
+Cell[37451, 838, 146, 3, 66, "Section",ExpressionUUID->"d68c5f7a-c3d3-4c49-82ce-1eeec330aa05"],
+Cell[37600, 843, 198, 4, 33, "Text",ExpressionUUID->"b43f9b0d-8687-7948-b55c-5deef02c6a5c"],
+Cell[37801, 849, 176, 3, 30, "Item",ExpressionUUID->"ec574597-2ace-e341-9d32-10a19b740552"],
+Cell[37980, 854, 194, 3, 30, "Item",ExpressionUUID->"94be3182-7a0c-3242-8ef3-35a8bc291e2e"],
+Cell[38177, 859, 150, 3, 30, "Item",ExpressionUUID->"f141b9e1-66c4-d848-a6f4-e57f180a36f4"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[16464, 429, 147, 3, 66, "Section",ExpressionUUID->"4bb7a2fa-fc0a-e942-a9e8-2ce45046ccce"],
-Cell[16614, 434, 270, 7, 30, "Item",ExpressionUUID->"3870266a-3650-504b-8bc4-fa1a272f9fb6"],
-Cell[CellGroupData[{
-Cell[16909, 445, 329, 7, 50, "Item",ExpressionUUID->"b93c5c9f-ebb4-2944-ac1b-93ac7cbcbcfa"],
-Cell[17241, 454, 147, 2, 28, "Input",ExpressionUUID->"e18ab786-48b4-d34b-a704-cb3573d13263"],
-Cell[CellGroupData[{
-Cell[17413, 460, 211, 3, 50, "Code",ExpressionUUID->"ceaa1d8c-7ad8-144c-be27-24059e220785"],
-Cell[17627, 465, 602, 12, 22, "Print",ExpressionUUID->"f98646a7-7274-9f4f-84cc-da9f350787e7"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[18266, 482, 209, 3, 50, "Code",ExpressionUUID->"fee5aba7-becf-a94a-a000-5f53d8b829eb"],
-Cell[CellGroupData[{
-Cell[18500, 489, 554, 12, 22, "Print",ExpressionUUID->"4000e4a5-23ad-c045-afca-d2bc70b10306"],
-Cell[19057, 503, 465, 11, 22, "Print",ExpressionUUID->"018698d5-a681-c94a-a5db-3ff7f4a05ad6"],
-Cell[19525, 516, 463, 11, 22, "Print",ExpressionUUID->"cf48ac4f-1e7f-6e41-952a-e02cde8162d7"]
-}, Open  ]]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[20037, 533, 213, 3, 50, "Code",ExpressionUUID->"fb61b351-7ec9-0242-962e-aeaef7d257c8"],
-Cell[CellGroupData[{
-Cell[20275, 540, 708, 15, 22, "Print",ExpressionUUID->"0e012148-3547-774c-b21b-32d0f0b2ec75"],
-Cell[20986, 557, 494, 11, 22, "Print",ExpressionUUID->"1bcef22c-d943-2b42-932c-2ee488439fa1"],
-Cell[21483, 570, 494, 11, 22, "Print",ExpressionUUID->"7ebc3e70-e97f-e94f-b468-7f76a1430eb8"]
-}, Open  ]]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[22026, 587, 199, 3, 50, "Code",ExpressionUUID->"ac85bf5f-751a-0c43-99ae-0bbc7bc4bcc8"],
-Cell[CellGroupData[{
-Cell[22250, 594, 492, 12, 22, "Print",ExpressionUUID->"33a68c3f-6aa8-824b-9e76-00986f9a1972"],
-Cell[22745, 608, 494, 12, 22, "Print",ExpressionUUID->"43930824-5f0d-e64c-bed6-15f870e66a27"],
-Cell[23242, 622, 567, 13, 22, "Print",ExpressionUUID->"7299749b-9b9e-544f-b12f-a7c08df3a70c"],
-Cell[23812, 637, 467, 12, 22, "Print",ExpressionUUID->"0527618e-d7d3-e94c-8aff-0c407680be30"],
-Cell[24282, 651, 467, 12, 22, "Print",ExpressionUUID->"1a3eee94-7096-254a-8047-fb86c4371060"],
-Cell[24752, 665, 542, 13, 22, "Print",ExpressionUUID->"6c1f1144-fa46-8143-94b4-230d2d063918"],
-Cell[25297, 680, 443, 12, 22, "Print",ExpressionUUID->"e40d6c3d-f954-a344-9aa4-c23a2edd7b03"],
-Cell[25743, 694, 443, 12, 22, "Print",ExpressionUUID->"3be520cd-e351-674c-9b0c-aaa3d7b8488f"],
-Cell[26189, 708, 518, 13, 22, "Print",ExpressionUUID->"0fff7515-dc82-bb43-8097-658cea8157bd"],
-Cell[26710, 723, 416, 11, 22, "Print",ExpressionUUID->"edb1b242-7ada-3248-a380-ac03015c497f"],
-Cell[27129, 736, 420, 11, 22, "Print",ExpressionUUID->"e0f9fda3-b01a-de4f-835e-8d920d7c9aa4"],
-Cell[27552, 749, 362, 8, 22, "Print",ExpressionUUID->"925ca580-7869-544d-b9f1-7acc3d082924"],
-Cell[27917, 759, 418, 11, 22, "Print",ExpressionUUID->"b417dae2-448b-f54a-ae2d-fb6348a2fd85"],
-Cell[28338, 772, 418, 11, 22, "Print",ExpressionUUID->"f0d85112-f87e-7641-93b2-6fec1ced664c"],
-Cell[28759, 785, 362, 8, 22, "Print",ExpressionUUID->"0e17e6fd-cc83-b548-a8dc-2db69ecbc4a3"],
-Cell[29124, 795, 418, 11, 22, "Print",ExpressionUUID->"0be2711f-d591-a84d-88f6-337e39575191"],
-Cell[29545, 808, 418, 11, 22, "Print",ExpressionUUID->"d6272378-0efd-8843-9d46-61b4940d7cc3"],
-Cell[29966, 821, 493, 12, 22, "Print",ExpressionUUID->"1110a8ad-7d3d-4a44-b349-1f51ff44b8fb"],
-Cell[30462, 835, 421, 10, 22, "Print",ExpressionUUID->"9e4df152-ac69-0145-9313-fb98ea183bca"],
-Cell[30886, 847, 319, 8, 22, "Print",ExpressionUUID->"277889df-5c45-db4c-83e0-e771a23afd26"],
-Cell[31208, 857, 319, 8, 22, "Print",ExpressionUUID->"5fc874b6-0c12-ba4d-bf4b-97f75ff0a5b3"]
-}, Open  ]]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[31576, 871, 235, 4, 50, "Code",ExpressionUUID->"6809b49f-bbf3-154d-b874-cd1903068935"],
-Cell[CellGroupData[{
-Cell[31836, 879, 443, 10, 22, "Print",ExpressionUUID->"4fbd0785-32e2-8f4b-a68f-48473ae9a4e3"],
-Cell[32282, 891, 439, 10, 22, "Print",ExpressionUUID->"58f3a74c-2014-5348-8035-a171e30487d3"]
-}, Open  ]]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[32770, 907, 209, 3, 50, "Code",ExpressionUUID->"19c1aff7-c73b-e14a-9d90-2d9948fa7f44"],
-Cell[CellGroupData[{
-Cell[33004, 914, 359, 6, 22, "Print",ExpressionUUID->"ac2bfb44-7aed-6040-b358-175fff31f699"],
-Cell[33366, 922, 342, 6, 22, "Print",ExpressionUUID->"43437c06-5f7f-dd46-8c44-3ddae8b67ffe"],
-Cell[33711, 930, 339, 6, 22, "Print",ExpressionUUID->"d3ef2d93-7cae-6745-ad32-c28a4b9533c4"],
-Cell[34053, 938, 354, 6, 22, "Print",ExpressionUUID->"c2b4b5fd-6ad9-8c40-addf-991e88067e98"]
-}, Open  ]]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[34456, 950, 26648, 519, 3176, "Code",ExpressionUUID->"7f4a16af-7292-ea43-885e-45386109ea56"],
-Cell[61107, 1471, 16680, 361, 535, "Output",ExpressionUUID->"19d2a6d6-8317-1740-bf1f-80c2240bcf49"]
-}, Open  ]]
-}, Open  ]]
+Cell[38364, 867, 147, 3, 66, "Section",ExpressionUUID->"4bb7a2fa-fc0a-e942-a9e8-2ce45046ccce"],
+Cell[38514, 872, 270, 7, 30, "Item",ExpressionUUID->"3870266a-3650-504b-8bc4-fa1a272f9fb6"],
+Cell[38787, 881, 329, 7, 30, "Item",ExpressionUUID->"b93c5c9f-ebb4-2944-ac1b-93ac7cbcbcfa"]
 }, Open  ]]
 }, Open  ]]
 }, Open  ]]
