@@ -116,25 +116,33 @@ AvviaGioco[] := DynamicModule[
      
      (* Pulsante per avviare la simulazione *)
      Tooltip[
-      Button["Inizia Simulazione", 
-       (
-        risorseCorrenti = risorseIniziali; 
-        turniRestanti = turniIniziali; 
-        simulazioneIniziata = True; 
-        log = "Simulazione iniziata...\n";
-		Switch[difficolta,
-		  "Facile", (costoRaccolta = 10; beneficioRaccolta = 30; 
-		    costoCostruzione = 35; rendimentoCostruzione = 8;
-		    costoEsplorazione = 15; beneficioEsplorazione = {20, 70}),
-		  "Medio", (costoRaccolta = 15; beneficioRaccolta = 25; 
-		    costoCostruzione = 40; rendimentoCostruzione = 10;
-		    costoEsplorazione = 20; beneficioEsplorazione = {10, 50}),
-		  "Difficile", (costoRaccolta = 20; beneficioRaccolta = 20; 
-		    costoCostruzione = 50; rendimentoCostruzione = 12;
-		    costoEsplorazione = 25; beneficioEsplorazione = {5, 30})
-		];
-        ), Enabled -> Dynamic[!simulazioneIniziata]
-       ], "Avvia il simulatore con i parametri selezionati."],
+ Button["Inizia Simulazione", 
+   (
+    risorseCorrenti = risorseIniziali; 
+    turniRestanti = turniIniziali; 
+    simulazioneIniziata = True; 
+    log = "Simulazione iniziata...\n";
+
+    (* Configurazione parametri in base alla difficolt\[AGrave] *)
+    Switch[difficolta,
+      "Facile", (
+        costoRaccolta = 10; beneficioRaccolta = 30; 
+        costoCostruzione = 35; rendimentoCostruzione = 8;
+        costoEsplorazione = 15; beneficioEsplorazione = {20, 70}
+      ),
+      "Medio", (
+        costoRaccolta = 15; beneficioRaccolta = 25; 
+        costoCostruzione = 40; rendimentoCostruzione = 10;
+        costoEsplorazione = 20; beneficioEsplorazione = {10, 50}
+      ),
+      "Difficile", (
+        costoRaccolta = 15; beneficioRaccolta = RandomInteger[{15, 30}]; 
+        costoCostruzione = 50; rendimentoCostruzione = 12;
+        costoEsplorazione = 25; beneficioEsplorazione = RandomInteger[{-30, 80}]
+      )
+    ];
+   ), Enabled -> Dynamic[!simulazioneIniziata]
+  ], "Avvia il simulatore con i parametri selezionati."],
      Spacer[10],
      
      (* Pulsanti per le azioni di gioco *)
@@ -151,7 +159,6 @@ AvviaGioco[] := DynamicModule[
 Tooltip[
  Button["Raccogli Risorse", 
   If[turniRestanti > 0 && risorseCorrenti >= costoRaccolta,
-   (* Aggiorna risorse e log *)
    risorseCorrenti -= costoRaccolta; 
    risorseCorrenti += beneficioRaccolta;
    turniRestanti--; azioniRaccolta++;
@@ -163,33 +170,28 @@ Tooltip[
         ", Guadagno: ", Style[ToString[beneficioRaccolta], Bold],
         ", Risorse Totali: ", Style[ToString[risorseCorrenti], Bold]
       }],
-         Style["", Bold], (* Linea vuota tra un turno e l'altro *)
-      log
-    }]
-  ],
-  Enabled -> Dynamic[simulazioneIniziata]
- ],
+      Style["", Bold], log}]
+  ], Enabled -> Dynamic[simulazioneIniziata]],
  Dynamic[
   Module[{cR, bR},
    Switch[difficolta,
     "Facile", (cR = 10; bR = 30),
     "Medio", (cR = 15; bR = 25),
-    "Difficile", (cR = 20; bR = 20)];
+    "Difficile", (cR = 15; bR = "15 - 30")];
    "Raccogli risorse:\n - Costo: " <> ToString[cR] <> 
    " risorse\n - Guadagno: " <> ToString[bR] <> " risorse."
   ]
  ]
-]
+],
 
-   Spacer[10],
+Spacer[10],
 
-   (* Button: Costruisci Struttura *)
+(* Button: Costruisci Struttura *)
 Tooltip[
  Button["Costruisci Struttura", 
   If[turniRestanti > 0 && risorseCorrenti >= costoCostruzione,
-   (* Aggiorna risorse e log *)
    risorseCorrenti -= costoCostruzione; 
-   rendimentoCostruzione += Switch[difficolta, "Facile", 8, "Medio", 10, "Difficile", 12]; 
+   rendimentoCostruzione += Switch[difficolta, "Facile", 8, "Medio", 10, "Difficile", 12];
    turniRestanti--; azioniCostruzione++;
    log = Column[{
       Row[{
@@ -199,12 +201,8 @@ Tooltip[
         ", Guadagno Passivo: ", Style[ToString[rendimentoCostruzione], Bold],
         ", Risorse Totali: ", Style[ToString[risorseCorrenti], Bold]
       }],
-      Style["", Bold], (* Aggiunge una nuova linea *)
-      log
-    }]
-  ],
-  Enabled -> Dynamic[simulazioneIniziata]
- ],
+      Style["", Bold], log}]
+  ], Enabled -> Dynamic[simulazioneIniziata]],
  Dynamic[
   Module[{cC, rC},
    Switch[difficolta,
@@ -215,27 +213,23 @@ Tooltip[
    " risorse\n - Guadagno passivo per turno: +" <> ToString[rC] <> " risorse."
   ]
  ]
-]
-   Spacer[10],
+],
 
-   (* Button: Esplora *)
-   Tooltip[
+Spacer[10],
+
+(* Button: Esplora *)
+Tooltip[
  Button["Esplora", 
   If[turniRestanti > 0 && risorseCorrenti >= costoEsplorazione,
    Module[{guadagnoEsplorazione},
-    (* Calcola il guadagno *)
     guadagnoEsplorazione = RandomInteger[
       Switch[difficolta, 
        "Facile", {20, 70}, 
        "Medio", {10, 50}, 
-       "Difficile", {5, 30}
-      ]
-    ];
-    (* Aggiorna risorse e log *)
+       "Difficile", {-30, 80}]];
     risorseCorrenti -= costoEsplorazione; 
     risorseCorrenti += guadagnoEsplorazione;
     turniRestanti--; azioniEsplorazione++;
-
     log = Column[{
        Row[{
          Style["Turno " <> ToString[turniIniziali - turniRestanti] <> ": ", Bold],
@@ -244,19 +238,14 @@ Tooltip[
          ", Guadagno Variabile: ", Style[ToString[guadagnoEsplorazione], Bold],
          ", Risorse Totali: ", Style[ToString[risorseCorrenti], Bold]
        }],
-          Style["", Bold], (* Linea vuota tra un turno e l'altro *)
-       log
-    }]
-   ]
-  ],
-  Enabled -> Dynamic[simulazioneIniziata]
- ],
+       Style["", Bold], log}]
+   ]], Enabled -> Dynamic[simulazioneIniziata]],
  Dynamic[
   Module[{cE, bMin, bMax},
    Switch[difficolta,
     "Facile", (cE = 15; bMin = 20; bMax = 70),
     "Medio", (cE = 20; bMin = 10; bMax = 50),
-    "Difficile", (cE = 25; bMin = 5; bMax = 30)];
+    "Difficile", (cE = 25; bMin = -30; bMax = 80)];
    "Esplora nuove aree:\n - Costo: " <> ToString[cE] <> 
    " risorse\n - Guadagno variabile: da " <> ToString[bMin] <> 
    " a " <> ToString[bMax] <> " risorse."
