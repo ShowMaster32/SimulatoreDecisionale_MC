@@ -114,35 +114,48 @@ AvviaGioco[] := DynamicModule[
        }],
      Spacer[10],
      
-     (* Pulsante per avviare la simulazione *)
-     Tooltip[
- Button["Inizia Simulazione", 
-   (
-    risorseCorrenti = risorseIniziali; 
-    turniRestanti = turniIniziali; 
-    simulazioneIniziata = True; 
-    log = "Simulazione iniziata...\n";
+     (* Variabile per il seed numerico *)
+seedNumerico = 1234;
 
-    (* Configurazione parametri in base alla difficolt\[AGrave] *)
-    Switch[difficolta,
-      "Facile", (
-        costoRaccolta = 10; beneficioRaccolta = 30; 
-        costoCostruzione = 35; rendimentoCostruzione = 8;
-        costoEsplorazione = 15; beneficioEsplorazione = {20, 70}
-      ),
-      "Medio", (
-        costoRaccolta = 15; beneficioRaccolta = 25; 
-        costoCostruzione = 40; rendimentoCostruzione = 10;
-        costoEsplorazione = 20; beneficioEsplorazione = {10, 50}
-      ),
-      "Difficile", (
-        costoRaccolta = 15; beneficioRaccolta = RandomInteger[{15, 30}]; 
-        costoCostruzione = 50; rendimentoCostruzione = 12;
-        costoEsplorazione = 25; beneficioEsplorazione = RandomInteger[{-30, 80}]
-      )
-    ];
-   ), Enabled -> Dynamic[!simulazioneIniziata]
-  ], "Avvia il simulatore con i parametri selezionati."],
+(* Interfaccia utente: aggiunta input per il seed *)
+Row[{
+   Style["Seed: ", Bold],
+   InputField[Dynamic[seedNumerico, (seedNumerico = Round[#]) &], Number, FieldSize -> 6, Enabled -> Dynamic[!simulazioneIniziata]]
+}],
+
+Spacer[10],
+
+(* Pulsante per avviare la simulazione con seed *)
+Tooltip[
+ Button["Inizia Simulazione",
+ (
+   SeedRandom[seedNumerico]; (* Fissa il seed per la simulazione *)
+   risorseCorrenti = risorseIniziali; 
+   turniRestanti = turniIniziali; 
+   simulazioneIniziata = True; 
+   log = "Simulazione iniziata...\n";
+
+   (* Configurazione parametri in base alla difficolt\[AGrave] *)
+   Switch[difficolta,
+     "Facile", (
+       costoRaccolta = 10; beneficioRaccolta = 30; 
+       costoCostruzione = 35; rendimentoCostruzione = 8;
+       costoEsplorazione = 15; beneficioEsplorazione = {20, 70}
+     ),
+     "Medio", (
+       costoRaccolta = 15; beneficioRaccolta = 25; 
+       costoCostruzione = 40; rendimentoCostruzione = 10;
+       costoEsplorazione = 20; beneficioEsplorazione = {10, 50}
+     ),
+     "Difficile", (
+       costoRaccolta = 15; beneficioRaccolta = RandomInteger[{15, 30}]; 
+       costoCostruzione = 50; rendimentoCostruzione = 12;
+       costoEsplorazione = 25; beneficioEsplorazione = RandomInteger[{-30, 80}]
+     )
+   ];
+ ), Enabled -> Dynamic[!simulazioneIniziata]
+  ], "Avvia il simulatore con un seed specifico."]
+,
      Spacer[10],
      
      (* Pulsanti per le azioni di gioco *)
