@@ -20,43 +20,38 @@ CalcolaStrategiaOttimale[turni_, risorse_, costoRacc_, benefRacc_, costoCostr_, 
 
   (* Gamma dei benefici esplorazione *)
   beneficioEsplorazioneRange = If[ListQ[benefEspl], Range @@ benefEspl, {0}];
-  
+
+  (* Controllo parametri validi *)
+  If[turni <= 0 || risorse <= 0, Return["Errore: Turni o Risorse non validi."]];
+
   (* Tabella di programmazione dinamica *)
   dp = Table[{0, ""}, {t, 0, turni}, {r, 0, risorse}];
-  dp[[1, All]] = {0, ""}; (* Stato base: con 0 turni rimasti, il guadagno \[EGrave] 0 *)
-  
+  dp[[1, All]] = {0, ""}; (* Stato base *)
+
   (* Iterazione sui turni e risorse *)
   For[t = 1, t <= turni, t++,
    For[r = 0, r <= risorse, r++,
-    
+
     (* Azione: Raccogli Risorse *)
-    If[r >= costoRacc,
-	 dp[[t, r]] = Max[dp[[t, r]], 
-	   {dp[[t - 1, r - costoRacc]][[1]] + benefRacc, 
-	    StringJoin[If[StringQ[dp[[t - 1, r - costoRacc]][[2]]], 
-	                  dp[[t - 1, r - costoRacc]][[2]], ""], "Raccogli Risorse\n"]}];
-	];
-	
-	If[r >= costoCostr,
-	 dp[[t, r]] = Max[dp[[t, r]], 
-	   {dp[[t - 1, r - costoCostr]][[1]] + benefCostr + rendimentoCostr * (turni - t), 
-	    StringJoin[If[StringQ[dp[[t - 1, r - costoCostr]][[2]]], 
-	                  dp[[t - 1, r - costoCostr]][[2]], ""], "Costruisci Struttura\n"]}];
-	];
-	
-	If[r >= costoEspl,
-	 dp[[t, r]] = Max[dp[[t, r]], 
-	   {dp[[t - 1, r - costoEspl]][[1]] + Max[beneficioEsplorazioneRange], 
-	    StringJoin[If[StringQ[dp[[t - 1, r - costoEspl]][[2]]], 
-	                  dp[[t - 1, r - costoEspl]][[2]], ""], "Esplora\n"]}];
-	];
-    ]
-   ];
-  
+    If[r >= costoRacc && t - 1 >= 1 && ListQ[dp[[t - 1, r - costoRacc]]],
+     dp[[t, r]] = Max[dp[[t, r]],
+       {dp[[t - 1, r - costoRacc]][[1]] + benefRacc,
+        StringJoin[If[StringQ[dp[[t - 1, r - costoRacc]][[2]]], 
+                      dp[[t - 1, r - costoRacc]][[2]], ""], "Raccogli Risorse\n"]}]];
+
+    (* Azione: Esplora *)
+    If[r >= costoEspl && t - 1 >= 1 && ListQ[dp[[t - 1, r - costoEspl]]],
+     dp[[t, r]] = Max[dp[[t, r]],
+       {dp[[t - 1, r - costoEspl]][[1]] + Max[beneficioEsplorazioneRange],
+        StringJoin[If[StringQ[dp[[t - 1, r - costoEspl]][[2]]], 
+                      dp[[t - 1, r - costoEspl]][[2]], ""], "Esplora\n"]}]];
+   ]
+  ];
+
   (* Recupero della strategia ottimale *)
   azioniOttimali = dp[[turni, risorse]][[2]];
   {dp[[turni, risorse]][[1]], azioniOttimali}
-  ];
+]
 
 (* Funzione per mostrare la soluzione in una finestra pop-up *)
 MostraSoluzione[soluzione_] :=
@@ -236,39 +231,46 @@ Tooltip[
    Spacer[10],
 
    (* Button: Esplora *)
-   Tooltip[
-    Button["Esplora", 
-     If[turniRestanti > 0 && risorseCorrenti >= costoEsplorazione,
-      Module[{guadagnoEsplorazione},
-       guadagnoEsplorazione = RandomInteger[
-         Switch[difficolta, 
-          "Facile", {20, 70}, 
-          "Medio", {10, 50}, 
-          "Difficile", {-30, 80}]];
-       risorseCorrenti -= costoEsplorazione; 
-       risorseCorrenti += guadagnoEsplorazione;
-       turniRestanti--; azioniEsplorazione++;
-       log = Column[{
-          Row[{
-            Style["Turno " <> ToString[turniIniziali - turniRestanti] <> ": ", Bold],
-            Style["Esplora", Darker[Red]],
-            " - Risorse Spese: ", Style[ToString[costoEsplorazione], Italic],
-            ", Guadagno Variabile: ", Style[ToString[guadagnoEsplorazione], Bold],
-            ", Risorse Totali: ", Style[ToString[risorseCorrenti], Bold]
-          }],
-          Style["", Bold], log}]
-      ]], Enabled -> Dynamic[simulazioneIniziata]],
-    Dynamic[
-     Module[{cE, bMin, bMax},
-      Switch[difficolta,
-       "Facile", (cE = 15; bMin = 20; bMax = 70),
-       "Medio", (cE = 20; bMin = 10; bMax = 50),
-       "Difficile", (cE = 25; bMin = -30; bMax = 80)];
-      "Esplora nuove aree:\n - Costo: " <> ToString[cE] <> 
-      " risorse\n - Guadagno variabile: da " <> ToString[bMin] <> 
-      " a " <> ToString[bMax] <> " risorse."
-     ]]
-   ]
+Tooltip[
+ Button["Esplora", 
+  If[turniRestanti > 0 && risorseCorrenti >= costoEsplorazione,
+   Module[{guadagnoEsplorazione, intervallo},
+    intervallo = Switch[difficolta, 
+      "Facile", {20, 70}, 
+      "Medio", {10, 50}, 
+      "Difficile", {-30, 80},
+      _, {0, 0}]; (* Default fallback se il livello di difficolt\[AGrave] \[EGrave] invalido *)
+
+    (* Verifica se l'intervallo \[EGrave] valido *)
+    If[Length[intervallo] == 2 && intervallo[[1]] <= intervallo[[2]],
+     guadagnoEsplorazione = RandomInteger[intervallo],
+     guadagnoEsplorazione = 0]; (* Guadagno zero in caso di errore *)
+
+    risorseCorrenti -= costoEsplorazione; 
+    risorseCorrenti += guadagnoEsplorazione;
+    turniRestanti--; azioniEsplorazione++;
+    log = Column[{
+       Row[{
+         Style["Turno " <> ToString[turniIniziali - turniRestanti] <> ": ", Bold],
+         Style["Esplora", Darker[Red]],
+         " - Risorse Spese: ", Style[ToString[costoEsplorazione], Italic],
+         ", Guadagno Variabile: ", Style[ToString[guadagnoEsplorazione], Bold],
+         ", Risorse Totali: ", Style[ToString[risorseCorrenti], Bold]
+       }],
+       Style["", Bold], log}]
+   ]], Enabled -> Dynamic[simulazioneIniziata]],
+
+ Dynamic[
+  Module[{cE, bMin, bMax},
+   Switch[difficolta,
+    "Facile", (cE = 15; bMin = 20; bMax = 70),
+    "Medio", (cE = 20; bMin = 10; bMax = 50),
+    "Difficile", (cE = 25; bMin = -30; bMax = 80)];
+   "Esplora nuove aree:\n - Costo: " <> ToString[cE] <> 
+   " risorse\n - Guadagno variabile: da " <> ToString[bMin] <> 
+   " a " <> ToString[bMax] <> " risorse."
+  ]]
+]
 }],
 
      Spacer[10],
@@ -290,13 +292,14 @@ Tooltip[
      (* Pulsante per mostrare la soluzione *)
 Tooltip[
  Button["Mostra Soluzione", 
+  If[ListQ[strategiaOttimale] && Length[strategiaOttimale] >= 2, 
    MostraSoluzione[
     "Beneficio Totale: " <> ToString[strategiaOttimale[[1]]] <> 
     "\nAzioni Ottimali:\n" <> strategiaOttimale[[2]]
-   ], 
-   Enabled -> Dynamic[simulazioneIniziata]
- ], "Mostra la soluzione ottimale calcolata per il problema attuale."],
-     Spacer[10],
+   ],
+   CreateDialog[{TextCell["Errore: La strategia ottimale non \[EGrave] valida.", FontWeight -> Bold]}]
+  ], Enabled -> Dynamic[simulazioneIniziata]],
+ "Mostra la soluzione ottimale calcolata per il problema attuale."],
    
    (* Pulsante per verificare il risultato *)
 Tooltip[
