@@ -7,15 +7,22 @@ AvviaGioco::usage = "AvviaGioco[] lancia la simulazione interattiva completa.";
 
 Begin["`Private`"];
 
+(* Funzione per verificare il risultato *)
+VerificaRisultato[risorseFinali_, soluzioneOttimale_] := 
+ If[risorseFinali == soluzioneOttimale[[1]],
+  "Risultato Corretto! Hai ottenuto il massimo beneficio.",
+  "Risultato Errato. Il massimo beneficio \[EGrave]: " <> 
+   ToString[soluzioneOttimale[[1]]]]
+
 (* Funzione per calcolare la strategia ottimale con programmazione dinamica *)
 CalcolaStrategiaOttimale[turni_, risorse_, costoRacc_, benefRacc_, costoCostr_, benefCostr_, rendimentoCostr_, costoEspl_, benefEspl_] :=
  Module[{dp, azioniOttimali, beneficioEsplorazioneRange},
-  
+
   (* Gamma dei benefici esplorazione *)
-  beneficioEsplorazioneRange = Range[Sequence @@ benefEspl];
+  beneficioEsplorazioneRange = If[ListQ[benefEspl], Range @@ benefEspl, {0}];
   
   (* Tabella di programmazione dinamica *)
-  dp = Table[{-Infinity, ""}, {t, 0, turni}, {r, 0, risorse}];
+  dp = Table[{0, ""}, {t, 0, turni}, {r, 0, risorse}];
   dp[[1, All]] = {0, ""}; (* Stato base: con 0 turni rimasti, il guadagno \[EGrave] 0 *)
   
   (* Iterazione sui turni e risorse *)
@@ -24,24 +31,25 @@ CalcolaStrategiaOttimale[turni_, risorse_, costoRacc_, benefRacc_, costoCostr_, 
     
     (* Azione: Raccogli Risorse *)
     If[r >= costoRacc,
-     dp[[t, r]] = Max[dp[[t, r]], 
-       {dp[[t - 1, r - costoRacc]][[1]] + benefRacc, 
-        StringJoin[dp[[t - 1, r - costoRacc]][[2]], "Raccogli Risorse\n"]}];
-     ];
-    
-    (* Azione: Costruisci Struttura *)
-    If[r >= costoCostr,
-     dp[[t, r]] = Max[dp[[t, r]], 
-       {dp[[t - 1, r - costoCostr]][[1]] + benefCostr + rendimentoCostr * (turni - t), 
-        StringJoin[dp[[t - 1, r - costoCostr]][[2]], "Costruisci Struttura\n"]}];
-     ];
-    
-    (* Azione: Esplora *)
-    If[r >= costoEspl,
-     dp[[t, r]] = Max[dp[[t, r]], 
-       {dp[[t - 1, r - costoEspl]][[1]] + Max[beneficioEsplorazioneRange], 
-        StringJoin[dp[[t - 1, r - costoEspl]][[2]], "Esplora\n"]}];
-     ];
+	 dp[[t, r]] = Max[dp[[t, r]], 
+	   {dp[[t - 1, r - costoRacc]][[1]] + benefRacc, 
+	    StringJoin[If[StringQ[dp[[t - 1, r - costoRacc]][[2]]], 
+	                  dp[[t - 1, r - costoRacc]][[2]], ""], "Raccogli Risorse\n"]}];
+	];
+	
+	If[r >= costoCostr,
+	 dp[[t, r]] = Max[dp[[t, r]], 
+	   {dp[[t - 1, r - costoCostr]][[1]] + benefCostr + rendimentoCostr * (turni - t), 
+	    StringJoin[If[StringQ[dp[[t - 1, r - costoCostr]][[2]]], 
+	                  dp[[t - 1, r - costoCostr]][[2]], ""], "Costruisci Struttura\n"]}];
+	];
+	
+	If[r >= costoEspl,
+	 dp[[t, r]] = Max[dp[[t, r]], 
+	   {dp[[t - 1, r - costoEspl]][[1]] + Max[beneficioEsplorazioneRange], 
+	    StringJoin[If[StringQ[dp[[t - 1, r - costoEspl]][[2]]], 
+	                  dp[[t - 1, r - costoEspl]][[2]], ""], "Esplora\n"]}];
+	];
     ]
    ];
   
@@ -64,10 +72,9 @@ AvviaGioco[] := DynamicModule[
     simulazioneIniziata = False, risorseIniziali = 100, turniIniziali = 10, 
     difficolta = "Medio", costoRaccolta, beneficioRaccolta, 
     costoCostruzione, beneficioCostruzione, costoEsplorazione, 
-    beneficioEsplorazione, rendimentoCostruzione = 0, 
-    strategiaOttimale = ""
-    },
-   
+    beneficioEsplorazione, rendimentoCostruzione = 0
+    }, 
+       
    (* Interfaccia del Simulatore *)
    Column[{
      
@@ -114,13 +121,20 @@ AvviaGioco[] := DynamicModule[
        }],
      Spacer[10],
      
-     (* Variabile per il seed numerico *)
-seedNumerico = 1234;
-
-(* Interfaccia utente: aggiunta input per il seed *)
+   (* Variabile per il seed numerico *)
+	seedNumerico = 42;
+	
+	(* Interfaccia utente: aggiunta input per il seed *)
 Row[{
    Style["Seed: ", Bold],
-   InputField[Dynamic[seedNumerico, (seedNumerico = Round[#]) &], Number, FieldSize -> 6, Enabled -> Dynamic[!simulazioneIniziata]]
+   InputField[
+     Dynamic[
+       seedNumerico, 
+       (seedNumerico = IntegerPart[#]) &
+     ], 
+     FieldSize -> 6, 
+     Enabled -> Dynamic[!simulazioneIniziata]
+   ]
 }],
 
 Spacer[10],
@@ -137,25 +151,32 @@ Tooltip[
 
    (* Configurazione parametri in base alla difficolt\[AGrave] *)
    Switch[difficolta,
-     "Facile", (
-       costoRaccolta = 10; beneficioRaccolta = 30; 
-       costoCostruzione = 35; rendimentoCostruzione = 8;
-       costoEsplorazione = 15; beneficioEsplorazione = {20, 70}
-     ),
-     "Medio", (
-       costoRaccolta = 15; beneficioRaccolta = 25; 
-       costoCostruzione = 40; rendimentoCostruzione = 10;
-       costoEsplorazione = 20; beneficioEsplorazione = {10, 50}
-     ),
-     "Difficile", (
-       costoRaccolta = 15; beneficioRaccolta = RandomInteger[{15, 30}]; 
-       costoCostruzione = 50; rendimentoCostruzione = 12;
-       costoEsplorazione = 25; beneficioEsplorazione = RandomInteger[{-30, 80}]
-     )
-   ];
+  "Facile", (
+    costoRaccolta = 10; beneficioRaccolta = 30; 
+    costoCostruzione = 35; rendimentoCostruzione = 8;
+    costoEsplorazione = 15; beneficioEsplorazione = {20, 70}
+  ),
+  "Medio", (
+    costoRaccolta = 15; beneficioRaccolta = 25; 
+    costoCostruzione = 40; rendimentoCostruzione = 10;
+    costoEsplorazione = 20; beneficioEsplorazione = {10, 50}
+  ),
+  "Difficile", (
+    costoRaccolta = 15; beneficioRaccolta = RandomInteger[{15, 30}]; 
+    costoCostruzione = 50; rendimentoCostruzione = 12;
+    costoEsplorazione = 25; 
+    beneficioEsplorazione = {RandomInteger[{-30, 0}], RandomInteger[{0, 80}]}
+  )
+];
+
+   (* Calcolo della strategia ottimale dopo aver impostato i parametri *)
+   strategiaOttimale = 
+     CalcolaStrategiaOttimale[turniRestanti, risorseCorrenti, 
+       costoRaccolta, beneficioRaccolta, costoCostruzione, 
+       beneficioCostruzione, rendimentoCostruzione, costoEsplorazione, 
+       beneficioEsplorazione];
  ), Enabled -> Dynamic[!simulazioneIniziata]
-  ], "Avvia il simulatore con un seed specifico."]
-,
+], "Avvia il simulatore con un seed specifico."],
      Spacer[10],
      
      (* Pulsanti per le azioni di gioco *)
@@ -169,103 +190,86 @@ Tooltip[
 		
    Row[{
    (* Button: Raccogli Risorse *)
-Tooltip[
- Button["Raccogli Risorse", 
-  If[turniRestanti > 0 && risorseCorrenti >= costoRaccolta,
-   risorseCorrenti -= costoRaccolta; 
-   risorseCorrenti += beneficioRaccolta;
-   turniRestanti--; azioniRaccolta++;
-   log = Column[{
-      Row[{
-        Style["Turno " <> ToString[turniIniziali - turniRestanti] <> ": ", Bold],
-        Style["Raccogli Risorse", Blue],
-        " - Risorse Spese: ", Style[ToString[costoRaccolta], Italic],
-        ", Guadagno: ", Style[ToString[beneficioRaccolta], Bold],
-        ", Risorse Totali: ", Style[ToString[risorseCorrenti], Bold]
-      }],
-      Style["", Bold], log}]
-  ], Enabled -> Dynamic[simulazioneIniziata]],
- Dynamic[
-  Module[{cR, bR},
-   Switch[difficolta,
-    "Facile", (cR = 10; bR = 30),
-    "Medio", (cR = 15; bR = 25),
-    "Difficile", (cR = 15; bR = "15 - 30")];
-   "Raccogli risorse:\n - Costo: " <> ToString[cR] <> 
-   " risorse\n - Guadagno: " <> ToString[bR] <> " risorse."
-  ]
- ]
-],
+   Tooltip[
+    Button["Raccogli Risorse", 
+     If[turniRestanti > 0 && risorseCorrenti >= costoRaccolta,
+      risorseCorrenti -= costoRaccolta; 
+      risorseCorrenti += beneficioRaccolta;
+      turniRestanti--; azioniRaccolta++;
+      log = Column[{
+         Row[{
+           Style["Turno " <> ToString[turniIniziali - turniRestanti] <> ": ", Bold],
+           Style["Raccogli Risorse", Blue],
+           " - Risorse Spese: ", Style[ToString[costoRaccolta], Italic],
+           ", Guadagno: ", Style[ToString[beneficioRaccolta], Bold],
+           ", Risorse Totali: ", Style[ToString[risorseCorrenti], Bold]
+         }],
+         Style["", Bold], log}]
+     ], Enabled -> Dynamic[simulazioneIniziata]],
+    "Raccogli risorse: Costo " <> ToString[costoRaccolta] <> " risorse."
+   ],
+   
+   Spacer[10],
+   
+   (* Button: Costruisci Struttura *)
+   Tooltip[
+    Button["Costruisci Struttura", 
+     If[turniRestanti > 0 && risorseCorrenti >= costoCostruzione,
+      Module[{incrementoRendimento},
+       incrementoRendimento = Switch[difficolta, "Facile", 8, "Medio", 10, "Difficile", 12];
+       risorseCorrenti -= costoCostruzione; 
+       rendimentoCostruzione += incrementoRendimento;
+       turniRestanti--; azioniCostruzione++;
+       log = Column[{
+          Row[{
+            Style["Turno " <> ToString[turniIniziali - turniRestanti] <> ": ", Bold],
+            Style["Costruisci Struttura", Darker[Green]],
+            " - Risorse Spese: ", Style[ToString[costoCostruzione], Italic],
+            ", Guadagno Passivo: ", Style[ToString[incrementoRendimento], Bold],
+            ", Risorse Totali: ", Style[ToString[risorseCorrenti], Bold]
+          }],
+          Style["", Bold], log}]
+      ]], Enabled -> Dynamic[simulazioneIniziata]],
+    "Costruisci struttura: Costo " <> ToString[costoCostruzione] <> " risorse."
+   ],
+   
+   Spacer[10],
 
-Spacer[10],
-
-(* Button: Costruisci Struttura *)
-Tooltip[
- Button["Costruisci Struttura", 
-  If[turniRestanti > 0 && risorseCorrenti >= costoCostruzione,
-   risorseCorrenti -= costoCostruzione; 
-   rendimentoCostruzione += Switch[difficolta, "Facile", 8, "Medio", 10, "Difficile", 12];
-   turniRestanti--; azioniCostruzione++;
-   log = Column[{
-      Row[{
-        Style["Turno " <> ToString[turniIniziali - turniRestanti] <> ": ", Bold],
-        Style["Costruisci Struttura", Darker[Green]],
-        " - Risorse Spese: ", Style[ToString[costoCostruzione], Italic],
-        ", Guadagno Passivo: ", Style[ToString[rendimentoCostruzione], Bold],
-        ", Risorse Totali: ", Style[ToString[risorseCorrenti], Bold]
-      }],
-      Style["", Bold], log}]
-  ], Enabled -> Dynamic[simulazioneIniziata]],
- Dynamic[
-  Module[{cC, rC},
-   Switch[difficolta,
-    "Facile", (cC = 35; rC = 8),
-    "Medio", (cC = 40; rC = 10),
-    "Difficile", (cC = 50; rC = 12)];
-   "Costruisci struttura:\n - Costo: " <> ToString[cC] <> 
-   " risorse\n - Guadagno passivo per turno: +" <> ToString[rC] <> " risorse."
-  ]
- ]
-],
-
-Spacer[10],
-
-(* Button: Esplora *)
-Tooltip[
- Button["Esplora", 
-  If[turniRestanti > 0 && risorseCorrenti >= costoEsplorazione,
-   Module[{guadagnoEsplorazione},
-    guadagnoEsplorazione = RandomInteger[
-      Switch[difficolta, 
-       "Facile", {20, 70}, 
-       "Medio", {10, 50}, 
-       "Difficile", {-30, 80}]];
-    risorseCorrenti -= costoEsplorazione; 
-    risorseCorrenti += guadagnoEsplorazione;
-    turniRestanti--; azioniEsplorazione++;
-    log = Column[{
-       Row[{
-         Style["Turno " <> ToString[turniIniziali - turniRestanti] <> ": ", Bold],
-         Style["Esplora", Darker[Red]],
-         " - Risorse Spese: ", Style[ToString[costoEsplorazione], Italic],
-         ", Guadagno Variabile: ", Style[ToString[guadagnoEsplorazione], Bold],
-         ", Risorse Totali: ", Style[ToString[risorseCorrenti], Bold]
-       }],
-       Style["", Bold], log}]
-   ]], Enabled -> Dynamic[simulazioneIniziata]],
- Dynamic[
-  Module[{cE, bMin, bMax},
-   Switch[difficolta,
-    "Facile", (cE = 15; bMin = 20; bMax = 70),
-    "Medio", (cE = 20; bMin = 10; bMax = 50),
-    "Difficile", (cE = 25; bMin = -30; bMax = 80)];
-   "Esplora nuove aree:\n - Costo: " <> ToString[cE] <> 
-   " risorse\n - Guadagno variabile: da " <> ToString[bMin] <> 
-   " a " <> ToString[bMax] <> " risorse."
-  ]
- ]
-]
-}]
+   (* Button: Esplora *)
+   Tooltip[
+    Button["Esplora", 
+     If[turniRestanti > 0 && risorseCorrenti >= costoEsplorazione,
+      Module[{guadagnoEsplorazione},
+       guadagnoEsplorazione = RandomInteger[
+         Switch[difficolta, 
+          "Facile", {20, 70}, 
+          "Medio", {10, 50}, 
+          "Difficile", {-30, 80}]];
+       risorseCorrenti -= costoEsplorazione; 
+       risorseCorrenti += guadagnoEsplorazione;
+       turniRestanti--; azioniEsplorazione++;
+       log = Column[{
+          Row[{
+            Style["Turno " <> ToString[turniIniziali - turniRestanti] <> ": ", Bold],
+            Style["Esplora", Darker[Red]],
+            " - Risorse Spese: ", Style[ToString[costoEsplorazione], Italic],
+            ", Guadagno Variabile: ", Style[ToString[guadagnoEsplorazione], Bold],
+            ", Risorse Totali: ", Style[ToString[risorseCorrenti], Bold]
+          }],
+          Style["", Bold], log}]
+      ]], Enabled -> Dynamic[simulazioneIniziata]],
+    Dynamic[
+     Module[{cE, bMin, bMax},
+      Switch[difficolta,
+       "Facile", (cE = 15; bMin = 20; bMax = 70),
+       "Medio", (cE = 20; bMin = 10; bMax = 50),
+       "Difficile", (cE = 25; bMin = -30; bMax = 80)];
+      "Esplora nuove aree:\n - Costo: " <> ToString[cE] <> 
+      " risorse\n - Guadagno variabile: da " <> ToString[bMin] <> 
+      " a " <> ToString[bMax] <> " risorse."
+     ]]
+   ]
+}],
 
      Spacer[10],
      
@@ -284,12 +288,26 @@ Tooltip[
      Spacer[10],
      
      (* Pulsante per mostrare la soluzione *)
-     Tooltip[
-      Button["Mostra Soluzione", 
-       MostraSoluzione["Soluzione ottimale ancora da implementare."], 
-       Enabled -> Dynamic[simulazioneIniziata]
-       ], "Mostra la soluzione della simulazione."],
+Tooltip[
+ Button["Mostra Soluzione", 
+   MostraSoluzione[
+    "Beneficio Totale: " <> ToString[strategiaOttimale[[1]]] <> 
+    "\nAzioni Ottimali:\n" <> strategiaOttimale[[2]]
+   ], 
+   Enabled -> Dynamic[simulazioneIniziata]
+ ], "Mostra la soluzione ottimale calcolata per il problema attuale."],
      Spacer[10],
+   
+   (* Pulsante per verificare il risultato *)
+Tooltip[
+ Button["Verifica Risultato", 
+   Module[{feedback},
+    feedback = VerificaRisultato[risorseCorrenti, strategiaOttimale];
+    CreateDialog[{TextCell[feedback, FontWeight -> Bold]}]
+   ],
+   Enabled -> Dynamic[simulazioneIniziata]
+ ], "Verifica se il risultato raggiunto corrisponde alla soluzione ottimale."],
+ Spacer[10],
      
      (* Pulsante per pulire l'interfaccia *)
      Tooltip[
