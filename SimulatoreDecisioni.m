@@ -62,6 +62,37 @@ If[risorseFinali === soluzioneOttimale[[1]],
   "Risultato Corretto! Hai ottenuto il massimo beneficio.",
   "Risultato Errato. Il massimo beneficio \[EGrave]: " <> 
    ToString[soluzioneOttimale[[1]]]]
+(* Funzione per estrarre le azioni utente dal log *)
+EstraiMosseDaLog[log_] := 
+ Module[{righe, mosse = {}, turno, azione},
+  righe = StringSplit[log, "\n"]; (* Divide il log in righe *)
+  Do[
+   If[StringMatchQ[righe[[i]], "Turno *: *"], 
+    turno = StringCases[righe[[i]], "Turno " ~~ DigitCharacter .. ~~ ":"];
+    azione = StringCases[righe[[i]], ": " ~~ WordCharacter ..];
+    AppendTo[mosse, <|"Turno" -> ToExpression[First[turno]], "Azione" -> First[azione]|>];
+   ],
+   {i, Length[righe]}
+  ];
+  mosse
+];
+
+(* Confronta le azioni utente estratte dal log con la simulazione ottimale *)
+ConfrontaMosseDaLog[log_, soluzioneSimulata_] := 
+ Module[{mosseUtente, differenze = {}, azioniSimulate, i},
+  mosseUtente = EstraiMosseDaLog[log];
+  azioniSimulate = Lookup[soluzioneSimulata, "Azioni"];
+  For[i = 1, i <= Length[mosseUtente], i++,
+   If[mosseUtente[[i, "Azione"]] =!= azioniSimulate[[i]],
+    AppendTo[differenze, 
+     "Turno " <> ToString[mosseUtente[[i, "Turno"]]] <> 
+      ": Utente ha scelto " <> mosseUtente[[i, "Azione"]] <> 
+      ", ma la soluzione ottimale era " <> azioniSimulate[[i]]
+    ];
+   ];
+  ];
+  differenze
+];
 
 (* Funzione per calcolare la strategia ottimale con programmazione dinamica *)
 CalcolaStrategiaOttimale[turni_, risorse_, costoRacc_, benefRacc_, costoEspl_, benefEspl_] :=
@@ -422,7 +453,7 @@ If[ControllaRisorse[costoCostruzioneEffettivo, "Costruisci Struttura", risorseCo
    rendimentoCostruzione += incrementoRendimentoEffettivo;
    turniRestanti--; 
    azioniCostruzione++;
-
+  
    (* Aggiorna il log *)
    log = Column[{
      Row[{
@@ -527,7 +558,7 @@ If[ControllaRisorse[costoEsplorazioneEffettivo, "Esplora", risorseCorrenti, log]
    risorseCorrenti += beneficioEsplorazioneEffettivo;
    turniRestanti--; 
    azioniEsplorazione++;
-
+  
    (* Aggiorna il log *)
    log = Column[{
      Row[{
@@ -721,10 +752,11 @@ Which[
 ]
 
  }]
-
-     Spacer[10],
+ 
+ Spacer[10],
      
 Row[{
+
  Tooltip[
   Button["Mostra Risultati", 
    log = Column[{
@@ -736,51 +768,151 @@ Row[{
     }];
    Enabled -> Dynamic[simulazioneIniziata]
   ], "Mostra le statistiche finali della simulazione."
- ],
- 
- Spacer[10],
- 
+  ],
+  
+     Spacer[10],
+     
 Tooltip[
- Button["Mostra Soluzione", 
-  Module[{beneficio, azioni},
-   beneficio = Lookup[soluzioneOttimale, "BeneficioMassimo", Null];
-   azioni = Lookup[soluzioneOttimale, "Azioni", {}];
-   If[beneficio =!= Null && Length[azioni] > 0,
-    CreateDialog[{TextCell["Soluzione Ottimale:"], 
-      TextCell["Beneficio Totale: " <> ToString[beneficio] <> 
-        "\nAzioni Ottimali:\n" <> StringJoin[Riffle[azioni, "\n"]], FontWeight -> Bold]}],
-    CreateDialog[{TextCell["Errore: Soluzione non valida o non calcolata.", FontWeight -> Bold]}]
-   ]
+ Button["Mostra Soluzione",
+  Module[{
+    logSimulazione = {}, turnoCorrente, azioneSuggerita = "Nessuna",
+    spiegazione = "Inizializzazione", turniSimulati = turniIniziali,
+    risorse = risorseIniziali, rendimentoCostruzione = 0,
+    guadagnoEsplorazionePonderato, guadagnoRaccolta, beneficioTotale = 0,
+    costoRaccoltaEffettivo, beneficioRaccoltaEffettivo,
+    costoCostruzioneEffettivo, incrementoRendimentoEffettivo,
+    costoEsplorazioneEffettivo, beneficioEsplorazioneEffettivo,
+    risorseMassime = risorseIniziali
+  },
+
+   (* Calcola i parametri dinamicamente in base alla difficolt\[AGrave] *)
+   costoCostruzioneEffettivo = Switch[difficolta, 
+     "Facile", 35, 
+     "Medio", 40, 
+     "Difficile", 50
+   ];
+   incrementoRendimentoEffettivo = Switch[difficolta, 
+     "Facile", 8, 
+     "Medio", 10, 
+     "Difficile", 12
+   ];
+   costoEsplorazioneEffettivo = Switch[difficolta, 
+     "Facile", 15, 
+     "Medio", 20, 
+     "Difficile", 25
+   ];
+   beneficioEsplorazioneEffettivo = Switch[difficolta, 
+     "Facile", {20, 70}, 
+     "Medio", {10, 50}, 
+     "Difficile", {RandomInteger[{-30, 0}], RandomInteger[{0, 80}]}
+   ];
+   costoRaccoltaEffettivo = Switch[difficolta, 
+     "Facile", 10, 
+     "Medio", 15, 
+     "Difficile", 20
+   ];
+   beneficioRaccoltaEffettivo = Switch[difficolta, 
+     "Facile", 30, 
+     "Medio", 25, 
+     "Difficile", RandomInteger[{15, 30}]
+   ];
+
+   (* Loop per simulare la partita *)
+   While[turniSimulati > 0 && risorse > 0,
+
+    (* Calcolo dei parametri dinamici *)
+    guadagnoEsplorazionePonderato = 
+     0.7 * (Max[beneficioEsplorazioneEffettivo] - costoEsplorazioneEffettivo) + 
+      0.3 * (Min[beneficioEsplorazioneEffettivo] - costoEsplorazioneEffettivo);
+    guadagnoRaccolta = beneficioRaccoltaEffettivo - costoRaccoltaEffettivo;
+
+    rendimentoCostruzione = 
+     If[turniSimulati > Ceiling[costoCostruzioneEffettivo / incrementoRendimentoEffettivo], 
+      incrementoRendimentoEffettivo * (turniSimulati - Ceiling[costoCostruzioneEffettivo / incrementoRendimentoEffettivo]),
+      0
+     ];
+
+    (* Logica per decidere l'azione migliore *)
+    Which[
+     (* Caso 1: Costruire *)
+     rendimentoCostruzione > Max[guadagnoEsplorazionePonderato, guadagnoRaccolta] &&
+       turniSimulati > Ceiling[costoCostruzioneEffettivo / incrementoRendimentoEffettivo] &&
+       risorse >= costoCostruzioneEffettivo &&
+       risorse - costoCostruzioneEffettivo >= Min[costoRaccoltaEffettivo, costoEsplorazioneEffettivo],
+     (
+      azioneSuggerita = "Costruisci Struttura";
+      spiegazione = "Costruire conviene: rendimento stimato " <> ToString[rendimentoCostruzione];
+      risorse -= costoCostruzioneEffettivo;
+      rendimentoCostruzione += incrementoRendimentoEffettivo;
+     ),
+
+     (* Caso 2: Esplorare *)
+     guadagnoEsplorazionePonderato > guadagnoRaccolta &&
+       risorse >= costoEsplorazioneEffettivo &&
+       risorse - costoEsplorazioneEffettivo >= costoRaccoltaEffettivo,
+     (
+      azioneSuggerita = "Esplora";
+      spiegazione = "Esplorare conviene: guadagno medio ponderato di " <> ToString[guadagnoEsplorazionePonderato];
+      risorse -= costoEsplorazioneEffettivo;
+      risorse += RandomInteger[beneficioEsplorazioneEffettivo];
+     ),
+
+     (* Caso 3: Raccogliere risorse *)
+     risorse >= costoRaccoltaEffettivo,
+     (
+      azioneSuggerita = "Raccogli Risorse";
+      spiegazione = "Raccogliere \[EGrave] la scelta sicura: guadagno garantito di " <> ToString[guadagnoRaccolta];
+      risorse -= costoRaccoltaEffettivo;
+      risorse += beneficioRaccoltaEffettivo;
+     ),
+
+     (* Caso 4: Nessuna azione possibile *)
+     True,
+     (
+      azioneSuggerita = "Raccogli Risorse";
+      spiegazione = "Non puoi fare altro: raccogli risorse per continuare.";
+      risorse -= costoRaccoltaEffettivo;
+      risorse += beneficioRaccoltaEffettivo;
+     )
+    ];
+
+    (* Aggiorna le risorse massime raggiunte *)
+    If[risorse > risorseMassime, risorseMassime = risorse];
+
+    (* Aggiorna il log della simulazione *)
+    AppendTo[logSimulazione, 
+     "Turno " <> ToString[turniIniziali - turniSimulati + 1] <> ": " <> azioneSuggerita <>
+      " - " <> spiegazione <> " | Risorse rimanenti: " <> ToString[risorse]
+    ];
+
+    (* Riduci i turni *)
+    turniSimulati--;
+   ];
+
+   (* Aggiungi il totale delle risorse rimanenti e massime raggiunte al log *)
+   AppendTo[logSimulazione, 
+    "\nTotale risorse rimanenti: " <> ToString[risorse] <>
+    "\nRisorse massime raggiunte: " <> ToString[risorseMassime]
+   ];
+
+   (* Mostra i risultati della simulazione *)
+   CreateDialog[{
+     TextCell["Simulazione completata:", FontWeight -> Bold],
+     Pane[StringJoin[Riffle[logSimulazione, "\n"]], {500, 400}, Scrollbars -> True]
+   }, WindowTitle -> "Log Simulazione"];
   ]
- ], "Mostra la soluzione ottimale calcolata per il problema attuale."],
- 
- Spacer[10],
- 
-	Tooltip[
-	 Button["Verifica Risultato", 
-	  Module[{beneficio},
-	   beneficio = Lookup[soluzioneOttimale, "BeneficioMassimo", Null];
-	   If[beneficio =!= Null,
-	    CreateDialog[{TextCell[
-	      If[risorseCorrenti == beneficio,
-	       "Risultato Corretto! Hai ottenuto il massimo beneficio.",
-	       "Risultato Errato. Il massimo beneficio \[EGrave]: " <> ToString[beneficio]
-	      ], FontWeight -> Bold]}],
-	    CreateDialog[{TextCell["Errore: Soluzione non valida o non calcolata.", FontWeight -> Bold]}]
-	   ]
-	  ]
-	 ], "Verifica se il risultato raggiunto corrisponde alla soluzione ottimale."]
+ ], "Simula una partita automatica basata sulla difficolt\[AGrave] e mostra il log della simulazione."]
 	}],
   
  Spacer[10],
  
-     Row[{
+     (* Row[{
        Button["Mostra Debug Log", 
         CreateDialog[{TextCell["Debug Log:"], 
           Pane[Dynamic[StringJoin[Riffle[debugLog, "\n"]]], {400, 300}, Scrollbars -> True]}, 
          WindowTitle -> "Debug Log"]]
      }],
-     Spacer[10],
+     Spacer[10],*)
      
      (* Pulsante per pulire l'interfaccia *)
 	Tooltip[
