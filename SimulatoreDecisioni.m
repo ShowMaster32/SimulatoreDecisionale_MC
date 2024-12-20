@@ -125,23 +125,48 @@ MostraSoluzione[soluzione_] :=
 ];
 
 (* Funzione per controllare lo stato delle risorse e terminare la partita se necessario *)
-ControllaRisorse[] := 
+ControllaRisorse[costo_, azione_, risorseCorrenti_, log_] := 
  Module[{},
-  If[risorseCorrenti <= 0,
-   (* Mostra dialogo di fine partita *)
+  AggiungiDebug[
+   "Chiamata ControllaRisorse per azione: " <> azione <> 
+    " | Costo: " <> ToString[costo] <> 
+    " | Risorse Correnti: " <> ToString[risorseCorrenti]
+  ];
+  
+  If[risorseCorrenti < costo,
+   AggiungiDebug[
+    "Partita persa: nessuna azione possibile con risorse correnti (" <> 
+    ToString[risorseCorrenti] <> 
+    " disponibili.)"
+   ];
+   
+   (* Aggiorna il log con messaggio ben visibile *)
+	log = Column[{
+      Row[{
+        Style["Turno terminato: ", Bold, Red],
+        Style["Partita persa!", Italic, Darker[Red]],
+        Style["Risorse insufficienti: " <> ToString[risorseCorrenti], Bold]
+      }], log
+    }];
+   
+   (* Mostra dialog di notifica *)
    CreateDialog[
     Column[{
-      Style["Hai perso! Risorse esaurite.", Bold, Red],
-      Style["Premi 'Pulisci e Ricomincia' per iniziare una nuova partita.", Italic]
+      Style["Partita Terminata!", Bold, 16, Red],
+      Style["Non puoi pi\[UGrave] eseguire alcuna azione con le risorse disponibili.", Italic],
+      Style["Premi 'Pulisci e Ricomincia' per avviare una nuova simulazione.", Bold, Darker[Gray]]
     }],
     WindowTitle -> "Fine Partita"
    ];
+   (* Segnala che la simulazione \[EGrave] terminata *)
    simulazioneIniziata = False;
-   ,
-   (* Azione opzionale se risorse sono ancora disponibili *)
-   Null
+   Return[False]; (* Blocco esecuzione *)
   ];
+  
+  AggiungiDebug["Risorse sufficienti per eseguire: " <> azione];
+  True
  ];
+
 
 
 (* Funzione per avviare il simulatore *)
@@ -246,10 +271,22 @@ Tooltip[
  Button["Raccogli Risorse", 
   Module[
    {
-    costoRaccoltaEffettivo, beneficioRaccoltaEffettivo
+    costoCostruzioneEffettivo, incrementoRendimentoEffettivo,
+    costoRaccoltaEffettivo, beneficioRaccoltaEffettivo,
+    costoEsplorazioneEffettivo, beneficioEsplorazioneEffettivo
    },
    (* Leggi i valori direttamente dagli oggetti dinamici *)
-   costoRaccoltaEffettivo = Switch[difficolta, 
+    costoCostruzioneEffettivo = Switch[difficolta, 
+     "Facile", 35, 
+     "Medio", 40, 
+     "Difficile", 50
+   ];
+   incrementoRendimentoEffettivo = Switch[difficolta, 
+     "Facile", 8, 
+     "Medio", 10, 
+     "Difficile", 12
+   ];
+    costoRaccoltaEffettivo = Switch[difficolta, 
      "Facile", 10, 
      "Medio", 15, 
      "Difficile", 20
@@ -259,7 +296,20 @@ Tooltip[
      "Medio", 25, 
      "Difficile", RandomInteger[{15, 30}]
    ];
+   costoEsplorazioneEffettivo = Switch[difficolta, 
+     "Facile", 15, 
+     "Medio", 20, 
+     "Difficile", 25
+   ];
+   beneficioEsplorazioneEffettivo = RandomInteger[
+     Switch[difficolta, 
+       "Facile", {20, 70}, 
+       "Medio", {10, 50}, 
+       "Difficile", {RandomInteger[{-30, 0}], RandomInteger[{0, 80}]}]
+   ];
 
+(* Controlla risorse prima di procedere *)
+If[ControllaRisorse[costoRaccoltaEffettivo, "Raccogli Risorse", risorseCorrenti, log],
    (* Aggiorna le risorse e i turni *)
    risorseCorrenti -= costoRaccoltaEffettivo; 
    risorseCorrenti += beneficioRaccoltaEffettivo; 
@@ -275,10 +325,15 @@ Tooltip[
        "   |   Guadagno: ", Style[ToString[beneficioRaccoltaEffettivo], Bold],
        "   |   Risorse Totali: ", Style[ToString[risorseCorrenti], Bold]
      }], log
-   }];
+   }],
+   Return[]
+];
 
-   (* Controlla risorse *)
-   ControllaRisorse[];
+(* Controlla risorse globali (fine partita) *)
+ControllaRisorse[
+ Min[costoRaccoltaEffettivo, costoCostruzioneEffettivo, costoEsplorazioneEffettivo],
+ "Fine Partita", risorseCorrenti, log
+];
 
    (* Log conclusivo se i turni sono finiti *)
    If[turniRestanti == 0,
@@ -313,69 +368,271 @@ Tooltip[
      "Medio", 25, 
      "Difficile", RandomInteger[{15, 30}]
     ]
-   ] <> 
-   "\nRisorse Correnti: " <> ToString[risorseCorrenti]
+   ]
+ ]
+],
+	
+	   Spacer[10],
+	  
+Tooltip[
+ Button["Costruisci Struttura", 
+  Module[
+   {
+    costoCostruzioneEffettivo, incrementoRendimentoEffettivo,
+    costoRaccoltaEffettivo, beneficioRaccoltaEffettivo,
+    costoEsplorazioneEffettivo, beneficioEsplorazioneEffettivo
+   },
+   (* Leggi i valori direttamente dagli oggetti dinamici *)
+    costoCostruzioneEffettivo = Switch[difficolta, 
+     "Facile", 35, 
+     "Medio", 40, 
+     "Difficile", 50
+   ];
+   incrementoRendimentoEffettivo = Switch[difficolta, 
+     "Facile", 8, 
+     "Medio", 10, 
+     "Difficile", 12
+   ];
+    costoRaccoltaEffettivo = Switch[difficolta, 
+     "Facile", 10, 
+     "Medio", 15, 
+     "Difficile", 20
+   ];
+   beneficioRaccoltaEffettivo = Switch[difficolta, 
+     "Facile", 30, 
+     "Medio", 25, 
+     "Difficile", RandomInteger[{15, 30}]
+   ];
+   costoEsplorazioneEffettivo = Switch[difficolta, 
+     "Facile", 15, 
+     "Medio", 20, 
+     "Difficile", 25
+   ];
+   beneficioEsplorazioneEffettivo = RandomInteger[
+     Switch[difficolta, 
+       "Facile", {20, 70}, 
+       "Medio", {10, 50}, 
+       "Difficile", {RandomInteger[{-30, 0}], RandomInteger[{0, 80}]}]
+   ];
+   
+   (* Controlla risorse prima di procedere *)
+If[ControllaRisorse[costoCostruzioneEffettivo, "Costruisci Struttura", risorseCorrenti, log],
+   (* Aggiorna le risorse e i turni *)
+   risorseCorrenti -= costoCostruzioneEffettivo;
+   rendimentoCostruzione += incrementoRendimentoEffettivo;
+   turniRestanti--; 
+   azioniCostruzione++;
+
+   (* Aggiorna il log *)
+   log = Column[{
+     Row[{
+       Style["Turno " <> ToString[turniIniziali - turniRestanti] <> ": ", Bold],
+       Style["Costruisci Struttura", Darker[Green]],
+       "   -   Risorse Spese: ", Style[ToString[costoCostruzioneEffettivo], Italic],
+       "   |   Guadagno Passivo: ", Style[ToString[incrementoRendimentoEffettivo], Bold],
+       "   |   Risorse Totali: ", Style[ToString[risorseCorrenti], Bold]
+     }], log
+   }],
+   Return[]
+   ];
+
+(* Controlla risorse globali (fine partita) *)
+ControllaRisorse[
+ Min[costoRaccoltaEffettivo, costoCostruzioneEffettivo, costoEsplorazioneEffettivo],
+ "Fine Partita", risorseCorrenti, log
+];
+
+   (* Log conclusivo se i turni sono finiti *)
+   If[turniRestanti == 0,
+    log = Column[{
+      Spacer[10],
+      Style["--- PARTITA CONCLUSA! ---", Bold, Darker[Green]],
+      "Turni Totali: " <> ToString[turniIniziali],
+      "Risorse Finali: " <> ToString[risorseCorrenti],
+      "Azioni Raccogli Risorse: " <> ToString[azioniRaccolta],
+      "Azioni Costruisci Struttura: " <> ToString[azioniCostruzione],
+      "Azioni Esplora: " <> ToString[azioniEsplorazione],
+      Spacer[10],
+      Style["Grazie per aver giocato!", Italic, Darker[Gray]],
+      Spacer[10], log
+    }];
+   ];
+  ],
+  Enabled -> Dynamic[simulazioneIniziata && turniRestanti > 0]
+ ],
+ Dynamic["Costruisci struttura: Costo " <> ToString[
+   Switch[difficolta, 
+     "Facile", 35, 
+     "Medio", 40, 
+     "Difficile", 50
+   ]] <> 
+  " risorse\nGuadagno passivo: " <> 
+  ToString[
+   Switch[difficolta, 
+     "Facile", 8, 
+     "Medio", 10, 
+     "Difficile", 12
+   ]] <> " per turno."
+ ]
+],
+
+Spacer[10],
+	
+Tooltip[
+ Button["Esplora", 
+  Module[
+   {
+    costoCostruzioneEffettivo, incrementoRendimentoEffettivo,
+    costoRaccoltaEffettivo, beneficioRaccoltaEffettivo,
+    costoEsplorazioneEffettivo, beneficioEsplorazioneEffettivo
+   },
+   (* Leggi i valori direttamente dagli oggetti dinamici *)
+    costoCostruzioneEffettivo = Switch[difficolta, 
+     "Facile", 35, 
+     "Medio", 40, 
+     "Difficile", 50
+   ];
+   incrementoRendimentoEffettivo = Switch[difficolta, 
+     "Facile", 8, 
+     "Medio", 10, 
+     "Difficile", 12
+   ];
+    costoRaccoltaEffettivo = Switch[difficolta, 
+     "Facile", 10, 
+     "Medio", 15, 
+     "Difficile", 20
+   ];
+   beneficioRaccoltaEffettivo = Switch[difficolta, 
+     "Facile", 30, 
+     "Medio", 25, 
+     "Difficile", RandomInteger[{15, 30}]
+   ];
+   costoEsplorazioneEffettivo = Switch[difficolta, 
+     "Facile", 15, 
+     "Medio", 20, 
+     "Difficile", 25
+   ];
+   beneficioEsplorazioneEffettivo = RandomInteger[
+     Switch[difficolta, 
+       "Facile", {20, 70}, 
+       "Medio", {10, 50}, 
+       "Difficile", {RandomInteger[{-30, 0}], RandomInteger[{0, 80}]}]
+   ];
+   
+      (* Controlla risorse prima di procedere *)
+If[ControllaRisorse[costoEsplorazioneEffettivo, "Esplora", risorseCorrenti, log],
+
+   (* Aggiorna le risorse e i turni *)
+   risorseCorrenti -= costoEsplorazioneEffettivo;
+   risorseCorrenti += beneficioEsplorazioneEffettivo;
+   turniRestanti--; 
+   azioniEsplorazione++;
+
+   (* Aggiorna il log *)
+   log = Column[{
+     Row[{
+       Style["Turno " <> ToString[turniIniziali - turniRestanti] <> ": ", Bold],
+       Style["Esplora", Darker[Red]],
+       "   -   Risorse Spese: ", Style[ToString[costoEsplorazioneEffettivo], Italic],
+       "   |   Guadagno Variabile: ", Style[ToString[beneficioEsplorazioneEffettivo], Bold],
+       "   |   Risorse Totali: ", Style[ToString[risorseCorrenti], Bold]
+     }], log
+   }],
+   Return[]
+   ];
+
+   (* Controlla risorse globali (fine partita) *)
+ControllaRisorse[
+ Min[costoRaccoltaEffettivo, costoCostruzioneEffettivo, costoEsplorazioneEffettivo],
+ "Fine Partita", risorseCorrenti, log
+];
+
+   (* Log conclusivo se i turni sono finiti *)
+   If[turniRestanti == 0,
+    log = Column[{
+      Spacer[10],
+      Style["--- PARTITA CONCLUSA! ---", Bold, Darker[Green]],
+      "Turni Totali: " <> ToString[turniIniziali],
+      "Risorse Finali: " <> ToString[risorseCorrenti],
+      "Azioni Raccogli Risorse: " <> ToString[azioniRaccolta],
+      "Azioni Costruisci Struttura: " <> ToString[azioniCostruzione],
+      "Azioni Esplora: " <> ToString[azioniEsplorazione],
+      Spacer[10],
+      Style["Grazie per aver giocato!", Italic, Darker[Gray]],
+      Spacer[10], log
+    }];
+   ];
+  ],
+  Enabled -> Dynamic[simulazioneIniziata && turniRestanti > 0]
+ ],
+ Dynamic["Esplora: Costo " <> ToString[
+   Switch[difficolta, 
+     "Facile", 15, 
+     "Medio", 20, 
+     "Difficile", 25
+   ]] <> 
+  " risorse\nGuadagno variabile: " <> 
+  ToString[
+   Switch[difficolta, 
+     "Facile", "{20, 70}", 
+     "Medio", "{10, 50}", 
+     "Difficile", "{-30, 80}"
+   ]]
  ]
 ],
 	
 	   Spacer[10],
 	
-	   (* Button: Esplora *)
-	   Tooltip[
-	    Button["Esplora", 
-	     If[turniRestanti > 0 && risorseCorrenti >= costoEsplorazione,
-	      Module[{guadagnoEsplorazione},
-	       guadagnoEsplorazione = RandomInteger[beneficioEsplorazione];
-	       risorseCorrenti -= costoEsplorazione;
-	       risorseCorrenti += guadagnoEsplorazione;
-	       turniRestanti--; azioniEsplorazione++;
-	       
-	       (* Aggiungi al log degli eventi *)
-	       log = Column[{
-		      Row[{
-		        Style["Turno " <> ToString[turniIniziali - turniRestanti] <> ": ", Bold],
-		        Style["Esplora", Darker[Red]],
-		        "   -   Risorse Spese: ", Style[ToString[costoEsplorazione], Italic],
-		        "   |   Guadagno Variabile: ", Style[ToString[guadagnoEsplorazione], Bold],
-		        "   |   Risorse Totali: ", Style[ToString[risorseCorrenti], Bold]
-		      }],
-		      log
-			}];
-			
-		    (* Controllo delle risorse *)
-		    ControllaRisorse[];
-	       
-	       If[turniRestanti == 0,
-	        log = Column[{
-	          Spacer[10],
-	          Style["--- PARTITA CONCLUSA! ---", Bold, Darker[Green]],
-	          "Turni Totali: " <> ToString[turniIniziali],
-	          "Risorse Finali: " <> ToString[risorseCorrenti],
-	          "Azioni Raccogli Risorse: " <> ToString[azioniRaccolta],
-	          "Azioni Costruisci Struttura: " <> ToString[azioniCostruzione],
-	          "Azioni Esplora: " <> ToString[azioniEsplorazione],
-	          Spacer[10],
-	          Style["Grazie per aver giocato!", Italic, Darker[Gray]],
-	          Spacer[10], log
-	        }]
-	       ]
-	      ]
-	     ], Enabled -> Dynamic[turniRestanti > 0 && simulazioneIniziata]
-	    ], Dynamic["Costruisci struttura: Costo " <> ToString[costoCostruzione] <> 
-   " risorse\nGuadagno passivo: " <> ToString[rendimentoCostruzione] <> " per turno."
-   ]
-   ],
-	
-	   Spacer[10],
-	
-	(* Pulsante: Ricevi un consiglio *)
+(* Pulsante: Ricevi un consiglio *)
 Tooltip[
  Button["Ricevi un consiglio",
-  Module[{turnoCorrente, azioneSuggerita, spiegazione, roiCostruzione, guadagnoEsplorazione, rischioEsplorazione},
+  Module[
+  {
+    turnoCorrente, azioneSuggerita, spiegazione, azioneSuggeritaStyled, spiegazioneStyled, roiCostruzione, 
+    guadagnoEsplorazione, rischioEsplorazione, costoCostruzioneEffettivo, incrementoRendimentoEffettivo,
+    costoEsplorazioneEffettivo, beneficioEsplorazioneEffettivo, costoRaccoltaEffettivo, beneficioRaccoltaEffettivo
+   },
+   
+   (* Calcola dinamicamente i parametri necessari *)
    turnoCorrente = turniIniziali - turniRestanti + 1;
+   costoCostruzioneEffettivo = Switch[difficolta, 
+     "Facile", 35, 
+     "Medio", 40, 
+     "Difficile", 50
+   ];
+   incrementoRendimentoEffettivo = Switch[difficolta, 
+     "Facile", 8, 
+     "Medio", 10, 
+     "Difficile", 12
+   ];
+   costoEsplorazioneEffettivo = Switch[difficolta, 
+     "Facile", 15, 
+     "Medio", 20, 
+     "Difficile", 25
+   ];
+   beneficioEsplorazioneEffettivo = RandomInteger[
+     Switch[difficolta, 
+       "Facile", {20, 70}, 
+       "Medio", {10, 50}, 
+       "Difficile", {RandomInteger[{-30, 0}], RandomInteger[{0, 80}]}]
+   ];
+   costoRaccoltaEffettivo = Switch[difficolta, 
+     "Facile", 10, 
+     "Medio", 15, 
+     "Difficile", 20
+   ];
+   beneficioRaccoltaEffettivo = Switch[difficolta, 
+     "Facile", 30, 
+     "Medio", 25, 
+     "Difficile", RandomInteger[{15, 30}]
+   ];
+   
+   rischioEsplorazione = risorseCorrenti - costoEsplorazioneEffettivo;
 
-   If[risorseCorrenti <= 0,
-    (* Partita persa se risorse sono a 0 o negative *)
+   (* Controllo della perdita della partita *)
+   If[
+    risorseCorrenti < Min[costoRaccoltaEffettivo, costoEsplorazioneEffettivo, costoCostruzioneEffettivo],
+    (* Partita persa se nessuna azione \[EGrave] possibile *)
     CreateDialog[{
       TextCell["Hai perso! Non puoi continuare il gioco.", FontWeight -> Bold, FontColor -> Red],
       TextCell["Clicca 'Pulisci e Ricomincia' per iniziare una nuova partita."]
@@ -385,51 +642,78 @@ Tooltip[
    ];
 
    If[turniRestanti > 0,
-    (* Calcolo del ROI per costruzione *)
-    roiCostruzione = If[rendimentoCostruzione > 0, 
-      Ceiling[costoCostruzione / rendimentoCostruzione], Infinity];
+	
+	rendimentoCostruzione = 
+ If[turniRestanti > Ceiling[costoCostruzioneEffettivo / incrementoRendimentoEffettivo], 
+  incrementoRendimentoEffettivo * (turniRestanti - Ceiling[costoCostruzioneEffettivo / incrementoRendimentoEffettivo]),
+  0
+];
 
-    (* Guadagno medio per esplorazione *)
-    guadagnoEsplorazione = Mean[beneficioEsplorazione];
+AggiungiDebug["rendimentoCostruzione: " <> ToString[rendimentoCostruzione-5]];
 
-    (* Rischio di esplorazione: risorse negative dopo esplorazione *)
-    rischioEsplorazione = risorseCorrenti - costoEsplorazione;
+   (* Guadagni esplorazione ponderati *)
+   guadagnoEsplorazionePonderato = 
+    0.7 * (Max[beneficioEsplorazioneEffettivo] - costoEsplorazioneEffettivo) + 
+    0.3 * (Min[beneficioEsplorazioneEffettivo] - costoEsplorazioneEffettivo);
+    
+    guadagnoRaccolta = beneficioRaccoltaEffettivo - costoRaccoltaEffettivo;
+	
+	AggiungiDebug["guadagnoEsplorazionePonderato: " <> ToString[guadagnoEsplorazionePonderato]];
+	AggiungiDebug["guadagnoRaccolta: " <> ToString[guadagnoRaccolta]]
 
-    (* Logica del consiglio *)
-    Which[
-     (* Caso 1: Costruire se ROI \[EGrave] vantaggioso e ci sono risorse sufficienti *)
-     risorseCorrenti >= costoCostruzione && roiCostruzione <= turniRestanti && turnoCorrente < turniIniziali / 2,
-     azioneSuggerita = Style["Costruisci", Blue];
-     spiegazione = "Costruire \[EGrave] vantaggioso: ROI in " <> ToString[roiCostruzione] <> 
-       " turni. Guadagno passivo massimo.",
-
-     (* Caso 2: Esplorare se garantisce un guadagno netto positivo e risorse non rischiano il negativo *)
-     risorseCorrenti >= costoEsplorazione && guadagnoEsplorazione > costoEsplorazione && rischioEsplorazione > 0,
-     azioneSuggerita = Style["Esplora", Blue];
-     spiegazione = "Esplorare \[EGrave] conveniente: guadagno netto positivo dalle risorse extra.",
-
-     (* Caso 3: Raccogliere risorse se siamo nei turni finali o altre opzioni non sono possibili *)
-     risorseCorrenti >= costoRaccolta && turnoCorrente >= turniIniziali / 2,
-     azioneSuggerita = Style["Raccogli Risorse", Blue];
-     spiegazione = "Raccogli risorse per prepararti agli ultimi turni.",
-
-     (* Caso 4: Nessuna azione possibile *)
+   (* Logica del consiglio *)
+Which[
+     (* Caso 1: Costruire *)
+     rendimentoCostruzione > Max[guadagnoEsplorazionePonderato, guadagnoRaccolta] &&
+       turniRestanti > Ceiling[costoCostruzioneEffettivo / incrementoRendimentoEffettivo] &&
+       risorseCorrenti >= costoCostruzioneEffettivo,
+     azioneSuggerita = "Costruisci";
+     spiegazione = "Costruire conviene: rendimento stimato " <> 
+       ToString[rendimentoCostruzione] <> 
+       " con ROI in " <> 
+       ToString[Ceiling[costoCostruzioneEffettivo / incrementoRendimentoEffettivo]] <> 
+       " turni.",
+     
+     (* Caso 2: Esplorare *)
+     guadagnoEsplorazionePonderato > guadagnoRaccolta && rischioEsplorazione > 0 &&
+       risorseCorrenti >= costoEsplorazioneEffettivo,
+     azioneSuggerita = "Esplora";
+     spiegazione = "Esplorare conviene: guadagno medio ponderato di " <> 
+       ToString[guadagnoEsplorazionePonderato] <> 
+       " con massimo potenziale " <> ToString[Max[beneficioEsplorazioneEffettivo]] <> 
+       " e rischio minimo.",
+     
+     (* Caso 3: Raccogliere risorse *)
+     risorseCorrenti >= costoRaccoltaEffettivo,
+     azioneSuggerita = "Raccogli Risorse";
+     spiegazione = "Raccogliere \[EGrave] la scelta sicura: guadagno garantito di " <> 
+       ToString[guadagnoRaccolta] <> " a turno.",
+     
+     (* Caso alternativo: Risorse insufficienti per azione migliore *)
      True,
-     azioneSuggerita = Style["Nessuna azione consigliata", Blue];
-     spiegazione = "Risorse insufficienti per qualsiasi azione."
+     azioneAlternativa = If[
+       risorseCorrenti >= costoEsplorazioneEffettivo, "Esplora", "Raccogli Risorse"
+     ];
+     azioneSuggerita = azioneAlternativa;
+     spiegazione = "L'azione migliore richiederebbe pi\[UGrave] risorse. Ti consigliamo di: " <> azioneAlternativa <> "."
     ];
-   ,
-   (* Partita terminata *)
-   azioneSuggerita = Style["Nessuna azione suggerita", Blue];
-   spiegazione = "Partita terminata o parametri non validi.";
-   ];
+
+   
+	AggiungiDebug["Richiesto consiglio DOPO al Which"];
+	AggiungiDebug["ROI: " <> ToString[roiCostruzione]];
+	AggiungiDebug["Valore azioneSuggerita: " <> ToString[azioneSuggerita]];
+	AggiungiDebug["Valore spiegazione: " <> ToString[spiegazione]];
+	
+   (* Applica lo stile *)
+   azioneSuggeritaStyled = Style[azioneSuggerita, Bold, Blue];
+   spiegazioneStyled = Style[spiegazione, Italic];
 
    (* Mostra il consiglio *)
    CreateDialog[{
      TextCell["Consiglio per il turno " <> ToString[turnoCorrente] <> ":", FontWeight -> Bold],
-     TextCell[azioneSuggerita],
-     TextCell[spiegazione, FontWeight -> Bold]
-   }];
+     TextCell[azioneSuggeritaStyled],
+     TextCell[spiegazioneStyled]
+   }]];
   ],
   Enabled -> Dynamic[simulazioneIniziata && turniRestanti > 0]
  ],
