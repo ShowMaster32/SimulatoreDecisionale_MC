@@ -6,27 +6,17 @@
 
 BeginPackage["SimulatoreDecisioni`"];
 
+log::usage = "log \[EGrave] una variabile globale per registrare gli eventi del simulatore.";
+
 (* Funzione principale per avviare il gioco *)
 (* Questa funzione avvia l'interfaccia interattiva del simulatore, permettendo all'utente di personalizzare i parametri e avviare la simulazione. *)
 AvviaGioco::usage = "AvviaGioco[] lancia la simulazione interattiva completa.";
 
 Begin["`Private`"];
 
-(* Variabile globale per raccogliere i messaggi di debug *)
-(* Questa variabile \[EGrave] una lista utilizzata per registrare i messaggi di debug generati durante l'esecuzione del simulatore. *)
-debugLog = {};
+(* Variabile globale per il registro degli eventi *)
+log = "Simulazione iniziata...\n";
 
-(* Funzione per aggiungere messaggi al log di debug *)
-(* 
-   AggiungiDebug[message_]
-   Parametri:
-   - message: Stringa contenente il messaggio da aggiungere al log.
-   Funzione:
-   Aggiunge il messaggio fornito alla lista globale `debugLog`.
-*)
-AggiungiDebug[message_] := AppendTo[debugLog, message];
-
-(* Variabile globale che rappresenta la soluzione ottimale *)
 (* 
    soluzioneOttimale \[EGrave] un'associazione che contiene:
    - "BeneficioMassimo": Il massimo beneficio ottenibile.
@@ -79,15 +69,6 @@ ConfiguraParametri[] := Module[{},
       beneficioEsplorazione = {RandomInteger[{-30, 0}], RandomInteger[{0, 80}]};
       rendimentoCostruzione = 12;
     )
-  ];
-  (* Registra i parametri configurati nel log di debug *)
-  AggiungiDebug[
-   "Parametri configurati: costoRaccolta = " <> ToString[costoRaccolta] <>
-    ", beneficioRaccolta = " <> ToString[beneficioRaccolta] <>
-    ", costoCostruzione = " <> ToString[costoCostruzione] <>
-    ", beneficioCostruzione = " <> ToString[beneficioCostruzione] <>
-    ", costoEsplorazione = " <> ToString[costoEsplorazione] <>
-    ", beneficioEsplorazione = " <> ToString[beneficioEsplorazione] <> "\n"
   ];
 ];
 
@@ -151,12 +132,9 @@ ConfrontaMosseDaLog[log_, soluzioneSimulata_] :=
 *)
 CalcolaStrategiaOttimale[turni_, risorse_, costoRacc_, benefRacc_, costoEspl_, benefEspl_] :=
  Module[{dp, beneficioEsplorazioneRange, t, r, maxBeneficio, azioniOttimali},
-  (* Log delle variabili iniziali *)
-  AggiungiDebug["Inizio Calcolo: turni = ", turni, ", risorse = ", risorse];
 
   (* Verifica dei parametri *)
   If[turni <= 0 || risorse <= 0 || costoRacc <= 0 || costoEspl <= 0,
-   AggiungiDebug["Parametri non validi"];
    Return[<|"BeneficioMassimo" -> 0, "Azioni" -> {}|>]
   ];
 
@@ -186,13 +164,8 @@ CalcolaStrategiaOttimale[turni_, risorse_, costoRacc_, benefRacc_, costoEspl_, b
    ]
   ];
 
-  (* Log della matrice DP finale *)
-  AggiungiDebug["Matrice DP finale: ", dp];
-
   (* Estrazione del risultato finale *)
   azioniOttimali = dp[[turni + 1, risorse + 1]];
-  AggiungiDebug["Beneficio massimo trovato: ", azioniOttimali[[1]]];
-  <|"BeneficioMassimo" -> azioniOttimali[[1]], "Azioni" -> azioniOttimali[[2]]|>
 ];
 
 (* Funzione per mostrare la soluzione in una finestra pop-up *)
@@ -218,7 +191,7 @@ MostraSoluzione[soluzione_] :=
 
 (* Funzione per controllare lo stato delle risorse e terminare la partita se necessario *)
 (* 
-   ControllaRisorse[costo_, azione_, risorseCorrenti_, log_]
+   ControllaRisorse[costo_, azione_, risorseCorrenti_]
    Parametri:
    - costo: Costo dell'azione corrente.
    - azione: Nome dell'azione.
@@ -230,30 +203,11 @@ MostraSoluzione[soluzione_] :=
    Ritorna:
    - True se l'azione pu\[OGrave] essere eseguita; False altrimenti.
 *)
-ControllaRisorse[costo_, azione_, risorseCorrenti_, log_] := 
+ControllaRisorse[costo_, azione_, risorseCorrenti_] := 
  Module[{},
-  AggiungiDebug[
-   "Chiamata ControllaRisorse per azione: " <> azione <> 
-    " | Costo: " <> ToString[costo] <> 
-    " | Risorse Correnti: " <> ToString[risorseCorrenti]
-  ];
   
   If[risorseCorrenti < costo,
-   AggiungiDebug[
-    "Partita persa: nessuna azione possibile con risorse correnti (" <> 
-    ToString[risorseCorrenti] <> 
-    " disponibili.)"
-   ];
-   
-   (* Aggiorna il log con messaggio ben visibile *)
-	log = Column[{
-      Row[{
-        Style["Turno terminato: ", Bold, Red],
-        Style["Partita persa!", Italic, Darker[Red]],
-        Style["Risorse insufficienti: " <> ToString[risorseCorrenti], Bold]
-      }], log
-    }];
-   
+  
    (* Mostra dialog di notifica *)
    CreateDialog[
     Column[{
@@ -268,7 +222,6 @@ ControllaRisorse[costo_, azione_, risorseCorrenti_, log_] :=
    Return[False]; (* Blocco esecuzione *)
   ];
   
-  AggiungiDebug["Risorse sufficienti per eseguire: " <> azione];
   True
  ];
 
@@ -291,7 +244,7 @@ ControllaRisorse[costo_, azione_, risorseCorrenti_, log_] :=
 *)
 AvviaGioco[] := DynamicModule[
    {
-    risorseCorrenti = 100, turniRestanti = 10, log = "", 
+    risorseCorrenti = 100, turniRestanti = 10, 
     azioniRaccolta = 0, azioniCostruzione = 0, azioniEsplorazione = 0, 
     simulazioneIniziata = False, risorseIniziali = 100, turniIniziali = 10, 
     difficolta = "Medio", costoRaccolta, beneficioRaccolta, 
@@ -413,13 +366,6 @@ AvviaGioco[] := DynamicModule[
         soluzioneOttimale = CalcolaStrategiaOttimale[
           turniIniziali, risorseIniziali, costoRaccolta, beneficioRaccolta, costoEsplorazione, beneficioEsplorazione
         ];
-
-        (* Log del risultato della strategia *)
-        If[soluzioneOttimale["BeneficioMassimo"] === 0,
-         AggiungiDebug["Errore: strategia non valida."],
-         AggiungiDebug["Strategia ottimale calcolata correttamente. Beneficio massimo: " <> 
-           ToString[soluzioneOttimale["BeneficioMassimo"]]]
-        ];
        ),
        Enabled -> Dynamic[!simulazioneIniziata]
       ], "Avvia il simulatore con un seed specifico e calcola la strategia ottimale."
@@ -477,31 +423,35 @@ Row[{
         ];
 
         (* Controllo risorse per eseguire l'azione *)
-        If[ControllaRisorse[costoRaccoltaEffettivo, "Raccogli Risorse", risorseCorrenti, log],
-          (* Aggiorna risorse e registro *)
-          risorseCorrenti -= costoRaccoltaEffettivo; 
-          risorseCorrenti += beneficioRaccoltaEffettivo; 
-          turniRestanti--; 
-          azioniRaccolta++;
-          
-          (* Aggiorna il log con le informazioni dell'azione corrente *)
-          log = Column[{
-            Row[{
-              Style["Turno " <> ToString[turniIniziali - turniRestanti] <> ": ", Bold],
-              Style["Raccogli Risorse", Blue],
-              "   -   Risorse Spese: ", Style[ToString[costoRaccoltaEffettivo], Italic],
-              "   |   Guadagno: ", Style[ToString[beneficioRaccoltaEffettivo], Bold],
-              "   |   Risorse Totali: ", Style[ToString[risorseCorrenti], Bold]
-            }], log
-          }],
-          Return[] (* Termina l'azione se le risorse non sono sufficienti *)
-        ];
-        
-        (* Controllo globale: fine partita se le risorse sono insufficienti per altre azioni *)
-        ControllaRisorse[
-          Min[costoRaccoltaEffettivo, costoCostruzioneEffettivo, costoEsplorazioneEffettivo],
-          "Fine Partita", risorseCorrenti, log
-        ];
+        If[ControllaRisorse[costoRaccoltaEffettivo, "Raccogli Risorse", risorseCorrenti],
+		  (* Aggiorna risorse e registro *)
+		  risorseCorrenti -= costoRaccoltaEffettivo; 
+		  risorseCorrenti += beneficioRaccoltaEffettivo; 
+		  turniRestanti--; 
+		  azioniRaccolta++;
+		  
+		  (* Aggiorna il log con le informazioni dell'azione corrente *)
+		  log = Column[{
+		    Row[{
+		      Style["Turno " <> ToString[turniIniziali - turniRestanti] <> ": ", Bold],
+		      Style["Raccogli Risorse", Blue],
+		      "   -   Risorse Spese: ", Style[ToString[costoRaccoltaEffettivo], Italic],
+		      "   |   Guadagno: ", Style[ToString[beneficioRaccoltaEffettivo], Bold],
+		      "   |   Risorse Totali: ", Style[ToString[risorseCorrenti], Bold]
+		    }], log
+		  }],
+		  
+		  (* Caso di risorse insufficienti *)
+		  log = Column[{
+		    Row[{
+		      Style["Turno terminato: ", Bold, Red],
+		      Style["Partita persa! ", Italic, Darker[Red]],
+		      Style["Risorse insufficienti: " <> ToString[risorseCorrenti], Bold]
+		    }], log
+		  }];
+		  simulazioneIniziata = False;
+		  Return[] (* Termina l'azione *)
+		];
 
         (* Log finale se i turni sono terminati *)
         If[turniRestanti == 0,
@@ -595,31 +545,35 @@ Tooltip[
    ];
 
       (* Controlla se le risorse sono sufficienti per costruire la struttura *)
-      If[ControllaRisorse[costoCostruzioneEffettivo, "Costruisci Struttura", risorseCorrenti, log],
-        (* Aggiorna le risorse e incrementa il rendimento passivo *)
-        risorseCorrenti -= costoCostruzioneEffettivo;
-        rendimentoCostruzione += incrementoRendimentoEffettivo;
-        turniRestanti--; 
-        azioniCostruzione++;
-        
-        (* Registra l'azione nel log *)
-        log = Column[{
-          Row[{
-            Style["Turno " <> ToString[turniIniziali - turniRestanti] <> ": ", Bold],
-            Style["Costruisci Struttura", Darker[Green]],
-            "   -   Risorse Spese: ", Style[ToString[costoCostruzioneEffettivo], Italic],
-            "   |   Guadagno Passivo: ", Style[ToString[incrementoRendimentoEffettivo], Bold],
-            "   |   Risorse Totali: ", Style[ToString[risorseCorrenti], Bold]
-          }], log
-        }],
-        Return[] (* Termina l'azione se le risorse sono insufficienti *)
-      ];
-
-      (* Controlla globalmente se le risorse sono insufficienti per continuare *)
-      ControllaRisorse[
-        Min[costoRaccoltaEffettivo, costoCostruzioneEffettivo, costoEsplorazioneEffettivo],
-        "Fine Partita", risorseCorrenti, log
-      ];
+      If[ControllaRisorse[costoCostruzioneEffettivo, "Costruisci Struttura", risorseCorrenti],
+		  (* Aggiorna le risorse e incrementa il rendimento passivo *)
+		  risorseCorrenti -= costoCostruzioneEffettivo;
+		  rendimentoCostruzione += incrementoRendimentoEffettivo;
+		  turniRestanti--; 
+		  azioniCostruzione++;
+		  
+		  (* Registra l'azione nel log *)
+		  log = Column[{
+		    Row[{
+		      Style["Turno " <> ToString[turniIniziali - turniRestanti] <> ": ", Bold],
+		      Style["Costruisci Struttura", Darker[Green]],
+		      "   -   Risorse Spese: ", Style[ToString[costoCostruzioneEffettivo], Italic],
+		      "   |   Guadagno Passivo: ", Style[ToString[incrementoRendimentoEffettivo], Bold],
+		      "   |   Risorse Totali: ", Style[ToString[risorseCorrenti], Bold]
+		    }], log
+		  }],
+		  
+		  (* Caso di risorse insufficienti *)
+		  log = Column[{
+		    Row[{
+		      Style["Turno terminato: ", Bold, Red],
+		      Style["Partita persa! ", Italic, Darker[Red]],
+		      Style["Risorse insufficienti: " <> ToString[risorseCorrenti], Bold]
+		    }], log
+		  }];
+		  simulazioneIniziata = False;
+		  Return[] (* Termina l'azione *)
+		];
 
       (* Log conclusivo se i turni sono terminati *)
       If[turniRestanti == 0,
@@ -709,31 +663,35 @@ Tooltip[
    ];
 
       (* Controlla se le risorse sono sufficienti per esplorare *)
-      If[ControllaRisorse[costoEsplorazioneEffettivo, "Esplora", risorseCorrenti, log],
-        (* Aggiorna le risorse e registra il guadagno variabile *)
-        risorseCorrenti -= costoEsplorazioneEffettivo;
-        risorseCorrenti += beneficioEsplorazioneEffettivo;
-        turniRestanti--; 
-        azioniEsplorazione++;
-        
-        (* Registra l'azione nel log *)
-        log = Column[{
-          Row[{
-            Style["Turno " <> ToString[turniIniziali - turniRestanti] <> ": ", Bold],
-            Style["Esplora", Darker[Red]],
-            "   -   Risorse Spese: ", Style[ToString[costoEsplorazioneEffettivo], Italic],
-            "   |   Guadagno Variabile: ", Style[ToString[beneficioEsplorazioneEffettivo], Bold],
-            "   |   Risorse Totali: ", Style[ToString[risorseCorrenti], Bold]
-          }], log
-        }],
-        Return[] (* Termina l'azione se le risorse sono insufficienti *)
-      ];
-
-      (* Controlla globalmente se le risorse sono insufficienti per continuare *)
-      ControllaRisorse[
-        Min[costoRaccoltaEffettivo, costoCostruzioneEffettivo, costoEsplorazioneEffettivo],
-        "Fine Partita", risorseCorrenti, log
-      ];
+      If[ControllaRisorse[costoEsplorazioneEffettivo, "Esplora", risorseCorrenti],
+		  (* Aggiorna le risorse e registra il guadagno variabile *)
+		  risorseCorrenti -= costoEsplorazioneEffettivo;
+		  risorseCorrenti += beneficioEsplorazioneEffettivo;
+		  turniRestanti--; 
+		  azioniEsplorazione++;
+		  
+		  (* Registra l'azione nel log *)
+		  log = Column[{
+		    Row[{
+		      Style["Turno " <> ToString[turniIniziali - turniRestanti] <> ": ", Bold],
+		      Style["Esplora", Darker[Red]],
+		      "   -   Risorse Spese: ", Style[ToString[costoEsplorazioneEffettivo], Italic],
+		      "   |   Guadagno Variabile: ", Style[ToString[beneficioEsplorazioneEffettivo], Bold],
+		      "   |   Risorse Totali: ", Style[ToString[risorseCorrenti], Bold]
+		    }], log
+		  }],
+		  
+		  (* Caso di risorse insufficienti *)
+		  log = Column[{
+		    Row[{
+		      Style["Turno terminato: ", Bold, Red],
+		      Style["Partita persa! ", Italic, Darker[Red]],
+		      Style["Risorse insufficienti: " <> ToString[risorseCorrenti], Bold]
+		    }], log
+		  }];
+		  simulazioneIniziata = False;
+		  Return[] (* Termina l'azione *)
+		];
 
       (* Log conclusivo se i turni sono terminati *)
       If[turniRestanti == 0,
@@ -848,8 +806,6 @@ Tooltip[
   0
 ];
 
-AggiungiDebug["rendimentoCostruzione: " <> ToString[rendimentoCostruzione-5]];
-
     (* Calcola il guadagno medio ponderato per "Esplora" *)
    guadagnoEsplorazionePonderato = 
     0.7 * (Max[beneficioEsplorazioneEffettivo] - costoEsplorazioneEffettivo) + 
@@ -857,9 +813,6 @@ AggiungiDebug["rendimentoCostruzione: " <> ToString[rendimentoCostruzione-5]];
     
     (* Calcola il guadagno netto per "Raccogli Risorse" *)
     guadagnoRaccolta = beneficioRaccoltaEffettivo - costoRaccoltaEffettivo;
-	
-	AggiungiDebug["guadagnoEsplorazionePonderato: " <> ToString[guadagnoEsplorazionePonderato]];
-	AggiungiDebug["guadagnoRaccolta: " <> ToString[guadagnoRaccolta]]
 
    (* Logica del consiglio *)
 Which[
@@ -897,12 +850,6 @@ Which[
      azioneSuggerita = azioneAlternativa;
      spiegazione = "L'azione migliore richiederebbe pi\[UGrave] risorse. Ti consigliamo di: " <> azioneAlternativa <> "."
     ];
-
-   
-	AggiungiDebug["Richiesto consiglio DOPO al Which"];
-	AggiungiDebug["ROI: " <> ToString[roiCostruzione]];
-	AggiungiDebug["Valore azioneSuggerita: " <> ToString[azioneSuggerita]];
-	AggiungiDebug["Valore spiegazione: " <> ToString[spiegazione]];
 	
    (* Applica lo stile *)
    azioneSuggeritaStyled = Style[azioneSuggerita, Bold, Blue];

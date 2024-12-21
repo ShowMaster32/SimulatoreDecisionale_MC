@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       154,          7]
-NotebookDataLength[    413472,       7852]
-NotebookOptionsPosition[    387902,       7454]
-NotebookOutlinePosition[    388305,       7470]
-CellTagsIndexPosition[    388262,       7467]
+NotebookDataLength[    410168,       7776]
+NotebookOptionsPosition[    384592,       7378]
+NotebookOutlinePosition[    385001,       7394]
+CellTagsIndexPosition[    384958,       7391]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -809,7 +809,7 @@ perdita).\>\""}], "}"}]}], "\n", "}"}]}], ";"}], "\n", "\n",
        RowBox[{"1", ",", " ", "2"}], "}"}]}]}], "]"}], "\n"}]}]], "Code",
  CellChangeTimes->{{3.9437739295967083`*^9, 3.943773936363146*^9}, {
   3.943773975668852*^9, 3.943773976131588*^9}},
- CellLabel->"In[1]:=",ExpressionUUID->"3c3b991c-99ae-184b-87ca-d4deb1c83f80"],
+ CellLabel->"In[42]:=",ExpressionUUID->"3c3b991c-99ae-184b-87ca-d4deb1c83f80"],
 
 Cell[BoxData[
  TagBox[GridBox[{
@@ -847,9 +847,10 @@ per turno\"\>", "\<\"Maggiore investimento iniziale rispetto a 'Facile'.\"\>"},
    BoxForm`e$, TableHeadings -> {None, None}, TableAlignments -> Left, 
     TableSpacing -> {1, 2}]]]], "Output",
  CellChangeTimes->{3.9437739441409206`*^9, 3.9437739779995804`*^9, 
-  3.9437745941818466`*^9},
+  3.9437745941818466`*^9, 3.9437786958850193`*^9},
  CellLabel->
-  "Out[2]//TableForm=",ExpressionUUID->"1fa3ca51-5ab0-1844-9ce0-8b160f9c8523"]
+  "Out[43]//TableForm=",ExpressionUUID->"fdf443bf-89c1-4d4c-8974-\
+b312ab1d1377"]
 }, Open  ]]
 }, Open  ]]
 }, Open  ]],
@@ -6134,35 +6135,34 @@ Cell[BoxData[
     RowBox[{"Verifica", " ", 
      RowBox[{"l", "'"}], "esistenza", " ", "del", " ", "file", " ", "del", 
      " ", "package"}], " ", "*)"}], "\n", 
-   RowBox[{
-    RowBox[{"If", "[", "\n", "    ", 
-     RowBox[{
-      RowBox[{"FileExistsQ", "[", 
-       RowBox[{
-        RowBox[{"NotebookDirectory", "[", "]"}], " ", "<>", " ", 
-        "\"\<SimulatoreDecisioni.m\>\""}], "]"}], ",", "\n", "    ", 
-      RowBox[{"Get", "[", "\"\<SimulatoreDecisioni`\>\"", "]"}], ",", "\n", 
-      "    ", 
-      RowBox[{"CreateDialog", "[", "\n", "        ", 
-       RowBox[{
-        RowBox[{"Column", "[", 
-         RowBox[{"{", "\n", "            ", 
-          RowBox[{
-           RowBox[{"TextCell", "[", 
-            RowBox[{
-            "\"\<Errore: il file del package 'SimulatoreDecisioni.m' non \
-\[EGrave] stato trovato nella directory corrente.\>\"", ",", " ", 
-             RowBox[{"FontWeight", " ", "->", " ", "Bold"}], ",", " ", 
-             RowBox[{"FontColor", " ", "->", " ", "Red"}]}], "]"}], ",", "\n",
-            "            ", 
+   RowBox[{"If", "[", "\n", "    ", 
+    RowBox[{
+     RowBox[{"FileExistsQ", "[", 
+      RowBox[{
+       RowBox[{"NotebookDirectory", "[", "]"}], " ", "<>", " ", 
+       "\"\<SimulatoreDecisioni.m\>\""}], "]"}], ",", "\n", "    ", 
+     RowBox[{"Get", "[", "\"\<SimulatoreDecisioni`\>\"", "]"}], ",", "\n", 
+     "    ", 
+     RowBox[{"CreateDialog", "[", "\n", "        ", 
+      RowBox[{
+       RowBox[{"Column", "[", 
+        RowBox[{"{", "\n", "            ", 
+         RowBox[{
+          RowBox[{"TextCell", "[", 
            RowBox[{
-           "TextCell", "[", 
-            "\"\<Assicurati che il file sia salvato nella stessa directory \
-del notebook.\>\"", "]"}]}], "\n", "        ", "}"}], "]"}], ",", "\n", 
-        "        ", 
-        RowBox[{
-        "WindowTitle", " ", "->", " ", "\"\<Errore di Configurazione\>\""}]}],
-        "\n", "    ", "]"}]}], "\n", "]"}], ";"}], "\n", "\n", 
+           "\"\<Errore: il file del package 'SimulatoreDecisioni.m' non \
+\[EGrave] stato trovato nella directory corrente.\>\"", ",", " ", 
+            RowBox[{"FontWeight", " ", "->", " ", "Bold"}], ",", " ", 
+            RowBox[{"FontColor", " ", "->", " ", "Red"}]}], "]"}], ",", "\n", 
+          "            ", 
+          RowBox[{
+          "TextCell", "[", 
+           "\"\<Assicurati che il file sia salvato nella stessa directory del \
+notebook.\>\"", "]"}]}], "\n", "        ", "}"}], "]"}], ",", "\n", 
+       "        ", 
+       RowBox[{
+       "WindowTitle", " ", "->", " ", "\"\<Errore di Configurazione\>\""}]}], 
+      "\n", "    ", "]"}]}], "\n", "]"}], "\n", "\n", 
    RowBox[{"(*", " ", 
     RowBox[{"Avvia", " ", 
      RowBox[{"l", "'"}], "interfaccia", " ", "del", " ", "gioco"}], " ", 
@@ -6183,8 +6183,10 @@ del notebook.\>\"", "]"}]}], "\n", "        ", "}"}], "]"}], ",", "\n",
    3.9436259109525337`*^9, 3.943625911478676*^9}, {3.9436396098734093`*^9, 
    3.943639613526512*^9}, 3.9436457744743443`*^9, {3.943767195334673*^9, 
    3.943767195984087*^9}, {3.943771915881092*^9, 3.9437719493390865`*^9}, {
-   3.9437723409241257`*^9, 3.943772376509659*^9}, 3.943772410314535*^9},
- CellLabel->"In[15]:=",ExpressionUUID->"b961b460-9484-4c48-94f0-1dcb265ac6f3"],
+   3.9437723409241257`*^9, 3.943772376509659*^9}, 3.943772410314535*^9, 
+   3.9437818261721573`*^9},
+ CellLabel->
+  "In[122]:=",ExpressionUUID->"b961b460-9484-4c48-94f0-1dcb265ac6f3"],
 
 Cell[BoxData["\<\"D:\\\\Dropbox\\\\Universita\\\\Magistrale\\\\1_anno\\\\\
 Sessione 1\\\\Matematica \
@@ -6272,109 +6274,28 @@ Computazionale\\\\Esame\\\\Consegna\\\\SimulatoreDecisionale\"\>"], "Output",
    3.943767280664854*^9, 3.943767369179903*^9, {3.9437719184111595`*^9, 
    3.9437719575277767`*^9}, 3.9437721205593014`*^9, 3.943772372133135*^9, 
    3.943774594408453*^9, 3.9437746710206203`*^9, 3.9437747406478863`*^9, 
-   3.943775118579197*^9, 3.9437751588487625`*^9},
- CellLabel->"Out[15]=",ExpressionUUID->"801ce81e-8492-674c-8597-b23521c3ef08"],
+   3.943775118579197*^9, 3.9437751588487625`*^9, 3.94377615413056*^9, 
+   3.9437764914923534`*^9, 3.9437767948064404`*^9, 3.9437773467704887`*^9, 
+   3.9437774827382183`*^9, {3.9437786088616524`*^9, 3.9437786179529896`*^9}, {
+   3.9437786817632313`*^9, 3.943778695977762*^9}, 3.943778729596155*^9, 
+   3.9437787683993034`*^9, 3.9437788972548695`*^9, 3.943778941032976*^9, {
+   3.943779053217924*^9, 3.9437790766444263`*^9}, 3.943779834761425*^9, 
+   3.9437802685871773`*^9, 3.9437803050901604`*^9, 3.9437809299285088`*^9, 
+   3.943780975431694*^9, 3.943781158666628*^9, 3.943781281900961*^9, 
+   3.9437813417243347`*^9, 3.943781559192335*^9, 3.943781647473629*^9, 
+   3.9437816878579445`*^9, 3.943781829832796*^9, 3.9437823168736897`*^9, 
+   3.9437824273695755`*^9, 3.9437825426896057`*^9, 3.9437825906696377`*^9, 
+   3.9437828759796066`*^9, 3.9437831921752644`*^9, 3.9437832346397266`*^9},
+ CellLabel->
+  "Out[122]=",ExpressionUUID->"3cd11f19-5a89-e04a-91d5-25e98205ad5f"],
 
 Cell[BoxData[
- DynamicModuleBox[{SimulatoreDecisioni`Private`risorseCorrenti$$ = 200, 
-  SimulatoreDecisioni`Private`turniRestanti$$ = 0, 
-  SimulatoreDecisioni`Private`log$$ = Column[{
-    Spacer[10], 
-    Style["--- PARTITA CONCLUSA! ---", Bold, 
-     RGBColor[0, 
-      Rational[2, 3], 0]], "Turni Totali: 10", "Risorse Finali: 200", 
-    "Azioni Raccogli Risorse: 10", "Azioni Costruisci Struttura: 0", 
-    "Azioni Esplora: 0", 
-    Spacer[10], 
-    Style["Premi 'Reset Esercizio' per iniziare una nuova partita!", Italic, 
-     RGBColor[
-      Rational[2, 3], 0, 0]], 
-    Spacer[10], 
-    Column[{
-      Row[{
-        Style["Turno 10: ", Bold], 
-        Style["Raccogli Risorse", 
-         RGBColor[0, 0, 1]], "   -   Risorse Spese: ", 
-        Style["15", Italic], "   |   Guadagno: ", 
-        Style["25", Bold], "   |   Risorse Totali: ", 
-        Style["200", Bold]}], 
-      Column[{
-        Row[{
-          Style["Turno 9: ", Bold], 
-          Style["Raccogli Risorse", 
-           RGBColor[0, 0, 1]], "   -   Risorse Spese: ", 
-          Style["15", Italic], "   |   Guadagno: ", 
-          Style["25", Bold], "   |   Risorse Totali: ", 
-          Style["190", Bold]}], 
-        Column[{
-          Row[{
-            Style["Turno 8: ", Bold], 
-            Style["Raccogli Risorse", 
-             RGBColor[0, 0, 1]], "   -   Risorse Spese: ", 
-            Style["15", Italic], "   |   Guadagno: ", 
-            Style["25", Bold], "   |   Risorse Totali: ", 
-            Style["180", Bold]}], 
-          Column[{
-            Row[{
-              Style["Turno 7: ", Bold], 
-              Style["Raccogli Risorse", 
-               RGBColor[0, 0, 1]], "   -   Risorse Spese: ", 
-              Style["15", Italic], "   |   Guadagno: ", 
-              Style["25", Bold], "   |   Risorse Totali: ", 
-              Style["170", Bold]}], 
-            Column[{
-              Row[{
-                Style["Turno 6: ", Bold], 
-                Style["Raccogli Risorse", 
-                 RGBColor[0, 0, 1]], "   -   Risorse Spese: ", 
-                Style["15", Italic], "   |   Guadagno: ", 
-                Style["25", Bold], "   |   Risorse Totali: ", 
-                Style["160", Bold]}], 
-              Column[{
-                Row[{
-                  Style["Turno 5: ", Bold], 
-                  Style["Raccogli Risorse", 
-                   RGBColor[0, 0, 1]], "   -   Risorse Spese: ", 
-                  Style["15", Italic], "   |   Guadagno: ", 
-                  Style["25", Bold], "   |   Risorse Totali: ", 
-                  Style["150", Bold]}], 
-                Column[{
-                  Row[{
-                    Style["Turno 4: ", Bold], 
-                    Style["Raccogli Risorse", 
-                    RGBColor[0, 0, 1]], "   -   Risorse Spese: ", 
-                    Style["15", Italic], "   |   Guadagno: ", 
-                    Style["25", Bold], "   |   Risorse Totali: ", 
-                    Style["140", Bold]}], 
-                  Column[{
-                    Row[{
-                    Style["Turno 3: ", Bold], 
-                    Style["Raccogli Risorse", 
-                    RGBColor[0, 0, 1]], "   -   Risorse Spese: ", 
-                    Style["15", Italic], "   |   Guadagno: ", 
-                    Style["25", Bold], "   |   Risorse Totali: ", 
-                    Style["130", Bold]}], 
-                    Column[{
-                    Row[{
-                    Style["Turno 2: ", Bold], 
-                    Style["Raccogli Risorse", 
-                    RGBColor[0, 0, 1]], "   -   Risorse Spese: ", 
-                    Style["15", Italic], "   |   Guadagno: ", 
-                    Style["25", Bold], "   |   Risorse Totali: ", 
-                    Style["120", Bold]}], 
-                    Column[{
-                    Row[{
-                    Style["Turno 1: ", Bold], 
-                    Style["Raccogli Risorse", 
-                    RGBColor[0, 0, 1]], "   -   Risorse Spese: ", 
-                    Style["15", Italic], "   |   Guadagno: ", 
-                    Style["25", Bold], "   |   Risorse Totali: ", 
-                    Style["110", Bold]}], 
-                    "Simulazione iniziata...\n"}]}]}]}]}]}]}]}]}]}]}], 
-  SimulatoreDecisioni`Private`azioniRaccolta$$ = 10, 
+ DynamicModuleBox[{SimulatoreDecisioni`Private`risorseCorrenti$$ = 100, 
+  SimulatoreDecisioni`Private`turniRestanti$$ = 10, 
+  SimulatoreDecisioni`Private`azioniRaccolta$$ = 0, 
   SimulatoreDecisioni`Private`azioniCostruzione$$ = 0, 
   SimulatoreDecisioni`Private`azioniEsplorazione$$ = 0, 
-  SimulatoreDecisioni`Private`simulazioneIniziata$$ = True, 
+  SimulatoreDecisioni`Private`simulazioneIniziata$$ = False, 
   SimulatoreDecisioni`Private`risorseIniziali$$ = 100, 
   SimulatoreDecisioni`Private`turniIniziali$$ = 10, 
   SimulatoreDecisioni`Private`difficolta$$ = "Medio", 
@@ -6384,9 +6305,9 @@ Cell[BoxData[
   SimulatoreDecisioni`Private`beneficioCostruzione$$, 
   SimulatoreDecisioni`Private`costoEsplorazione$$, 
   SimulatoreDecisioni`Private`beneficioEsplorazione$$, 
-  SimulatoreDecisioni`Private`rendimentoCostruzione$$ = 70, 
+  SimulatoreDecisioni`Private`rendimentoCostruzione$$ = 124, 
   SimulatoreDecisioni`Private`strategiaOttimale$$ = "", 
-  SimulatoreDecisioni`seedNumerico$$ = 46}, 
+  SimulatoreDecisioni`seedNumerico$$ = 42}, 
   TagBox[GridBox[{
      {
       StyleBox["\<\"Simulatore di Ottimizzazione delle Scelte\"\>",
@@ -6419,7 +6340,9 @@ Cell[BoxData[
         DynamicBox[
          ToBoxes[
           Style[SimulatoreDecisioni`Private`turniIniziali$$, Bold], 
-          StandardForm]], 
+          StandardForm], 
+         ImageSizeCache -> {
+          14.294922351837158`, {0.1459960991051048, 8.436035465681925}}], 
         TemplateBox[{10}, "Spacer1"], "\"Risorse Iniziali: \"", 
         SliderBox[
          Dynamic[
@@ -6430,7 +6353,9 @@ Cell[BoxData[
         DynamicBox[
          ToBoxes[
           Style[SimulatoreDecisioni`Private`risorseIniziali$$, Bold], 
-          StandardForm]], 
+          StandardForm], 
+         ImageSizeCache -> {
+          21.442383527755737`, {0.1459960991051048, 8.436035465681925}}], 
         TemplateBox[{10}, "Spacer1"], 
         TagBox[
          TooltipBox[
@@ -6460,14 +6385,25 @@ Difficile: guadagni bassi e costi elevati.", "Tooltip"]& ],
             "Risorse Iniziali: ", 
             SimulatoreDecisioni`Private`risorseIniziali$$, "   ", 
             "Difficolt\[AGrave]: ", 
-            SimulatoreDecisioni`Private`difficolta$$}], StandardForm]]},
+            SimulatoreDecisioni`Private`difficolta$$}], StandardForm], 
+         ImageSizeCache -> {
+          378.8154423236847, {0.11425781669095159`, 9.045410488033667}}]},
        "RowDefault"]},
      {
       TemplateBox[{10},
        "Spacer1"]},
      {
       TemplateBox[{
-        StyleBox["\"Seed (0-99): \"", Bold, StripOnInput -> False], 
+        TagBox[
+         TooltipBox[
+          StyleBox["\"Seed (0-99): \"", Bold, StripOnInput -> False], 
+          "\"Inserisci un numero intero compreso tra 0 e 99 per impostare il \
+seed del generatore casuale. Se il valore non \[EGrave] valido, verr\[AGrave] \
+impostato a 42 come default.\"", TooltipStyle -> "TextStyling"], 
+         Annotation[#, 
+          "Inserisci un numero intero compreso tra 0 e 99 per impostare il \
+seed del generatore casuale. Se il valore non \[EGrave] valido, verr\[AGrave] \
+impostato a 42 come default.", "Tooltip"]& ], 
         InputFieldBox[
          Dynamic[SimulatoreDecisioni`seedNumerico$$, If[
            And[
@@ -6480,9 +6416,9 @@ Difficile: guadagni bassi e costi elevati.", "Tooltip"]& ],
                 FontWeight -> Bold, FontColor -> Red], 
                TextCell[
                "Il valore \[EGrave] stato impostato a 42 di default."]}], 
-             WindowTitle -> "Seed non valido"]]& ], Enabled -> Dynamic[
-           Not[SimulatoreDecisioni`Private`simulazioneIniziata$$]], FieldSize -> 
-         6]},
+             WindowTitle -> "Seed non valido"]]& ], FieldSize -> 6, Enabled -> 
+         Dynamic[
+           Not[SimulatoreDecisioni`Private`simulazioneIniziata$$]]]},
        "RowDefault"]},
      {
       TemplateBox[{10},
@@ -6498,7 +6434,7 @@ Difficile: guadagni bassi e costi elevati.", "Tooltip"]& ],
           SimulatoreDecisioni`Private`turniRestanti$$ = 
            SimulatoreDecisioni`Private`turniIniziali$$; 
           SimulatoreDecisioni`Private`simulazioneIniziata$$ = True; 
-          SimulatoreDecisioni`Private`log$$ = "Simulazione iniziata...\n"; 
+          SimulatoreDecisioni`log = "Simulazione iniziata...\n"; 
           SimulatoreDecisioni`Private`ConfiguraParametri[]; 
           SimulatoreDecisioni`Private`soluzioneOttimale = 
            SimulatoreDecisioni`Private`CalcolaStrategiaOttimale[
@@ -6507,16 +6443,7 @@ Difficile: guadagni bassi e costi elevati.", "Tooltip"]& ],
              SimulatoreDecisioni`Private`costoRaccolta$$, 
              SimulatoreDecisioni`Private`beneficioRaccolta$$, 
              SimulatoreDecisioni`Private`costoEsplorazione$$, 
-             SimulatoreDecisioni`Private`beneficioEsplorazione$$]; 
-          If[SimulatoreDecisioni`Private`soluzioneOttimale[
-             "BeneficioMassimo"] === 0, 
-            SimulatoreDecisioni`Private`AggiungiDebug[
-            "Errore: strategia non valida."], 
-            SimulatoreDecisioni`Private`AggiungiDebug[
-            "Strategia ottimale calcolata correttamente. Beneficio massimo: " <> 
-             ToString[
-               SimulatoreDecisioni`Private`soluzioneOttimale[
-               "BeneficioMassimo"]]]]; Null),
+             SimulatoreDecisioni`Private`beneficioEsplorazione$$]; Null),
          Enabled->Dynamic[
            Not[SimulatoreDecisioni`Private`simulazioneIniziata$$]],
          Evaluator->Automatic,
@@ -6553,8 +6480,7 @@ ottimale.", "Tooltip"]& ]},
                Switch[SimulatoreDecisioni`Private`difficolta$$, "Facile", 10, 
                  "Medio", 15, "Difficile", 20]; 
               SimulatoreDecisioni`Private`beneficioRaccoltaEffettivo$ = 
-               Switch[
-                SimulatoreDecisioni`Private`difficolta$$, "Facile", 30, 
+               Switch[SimulatoreDecisioni`Private`difficolta$$, "Facile", 30, 
                  "Medio", 25, "Difficile", 
                  RandomInteger[{15, 30}]]; 
               SimulatoreDecisioni`Private`costoEsplorazioneEffettivo$ = 
@@ -6570,8 +6496,7 @@ ottimale.", "Tooltip"]& ]},
                 SimulatoreDecisioni`Private`ControllaRisorse[
                 SimulatoreDecisioni`Private`costoRaccoltaEffettivo$, 
                  "Raccogli Risorse", 
-                 SimulatoreDecisioni`Private`risorseCorrenti$$, 
-                 SimulatoreDecisioni`Private`log$$], 
+                 SimulatoreDecisioni`Private`risorseCorrenti$$], 
                 SubtractFrom[
                  SimulatoreDecisioni`Private`risorseCorrenti$$, 
                   SimulatoreDecisioni`Private`costoRaccoltaEffettivo$]; 
@@ -6579,7 +6504,7 @@ ottimale.", "Tooltip"]& ]},
                   SimulatoreDecisioni`Private`beneficioRaccoltaEffettivo$]; 
                 Decrement[SimulatoreDecisioni`Private`turniRestanti$$]; 
                 Increment[SimulatoreDecisioni`Private`azioniRaccolta$$]; 
-                SimulatoreDecisioni`Private`log$$ = Column[{
+                SimulatoreDecisioni`log = Column[{
                     Row[{
                     Style[
                     "Turno " <> 
@@ -6598,16 +6523,20 @@ ottimale.", "Tooltip"]& ]},
                     Bold], "   |   Risorse Totali: ", 
                     Style[
                     ToString[SimulatoreDecisioni`Private`risorseCorrenti$$], 
-                    Bold]}], SimulatoreDecisioni`Private`log$$}], 
-                Return[]]; SimulatoreDecisioni`Private`ControllaRisorse[
-                Min[
-                SimulatoreDecisioni`Private`costoRaccoltaEffettivo$, 
-                 SimulatoreDecisioni`Private`costoCostruzioneEffettivo$, 
-                 SimulatoreDecisioni`Private`costoEsplorazioneEffettivo$], 
-                "Fine Partita", SimulatoreDecisioni`Private`risorseCorrenti$$,
-                 SimulatoreDecisioni`Private`log$$]; 
+                    Bold]}], SimulatoreDecisioni`log}], 
+                SimulatoreDecisioni`log = Column[{
+                    Row[{
+                    Style["Turno terminato: ", Bold, Red], 
+                    Style["Partita persa! ", Italic, 
+                    Darker[Red]], 
+                    Style[
+                    "Risorse insufficienti: " <> 
+                    ToString[SimulatoreDecisioni`Private`risorseCorrenti$$], 
+                    Bold]}], SimulatoreDecisioni`log}]; 
+                SimulatoreDecisioni`Private`simulazioneIniziata$$ = False; 
+                Return[]]; 
               If[SimulatoreDecisioni`Private`turniRestanti$$ == 0, 
-                SimulatoreDecisioni`Private`log$$ = Column[{
+                SimulatoreDecisioni`log = Column[{
                     Spacer[10], 
                     Style["--- PARTITA CONCLUSA! ---", Bold, 
                     Darker[Green]], "Turni Totali: " <> 
@@ -6626,8 +6555,8 @@ ottimale.", "Tooltip"]& ]},
                     "Premi 'Reset Esercizio' per iniziare una nuova partita!",
                      Italic, 
                     Darker[Red]], 
-                    Spacer[10], SimulatoreDecisioni`Private`log$$}]; Null]; 
-              Null], Enabled -> Dynamic[
+                    Spacer[10], SimulatoreDecisioni`log}]; Null]; Null], 
+            Enabled -> Dynamic[
               And[
               SimulatoreDecisioni`Private`simulazioneIniziata$$, 
                SimulatoreDecisioni`Private`turniRestanti$$ > 0]], Appearance -> 
@@ -6687,8 +6616,7 @@ ottimale.", "Tooltip"]& ]},
                 SimulatoreDecisioni`Private`ControllaRisorse[
                 SimulatoreDecisioni`Private`costoCostruzioneEffettivo$, 
                  "Costruisci Struttura", 
-                 SimulatoreDecisioni`Private`risorseCorrenti$$, 
-                 SimulatoreDecisioni`Private`log$$], 
+                 SimulatoreDecisioni`Private`risorseCorrenti$$], 
                 SubtractFrom[
                  SimulatoreDecisioni`Private`risorseCorrenti$$, 
                   SimulatoreDecisioni`Private`costoCostruzioneEffettivo$]; 
@@ -6696,7 +6624,7 @@ ottimale.", "Tooltip"]& ]},
                   SimulatoreDecisioni`Private`incrementoRendimentoEffettivo$]; 
                 Decrement[SimulatoreDecisioni`Private`turniRestanti$$]; 
                 Increment[SimulatoreDecisioni`Private`azioniCostruzione$$]; 
-                SimulatoreDecisioni`Private`log$$ = Column[{
+                SimulatoreDecisioni`log = Column[{
                     Row[{
                     Style[
                     "Turno " <> 
@@ -6716,16 +6644,20 @@ ottimale.", "Tooltip"]& ]},
 ], Bold], "   |   Risorse Totali: ", 
                     Style[
                     ToString[SimulatoreDecisioni`Private`risorseCorrenti$$], 
-                    Bold]}], SimulatoreDecisioni`Private`log$$}], 
-                Return[]]; SimulatoreDecisioni`Private`ControllaRisorse[
-                Min[
-                SimulatoreDecisioni`Private`costoRaccoltaEffettivo$, 
-                 SimulatoreDecisioni`Private`costoCostruzioneEffettivo$, 
-                 SimulatoreDecisioni`Private`costoEsplorazioneEffettivo$], 
-                "Fine Partita", SimulatoreDecisioni`Private`risorseCorrenti$$,
-                 SimulatoreDecisioni`Private`log$$]; 
+                    Bold]}], SimulatoreDecisioni`log}], 
+                SimulatoreDecisioni`log = Column[{
+                    Row[{
+                    Style["Turno terminato: ", Bold, Red], 
+                    Style["Partita persa! ", Italic, 
+                    Darker[Red]], 
+                    Style[
+                    "Risorse insufficienti: " <> 
+                    ToString[SimulatoreDecisioni`Private`risorseCorrenti$$], 
+                    Bold]}], SimulatoreDecisioni`log}]; 
+                SimulatoreDecisioni`Private`simulazioneIniziata$$ = False; 
+                Return[]]; 
               If[SimulatoreDecisioni`Private`turniRestanti$$ == 0, 
-                SimulatoreDecisioni`Private`log$$ = Column[{
+                SimulatoreDecisioni`log = Column[{
                     Spacer[10], 
                     Style["--- PARTITA CONCLUSA! ---", Bold, 
                     Darker[Green]], "Turni Totali: " <> 
@@ -6742,8 +6674,8 @@ ottimale.", "Tooltip"]& ]},
                     Spacer[10], 
                     Style["Grazie per aver giocato!", Italic, 
                     Darker[Gray]], 
-                    Spacer[10], SimulatoreDecisioni`Private`log$$}]; Null]; 
-              Null], Enabled -> Dynamic[
+                    Spacer[10], SimulatoreDecisioni`log}]; Null]; Null], 
+            Enabled -> Dynamic[
               And[
               SimulatoreDecisioni`Private`simulazioneIniziata$$, 
                SimulatoreDecisioni`Private`turniRestanti$$ > 0]], Appearance -> 
@@ -6802,8 +6734,7 @@ ottimale.", "Tooltip"]& ]},
                    RandomInteger[{0, 80}]}]]; If[
                 SimulatoreDecisioni`Private`ControllaRisorse[
                 SimulatoreDecisioni`Private`costoEsplorazioneEffettivo$, 
-                 "Esplora", SimulatoreDecisioni`Private`risorseCorrenti$$, 
-                 SimulatoreDecisioni`Private`log$$], 
+                 "Esplora", SimulatoreDecisioni`Private`risorseCorrenti$$], 
                 SubtractFrom[
                  SimulatoreDecisioni`Private`risorseCorrenti$$, 
                   SimulatoreDecisioni`Private`costoEsplorazioneEffettivo$]; 
@@ -6811,7 +6742,7 @@ ottimale.", "Tooltip"]& ]},
                   SimulatoreDecisioni`Private`beneficioEsplorazioneEffettivo$]\
 ; Decrement[SimulatoreDecisioni`Private`turniRestanti$$]; 
                 Increment[SimulatoreDecisioni`Private`azioniEsplorazione$$]; 
-                SimulatoreDecisioni`Private`log$$ = Column[{
+                SimulatoreDecisioni`log = Column[{
                     Row[{
                     Style[
                     "Turno " <> 
@@ -6831,16 +6762,20 @@ ottimale.", "Tooltip"]& ]},
 beneficioEsplorazioneEffettivo$], Bold], "   |   Risorse Totali: ", 
                     Style[
                     ToString[SimulatoreDecisioni`Private`risorseCorrenti$$], 
-                    Bold]}], SimulatoreDecisioni`Private`log$$}], 
-                Return[]]; SimulatoreDecisioni`Private`ControllaRisorse[
-                Min[
-                SimulatoreDecisioni`Private`costoRaccoltaEffettivo$, 
-                 SimulatoreDecisioni`Private`costoCostruzioneEffettivo$, 
-                 SimulatoreDecisioni`Private`costoEsplorazioneEffettivo$], 
-                "Fine Partita", SimulatoreDecisioni`Private`risorseCorrenti$$,
-                 SimulatoreDecisioni`Private`log$$]; 
+                    Bold]}], SimulatoreDecisioni`log}], 
+                SimulatoreDecisioni`log = Column[{
+                    Row[{
+                    Style["Turno terminato: ", Bold, Red], 
+                    Style["Partita persa! ", Italic, 
+                    Darker[Red]], 
+                    Style[
+                    "Risorse insufficienti: " <> 
+                    ToString[SimulatoreDecisioni`Private`risorseCorrenti$$], 
+                    Bold]}], SimulatoreDecisioni`log}]; 
+                SimulatoreDecisioni`Private`simulazioneIniziata$$ = False; 
+                Return[]]; 
               If[SimulatoreDecisioni`Private`turniRestanti$$ == 0, 
-                SimulatoreDecisioni`Private`log$$ = Column[{
+                SimulatoreDecisioni`log = Column[{
                     Spacer[10], 
                     Style["--- PARTITA CONCLUSA! ---", Bold, 
                     Darker[Green]], "Turni Totali: " <> 
@@ -6857,8 +6792,8 @@ beneficioEsplorazioneEffettivo$], Bold], "   |   Risorse Totali: ",
                     Spacer[10], 
                     Style["Grazie per aver giocato!", Italic, 
                     Darker[Gray]], 
-                    Spacer[10], SimulatoreDecisioni`Private`log$$}]; Null]; 
-              Null], Enabled -> Dynamic[
+                    Spacer[10], SimulatoreDecisioni`log}]; Null]; Null], 
+            Enabled -> Dynamic[
               And[
               SimulatoreDecisioni`Private`simulazioneIniziata$$, 
                SimulatoreDecisioni`Private`turniRestanti$$ > 0]], Appearance -> 
@@ -6952,11 +6887,7 @@ partita."]}]; SimulatoreDecisioni`Private`simulazioneIniziata$$ = False;
                     SimulatoreDecisioni`Private`turniRestanti$$ - Ceiling[
                     SimulatoreDecisioni`Private`costoCostruzioneEffettivo$/
                     SimulatoreDecisioni`Private`incrementoRendimentoEffettivo$\
-]), 0]; SimulatoreDecisioni`Private`AggiungiDebug[
-                 "rendimentoCostruzione: " <> 
-                  ToString[
-                   SimulatoreDecisioni`Private`rendimentoCostruzione$$ - 5]]; 
-                SimulatoreDecisioni`Private`guadagnoEsplorazionePonderato = 
+]), 0]; SimulatoreDecisioni`Private`guadagnoEsplorazionePonderato = 
                  0.7 (Max[
                     SimulatoreDecisioni`Private`\
 beneficioEsplorazioneEffettivo$] - 
@@ -6967,29 +6898,20 @@ beneficioEsplorazioneEffettivo$] -
                     SimulatoreDecisioni`Private`costoEsplorazioneEffettivo$); 
                 SimulatoreDecisioni`Private`guadagnoRaccolta = 
                  SimulatoreDecisioni`Private`beneficioRaccoltaEffettivo$ - 
-                  SimulatoreDecisioni`Private`costoRaccoltaEffettivo$; 
-                SimulatoreDecisioni`Private`AggiungiDebug[
-                 "guadagnoEsplorazionePonderato: " <> 
-                  ToString[
-                   SimulatoreDecisioni`Private`guadagnoEsplorazionePonderato]]\
-; SimulatoreDecisioni`Private`AggiungiDebug[
-                  "guadagnoRaccolta: " <> 
-                   ToString[SimulatoreDecisioni`Private`guadagnoRaccolta]] 
-                 Which[
-                   And[
-                   SimulatoreDecisioni`Private`rendimentoCostruzione$$ > 
-                    Max[SimulatoreDecisioni`Private`\
+                  SimulatoreDecisioni`Private`costoRaccoltaEffettivo$; Which[
+                  And[
+                  SimulatoreDecisioni`Private`rendimentoCostruzione$$ > 
+                   Max[SimulatoreDecisioni`Private`\
 guadagnoEsplorazionePonderato, SimulatoreDecisioni`Private`guadagnoRaccolta], 
-                    SimulatoreDecisioni`Private`turniRestanti$$ > 
-                    Ceiling[
+                   SimulatoreDecisioni`Private`turniRestanti$$ > 
+                   Ceiling[
                     SimulatoreDecisioni`Private`costoCostruzioneEffettivo$/
                     SimulatoreDecisioni`Private`incrementoRendimentoEffettivo$\
 ], SimulatoreDecisioni`Private`risorseCorrenti$$ >= 
-                    SimulatoreDecisioni`Private`costoCostruzioneEffettivo$], 
-                   SimulatoreDecisioni`Private`azioneSuggerita$ = 
-                    "Costruisci"; 
-                   SimulatoreDecisioni`Private`spiegazione$ = 
-                    "Costruire conviene: rendimento stimato " <> 
+                   SimulatoreDecisioni`Private`costoCostruzioneEffettivo$], 
+                  SimulatoreDecisioni`Private`azioneSuggerita$ = "Costruisci"; 
+                  SimulatoreDecisioni`Private`spiegazione$ = 
+                   "Costruire conviene: rendimento stimato " <> 
                     ToString[
                     SimulatoreDecisioni`Private`rendimentoCostruzione$$] <> 
                     " con ROI in " <> ToString[
@@ -6997,49 +6919,38 @@ guadagnoEsplorazionePonderato, SimulatoreDecisioni`Private`guadagnoRaccolta],
                     SimulatoreDecisioni`Private`costoCostruzioneEffettivo$/
                     SimulatoreDecisioni`Private`incrementoRendimentoEffettivo$\
 ]] <> " turni.", 
-                   And[
-                   SimulatoreDecisioni`Private`guadagnoEsplorazionePonderato > 
-                    SimulatoreDecisioni`Private`guadagnoRaccolta, 
-                    SimulatoreDecisioni`Private`rischioEsplorazione$ > 0, 
-                    SimulatoreDecisioni`Private`risorseCorrenti$$ >= 
-                    SimulatoreDecisioni`Private`costoEsplorazioneEffettivo$], 
-                   SimulatoreDecisioni`Private`azioneSuggerita$ = "Esplora"; 
-                   SimulatoreDecisioni`Private`spiegazione$ = 
-                    "Esplorare conviene: guadagno medio ponderato di " <> 
+                  And[
+                  SimulatoreDecisioni`Private`guadagnoEsplorazionePonderato > 
+                   SimulatoreDecisioni`Private`guadagnoRaccolta, 
+                   SimulatoreDecisioni`Private`rischioEsplorazione$ > 0, 
+                   SimulatoreDecisioni`Private`risorseCorrenti$$ >= 
+                   SimulatoreDecisioni`Private`costoEsplorazioneEffettivo$], 
+                  SimulatoreDecisioni`Private`azioneSuggerita$ = "Esplora"; 
+                  SimulatoreDecisioni`Private`spiegazione$ = 
+                   "Esplorare conviene: guadagno medio ponderato di " <> 
                     ToString[
                     SimulatoreDecisioni`Private`guadagnoEsplorazionePonderato]\
  <> " con massimo potenziale " <> ToString[
                     Max[
                     SimulatoreDecisioni`Private`\
 beneficioEsplorazioneEffettivo$]] <> " e rischio minimo.", 
-                   SimulatoreDecisioni`Private`risorseCorrenti$$ >= 
-                   SimulatoreDecisioni`Private`costoRaccoltaEffettivo$, 
-                   SimulatoreDecisioni`Private`azioneSuggerita$ = 
-                    "Raccogli Risorse"; 
-                   SimulatoreDecisioni`Private`spiegazione$ = 
-                    "Raccogliere \[EGrave] la scelta sicura: guadagno \
+                  SimulatoreDecisioni`Private`risorseCorrenti$$ >= 
+                  SimulatoreDecisioni`Private`costoRaccoltaEffettivo$, 
+                  SimulatoreDecisioni`Private`azioneSuggerita$ = 
+                   "Raccogli Risorse"; 
+                  SimulatoreDecisioni`Private`spiegazione$ = 
+                   "Raccogliere \[EGrave] la scelta sicura: guadagno \
 garantito di " <> ToString[SimulatoreDecisioni`Private`guadagnoRaccolta] <> 
                     " a turno.", True, 
-                   SimulatoreDecisioni`Private`azioneAlternativa = 
-                    If[SimulatoreDecisioni`Private`risorseCorrenti$$ >= 
+                  SimulatoreDecisioni`Private`azioneAlternativa = 
+                   If[SimulatoreDecisioni`Private`risorseCorrenti$$ >= 
                     SimulatoreDecisioni`Private`costoEsplorazioneEffettivo$, 
                     "Esplora", "Raccogli Risorse"]; 
-                   SimulatoreDecisioni`Private`azioneSuggerita$ = 
-                    SimulatoreDecisioni`Private`azioneAlternativa; 
-                   SimulatoreDecisioni`Private`spiegazione$ = 
-                    "L'azione migliore richiederebbe pi\[UGrave] risorse. Ti \
+                  SimulatoreDecisioni`Private`azioneSuggerita$ = 
+                   SimulatoreDecisioni`Private`azioneAlternativa; 
+                  SimulatoreDecisioni`Private`spiegazione$ = 
+                   "L'azione migliore richiederebbe pi\[UGrave] risorse. Ti \
 consigliamo di: " <> SimulatoreDecisioni`Private`azioneAlternativa <> "."]; 
-                SimulatoreDecisioni`Private`AggiungiDebug[
-                 "Richiesto consiglio DOPO al Which"]; 
-                SimulatoreDecisioni`Private`AggiungiDebug[
-                 "ROI: " <> 
-                  ToString[SimulatoreDecisioni`Private`roiCostruzione$]]; 
-                SimulatoreDecisioni`Private`AggiungiDebug[
-                 "Valore azioneSuggerita: " <> 
-                  ToString[SimulatoreDecisioni`Private`azioneSuggerita$]]; 
-                SimulatoreDecisioni`Private`AggiungiDebug[
-                 "Valore spiegazione: " <> 
-                  ToString[SimulatoreDecisioni`Private`spiegazione$]]; 
                 SimulatoreDecisioni`Private`azioneSuggeritaStyled$ = 
                  Style[SimulatoreDecisioni`Private`azioneSuggerita$, Bold, 
                    Blue]; SimulatoreDecisioni`Private`spiegazioneStyled$ = 
@@ -7073,12 +6984,12 @@ per il turno corrente.", "Tooltip"]& ]},
           ButtonBox[
           "\"Mostra Risultati\"", 
            ButtonFunction :> (
-            SimulatoreDecisioni`Private`log$$ = 
+            SimulatoreDecisioni`log = 
              Column[{"Statistiche finali:", "Turni Rimanenti: " <> 
                 ToString[SimulatoreDecisioni`Private`turniRestanti$$], 
                 "Risorse Rimanenti: " <> 
                 ToString[SimulatoreDecisioni`Private`risorseCorrenti$$], 
-                Style["", Bold], SimulatoreDecisioni`Private`log$$}]; 
+                Style["", Bold], SimulatoreDecisioni`log}]; 
             Enabled -> Dynamic[
               SimulatoreDecisioni`Private`simulazioneIniziata$$]), Appearance -> 
            Automatic, Evaluator -> Automatic, Method -> "Preemptive"], 
@@ -7099,7 +7010,7 @@ per il turno corrente.", "Tooltip"]& ]},
               SimulatoreDecisioni`Private`turniIniziali$$, 
               SimulatoreDecisioni`Private`risorse$ = 
               SimulatoreDecisioni`Private`risorseIniziali$$, 
-              SimulatoreDecisioni`Private`rendimentoCostruzione$ = 0, 
+              SimulatoreDecisioni`Private`rendimentoCostruzioneSol$ = 0, 
               SimulatoreDecisioni`Private`guadagnoEsplorazionePonderato$, 
               SimulatoreDecisioni`Private`guadagnoRaccolta$, 
               SimulatoreDecisioni`Private`beneficioTotale$ = 0, 
@@ -7147,7 +7058,7 @@ beneficioEsplorazioneEffettivo$] -
                SimulatoreDecisioni`Private`guadagnoRaccolta$ = 
                 SimulatoreDecisioni`Private`beneficioRaccoltaEffettivo$ - 
                  SimulatoreDecisioni`Private`costoRaccoltaEffettivo$; 
-               SimulatoreDecisioni`Private`rendimentoCostruzione$ = 
+               SimulatoreDecisioni`Private`rendimentoCostruzioneSol$ = 
                 If[SimulatoreDecisioni`Private`turniSimulati$ > 
                   Ceiling[
                    SimulatoreDecisioni`Private`costoCostruzioneEffettivo$/
@@ -7158,7 +7069,7 @@ beneficioEsplorazioneEffettivo$] -
                     SimulatoreDecisioni`Private`incrementoRendimentoEffettivo$\
 ]), 0]; Which[
                  And[
-                 SimulatoreDecisioni`Private`rendimentoCostruzione$ > 
+                 SimulatoreDecisioni`Private`rendimentoCostruzioneSol$ > 
                   Max[SimulatoreDecisioni`Private`\
 guadagnoEsplorazionePonderato$, 
                     SimulatoreDecisioni`Private`guadagnoRaccolta$], 
@@ -7177,11 +7088,11 @@ guadagnoEsplorazionePonderato$,
                  SimulatoreDecisioni`Private`spiegazione$ = 
                   "Costruire conviene: rendimento stimato " <> 
                    ToString[
-                    SimulatoreDecisioni`Private`rendimentoCostruzione$]; 
+                    SimulatoreDecisioni`Private`rendimentoCostruzioneSol$]; 
                  SubtractFrom[
                   SimulatoreDecisioni`Private`risorse$, 
                    SimulatoreDecisioni`Private`costoCostruzioneEffettivo$]; 
-                 AddTo[SimulatoreDecisioni`Private`rendimentoCostruzione$, 
+                 AddTo[SimulatoreDecisioni`Private`rendimentoCostruzioneSol$, 
                    SimulatoreDecisioni`Private`incrementoRendimentoEffettivo$]\
 ; Null, 
                  And[
@@ -7271,13 +7182,14 @@ mostra il log della simulazione.", "Tooltip"]& ]},
          ButtonFunction:>(SimulatoreDecisioni`Private`risorseCorrenti$$ = 100; 
           SimulatoreDecisioni`Private`turniRestanti$$ = 10; 
           SimulatoreDecisioni`Private`simulazioneIniziata$$ = False; 
-          SimulatoreDecisioni`Private`log$$ = ""; 
+          SimulatoreDecisioni`log = ""; 
           SimulatoreDecisioni`Private`azioniRaccolta$$ = 0; 
           SimulatoreDecisioni`Private`azioniCostruzione$$ = 0; 
           SimulatoreDecisioni`Private`azioniEsplorazione$$ = 0; 
           SimulatoreDecisioni`Private`turniIniziali$$ = 10; 
           SimulatoreDecisioni`Private`risorseIniziali$$ = 100; 
-          SimulatoreDecisioni`Private`difficolta$$ = "Medio"; Null),
+          SimulatoreDecisioni`Private`difficolta$$ = "Medio"; 
+          SimulatoreDecisioni`seedNumerico$$ = 42; Null),
          Enabled->True,
          Evaluator->Automatic,
          Method->"Preemptive"],
@@ -7295,10 +7207,10 @@ mostra il log della simulazione.", "Tooltip"]& ]},
        FontWeight->Bold]},
      {
       PaneBox[
-       DynamicBox[ToBoxes[SimulatoreDecisioni`Private`log$$, StandardForm],
-        ImageSizeCache->{
-         680.9702382087708, {183.1060832823859, 188.83801708638197`}}],
+       DynamicBox[ToBoxes[SimulatoreDecisioni`log, StandardForm],
+        ImageSizeCache->{0., {0., 6.373047108761966}}],
        ImageSize->{800, 200},
+       ScrollPosition->{0., 0.},
        Scrollbars->True]}
     },
     DefaultBaseStyle->"Column",
@@ -7389,8 +7301,20 @@ mostra il log della simulazione.", "Tooltip"]& ]},
    3.943767280664854*^9, 3.943767369179903*^9, {3.9437719184111595`*^9, 
    3.9437719575277767`*^9}, 3.9437721205593014`*^9, 3.943772372133135*^9, 
    3.943774594408453*^9, 3.9437746710206203`*^9, 3.9437747406478863`*^9, 
-   3.943775118579197*^9, 3.943775158885807*^9},
- CellLabel->"Out[17]=",ExpressionUUID->"a97024e5-8ee0-804b-a806-49fecff0c18c"]
+   3.943775118579197*^9, 3.9437751588487625`*^9, 3.94377615413056*^9, 
+   3.9437764914923534`*^9, 3.9437767948064404`*^9, 3.9437773467704887`*^9, 
+   3.9437774827382183`*^9, {3.9437786088616524`*^9, 3.9437786179529896`*^9}, {
+   3.9437786817632313`*^9, 3.943778695977762*^9}, 3.943778729596155*^9, 
+   3.9437787683993034`*^9, 3.9437788972548695`*^9, 3.943778941032976*^9, {
+   3.943779053217924*^9, 3.9437790766444263`*^9}, 3.943779834761425*^9, 
+   3.9437802685871773`*^9, 3.9437803050901604`*^9, 3.9437809299285088`*^9, 
+   3.943780975431694*^9, 3.943781158666628*^9, 3.943781281900961*^9, 
+   3.9437813417243347`*^9, 3.943781559192335*^9, 3.943781647473629*^9, 
+   3.9437816878579445`*^9, 3.943781829832796*^9, 3.9437823168736897`*^9, 
+   3.9437824273695755`*^9, 3.9437825426896057`*^9, 3.9437825906696377`*^9, 
+   3.9437828759796066`*^9, 3.9437831921752644`*^9, 3.9437832346777897`*^9},
+ CellLabel->
+  "Out[124]=",ExpressionUUID->"07cf2555-5c58-234e-bcba-41b5b18dd67a"]
 }, Open  ]]
 }, Open  ]],
 
@@ -7453,7 +7377,7 @@ offrendo suggerimenti automatici per ottimizzare il punteggio.\
 }, Open  ]]
 },
 WindowSize->{1278.75, 999.75},
-WindowMargins->{{0, Automatic}, {Automatic, 0}},
+WindowMargins->{{-7.5, Automatic}, {Automatic, 3.75}},
 FrontEndVersion->"14.1 for Microsoft Windows (64-bit) (July 16, 2024)",
 StyleDefinitions->"Default.nb",
 ExpressionUUID->"9dde582c-ea2b-eb49-83e7-82ca6b074dea"
@@ -7551,307 +7475,307 @@ Cell[32511, 711, 385, 8, 24, "Subsubitem",ExpressionUUID->"807f1ffc-0e14-1843-83
 Cell[CellGroupData[{
 Cell[32933, 724, 396, 8, 25, "Subitem",ExpressionUUID->"cff71e2a-93ec-3b45-a1ec-57ea471373ba"],
 Cell[CellGroupData[{
-Cell[33354, 736, 3526, 75, 383, "Code",ExpressionUUID->"3c3b991c-99ae-184b-87ca-d4deb1c83f80"],
-Cell[36883, 813, 1944, 38, 194, "Output",ExpressionUUID->"1fa3ca51-5ab0-1844-9ce0-8b160f9c8523"]
+Cell[33354, 736, 3527, 75, 383, "Code",ExpressionUUID->"3c3b991c-99ae-184b-87ca-d4deb1c83f80"],
+Cell[36884, 813, 1971, 39, 194, "Output",ExpressionUUID->"fdf443bf-89c1-4d4c-8974-b312ab1d1377"]
 }, Open  ]]
 }, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[38888, 858, 7619, 132, 97, "Item",ExpressionUUID->"9474886d-68f7-2542-bc55-38463a8cdfcd"],
+Cell[38916, 859, 7619, 132, 97, "Item",ExpressionUUID->"9474886d-68f7-2542-bc55-38463a8cdfcd"],
 Cell[CellGroupData[{
-Cell[46532, 994, 265, 4, 25, "Subitem",ExpressionUUID->"d64c80c6-04f0-9340-b709-adfbfa1d5652"],
-Cell[46800, 1000, 374, 7, 24, "Subsubitem",ExpressionUUID->"04b1f961-b6b4-7442-a09f-5f886108315b"],
-Cell[47177, 1009, 351, 5, 24, "Subsubitem",ExpressionUUID->"13b963ef-b8b5-ec4c-b9c9-8d8efa60472d"],
-Cell[47531, 1016, 394, 7, 24, "Subsubitem",ExpressionUUID->"30697529-8ad5-7346-ac5d-1de28814b4cd"]
+Cell[46560, 995, 265, 4, 25, "Subitem",ExpressionUUID->"d64c80c6-04f0-9340-b709-adfbfa1d5652"],
+Cell[46828, 1001, 374, 7, 24, "Subsubitem",ExpressionUUID->"04b1f961-b6b4-7442-a09f-5f886108315b"],
+Cell[47205, 1010, 351, 5, 24, "Subsubitem",ExpressionUUID->"13b963ef-b8b5-ec4c-b9c9-8d8efa60472d"],
+Cell[47559, 1017, 394, 7, 24, "Subsubitem",ExpressionUUID->"30697529-8ad5-7346-ac5d-1de28814b4cd"]
 }, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[47974, 1029, 257, 4, 30, "Item",ExpressionUUID->"f07b25b8-d468-b64a-89f7-950804e93197"],
+Cell[48002, 1030, 257, 4, 30, "Item",ExpressionUUID->"f07b25b8-d468-b64a-89f7-950804e93197"],
 Cell[CellGroupData[{
-Cell[48256, 1037, 6656, 117, 114, "Subitem",ExpressionUUID->"2d7b4a5a-e71c-af48-a6fa-09fb4a7966ec"],
-Cell[54915, 1156, 329, 6, 24, "Subsubitem",ExpressionUUID->"be6c48d7-fbd7-4045-acc4-9b446d760768"],
-Cell[55247, 1164, 342, 5, 24, "Subsubitem",ExpressionUUID->"ca9360ce-c13d-bd45-8bc1-3772af4b4143"]
+Cell[48284, 1038, 6656, 117, 114, "Subitem",ExpressionUUID->"2d7b4a5a-e71c-af48-a6fa-09fb4a7966ec"],
+Cell[54943, 1157, 329, 6, 24, "Subsubitem",ExpressionUUID->"be6c48d7-fbd7-4045-acc4-9b446d760768"],
+Cell[55275, 1165, 342, 5, 24, "Subsubitem",ExpressionUUID->"ca9360ce-c13d-bd45-8bc1-3772af4b4143"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[55626, 1174, 7433, 129, 113, "Subitem",ExpressionUUID->"12df69af-4f6d-a04e-aaa4-cba090084058"],
-Cell[63062, 1305, 339, 7, 24, "Subsubitem",ExpressionUUID->"e0ca1606-39e4-a840-b960-f7345b7a60b1"],
-Cell[63404, 1314, 20248, 339, 250, "Subsubitem",ExpressionUUID->"586c3cbb-2efe-934f-a6d9-c6825c6003eb"]
+Cell[55654, 1175, 7433, 129, 113, "Subitem",ExpressionUUID->"12df69af-4f6d-a04e-aaa4-cba090084058"],
+Cell[63090, 1306, 339, 7, 24, "Subsubitem",ExpressionUUID->"e0ca1606-39e4-a840-b960-f7345b7a60b1"],
+Cell[63432, 1315, 20248, 339, 250, "Subsubitem",ExpressionUUID->"586c3cbb-2efe-934f-a6d9-c6825c6003eb"]
 }, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[83701, 1659, 43904, 727, 362, "Item",ExpressionUUID->"31a8cfd6-cc6c-0047-97a1-ad80ecb8ed77"],
+Cell[83729, 1660, 43904, 727, 362, "Item",ExpressionUUID->"31a8cfd6-cc6c-0047-97a1-ad80ecb8ed77"],
 Cell[CellGroupData[{
-Cell[127630, 2390, 320, 6, 25, "Subitem",ExpressionUUID->"5a5801b0-7f83-3842-b3a4-ec4f669c7471"],
-Cell[127953, 2398, 251, 4, 24, "Subsubitem",ExpressionUUID->"fe4376d8-5c35-4a4b-9bfd-19ead00d636e"],
-Cell[128207, 2404, 254, 4, 24, "Subsubitem",ExpressionUUID->"ea8bee5d-6692-5246-8ef1-3f49799c3706"],
-Cell[128464, 2410, 279, 4, 24, "Subsubitem",ExpressionUUID->"544afd17-207f-8e46-a614-b37172d33654"]
+Cell[127658, 2391, 320, 6, 25, "Subitem",ExpressionUUID->"5a5801b0-7f83-3842-b3a4-ec4f669c7471"],
+Cell[127981, 2399, 251, 4, 24, "Subsubitem",ExpressionUUID->"fe4376d8-5c35-4a4b-9bfd-19ead00d636e"],
+Cell[128235, 2405, 254, 4, 24, "Subsubitem",ExpressionUUID->"ea8bee5d-6692-5246-8ef1-3f49799c3706"],
+Cell[128492, 2411, 279, 4, 24, "Subsubitem",ExpressionUUID->"544afd17-207f-8e46-a614-b37172d33654"]
 }, Open  ]],
-Cell[128758, 2417, 318, 6, 25, "Subitem",ExpressionUUID->"29c0acf4-fcf7-5643-8b47-a0ca72641659"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[129113, 2428, 9667, 166, 201, "Item",ExpressionUUID->"2857a65f-8dd8-5440-bffc-916fcf1d521c"],
-Cell[138783, 2596, 298, 4, 25, "Subitem",ExpressionUUID->"c4e2a76f-aef0-514c-b0e7-65c9ab185ac0"],
-Cell[139084, 2602, 340, 5, 25, "Subitem",ExpressionUUID->"c853ad33-e56e-ee41-b4d0-7e685380b33b"]
+Cell[128786, 2418, 318, 6, 25, "Subitem",ExpressionUUID->"29c0acf4-fcf7-5643-8b47-a0ca72641659"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[139461, 2612, 262, 4, 30, "Item",ExpressionUUID->"afca9b18-df45-914b-8f7b-ee7f90b6a1c0"],
-Cell[139726, 2618, 20830, 348, 150, "Subitem",ExpressionUUID->"686e9c63-e398-9f48-a794-496c6f10f4d4"],
-Cell[160559, 2968, 11210, 191, 106, "Subitem",ExpressionUUID->"9c198655-6182-b746-a5b7-16e909509e43"]
+Cell[129141, 2429, 9667, 166, 201, "Item",ExpressionUUID->"2857a65f-8dd8-5440-bffc-916fcf1d521c"],
+Cell[138811, 2597, 298, 4, 25, "Subitem",ExpressionUUID->"c4e2a76f-aef0-514c-b0e7-65c9ab185ac0"],
+Cell[139112, 2603, 340, 5, 25, "Subitem",ExpressionUUID->"c853ad33-e56e-ee41-b4d0-7e685380b33b"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[171806, 3164, 185, 3, 53, "Subsection",ExpressionUUID->"6943e342-dddf-e34f-903a-553502e6caa4"],
-Cell[171994, 3169, 220, 4, 30, "ItemNumbered",ExpressionUUID->"c7610dc8-6859-244f-a4ec-026950d867d2"],
-Cell[172217, 3175, 241, 6, 30, "ItemNumbered",ExpressionUUID->"2c8af767-65d3-9c4c-b8d5-aa5cde279325"],
-Cell[172461, 3183, 220, 5, 30, "ItemNumbered",ExpressionUUID->"e916475c-75e6-ea48-bf72-80f89249eb99"],
-Cell[172684, 3190, 261, 6, 30, "ItemNumbered",ExpressionUUID->"055214b9-f320-964b-8c28-419cc6506b71"]
-}, Open  ]]
-}, Open  ]]
+Cell[139489, 2613, 262, 4, 30, "Item",ExpressionUUID->"afca9b18-df45-914b-8f7b-ee7f90b6a1c0"],
+Cell[139754, 2619, 20830, 348, 150, "Subitem",ExpressionUUID->"686e9c63-e398-9f48-a794-496c6f10f4d4"],
+Cell[160587, 2969, 11210, 191, 106, "Subitem",ExpressionUUID->"9c198655-6182-b746-a5b7-16e909509e43"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[173006, 3203, 238, 4, 67, "Chapter",ExpressionUUID->"e6929191-d1eb-294e-b3d6-036d55cea391"],
-Cell[CellGroupData[{
-Cell[173269, 3211, 184, 3, 66, "Section",ExpressionUUID->"b64ce6a5-c74e-4447-806c-1ac52824cb24"],
-Cell[173456, 3216, 174, 3, 33, "Text",ExpressionUUID->"62b03e78-40a7-5543-b84a-d671665c27d3"],
-Cell[173633, 3221, 253, 6, 30, "Item",ExpressionUUID->"f73d3de4-bc09-bc46-a5aa-8b2b4a743e0e"],
-Cell[173889, 3229, 243, 6, 30, "Item",ExpressionUUID->"0349de88-f6da-2541-8a10-6f0a92a400c1"],
-Cell[174135, 3237, 319, 7, 30, "Item",ExpressionUUID->"e12d3722-6c84-dc49-9024-2ab2a18f09c0"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[174491, 3249, 168, 3, 66, "Section",ExpressionUUID->"3b487ccd-6640-9d42-a706-88abc950741c"],
-Cell[174662, 3254, 375, 8, 30, "Item",ExpressionUUID->"153ffad0-e66c-3d4a-917a-b05ff482bc23"],
-Cell[175040, 3264, 358, 7, 50, "Item",ExpressionUUID->"d806d4e5-8747-a44d-bd0b-7e341c049337"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[175435, 3276, 160, 3, 66, "Section",ExpressionUUID->"c90919b7-1d55-134b-a5c3-23177f3c2bf0"],
-Cell[175598, 3281, 425, 8, 55, "Text",ExpressionUUID->"40175bf1-3a75-574a-8681-39330e75cd62"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[176060, 3294, 141, 2, 66, "Section",ExpressionUUID->"6b478c1d-68e1-5c40-8412-b8ef1bb7b1b6"],
-Cell[176204, 3298, 145, 3, 33, "Text",ExpressionUUID->"373914f3-2405-2a4c-8690-04e35e3b1638"],
-Cell[176352, 3303, 226, 5, 30, "Item",ExpressionUUID->"774d6c39-5401-784b-babb-3d031ebdd55d"],
-Cell[176581, 3310, 251, 6, 30, "Item",ExpressionUUID->"cf6e3a42-4640-6d42-8051-403bfdcc0f76"],
-Cell[176835, 3318, 263, 6, 30, "Item",ExpressionUUID->"dc263c14-d6c8-6349-9318-d05388ba3098"],
-Cell[177101, 3326, 266, 6, 33, "Text",ExpressionUUID->"67d5fd3c-5e3b-ae49-844c-9485014e86ed"]
-}, Open  ]]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[177416, 3338, 173, 3, 67, "Chapter",ExpressionUUID->"81ce6019-f655-d84e-98be-6e6224a0f652"],
-Cell[CellGroupData[{
-Cell[177614, 3345, 171, 3, 66, "Section",ExpressionUUID->"370db9fc-1c5d-7f47-9d92-823c4dcd9f44"],
-Cell[177788, 3350, 578, 11, 77, "Text",ExpressionUUID->"727be10a-a85f-bb42-a452-dbc3d1bb1674"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[178403, 3366, 145, 3, 66, "Section",ExpressionUUID->"4c2eae12-b283-b44d-b23b-5f3b97ec22db"],
-Cell[178551, 3371, 351, 7, 30, "ItemNumbered",ExpressionUUID->"529160f5-12d3-f44b-802b-206c3b91499f"],
-Cell[178905, 3380, 466, 8, 30, "ItemNumbered",ExpressionUUID->"67a5bdde-a54c-8040-87eb-60b980eb6f8d"],
-Cell[179374, 3390, 311, 6, 30, "ItemNumbered",ExpressionUUID->"d0d12955-a339-304b-81db-6926d2e9acc3"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[179722, 3401, 144, 3, 66, "Section",ExpressionUUID->"31ca904d-0276-be44-9fe3-9146d05b82b7"],
-Cell[179869, 3406, 226, 5, 30, "ItemNumbered",ExpressionUUID->"c883766b-1521-0647-9c25-da975c3246f0"],
-Cell[180098, 3413, 252, 6, 30, "ItemNumbered",ExpressionUUID->"9ae89bd2-9d84-4040-8189-0a2f16fbf3aa"],
-Cell[180353, 3421, 253, 4, 30, "ItemNumbered",ExpressionUUID->"b1a109bc-fafb-4b45-92c3-02f824b98313"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[180643, 3430, 158, 3, 66, "Section",ExpressionUUID->"b043da94-7fcb-1f46-99a4-5cb793aa8165"],
-Cell[180804, 3435, 227, 5, 33, "Text",ExpressionUUID->"8337b0e2-4f85-bf46-90f4-c5527e2593c7"],
-Cell[181034, 3442, 288, 6, 30, "ItemNumbered",ExpressionUUID->"e4cdc90d-7d41-994a-aacf-3ef3fc139eb9"],
-Cell[181325, 3450, 289, 6, 30, "ItemNumbered",ExpressionUUID->"1018b41f-0241-1147-8f0b-b5701989173f"],
-Cell[181617, 3458, 316, 7, 30, "ItemNumbered",ExpressionUUID->"cdc096a5-a62c-ca45-8ba8-c6951920c172"],
-Cell[181936, 3467, 414, 8, 30, "ItemNumbered",ExpressionUUID->"d1f190e1-38ec-3f48-bfef-cd1761eea08f"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[182387, 3480, 167, 3, 66, "Section",ExpressionUUID->"0db09bd6-b089-9248-bd17-7e57f6bddee4"],
-Cell[182557, 3485, 273, 6, 33, "Text",ExpressionUUID->"61aa8fa8-86bc-5d44-88d9-16ab41ad7842"],
-Cell[182833, 3493, 340, 7, 30, "ItemNumbered",ExpressionUUID->"9cccd267-a216-394e-88b2-d98f3b0b0d60"],
-Cell[183176, 3502, 307, 6, 30, "ItemNumbered",ExpressionUUID->"b0d0f5a5-d841-524e-b32e-0b61d009bfbc"],
-Cell[183486, 3510, 260, 6, 30, "ItemNumbered",ExpressionUUID->"9151cae5-351f-9e45-8fe9-c9d89712db03"]
-}, Open  ]]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[183795, 3522, 169, 3, 67, "Chapter",ExpressionUUID->"7d36f4da-b390-994c-82ff-e05727a69a1b"],
-Cell[CellGroupData[{
-Cell[183989, 3529, 146, 3, 66, "Section",ExpressionUUID->"334804ce-d086-374c-8a64-5e95c9e6bcb9"],
-Cell[184138, 3534, 411, 8, 55, "Text",ExpressionUUID->"720bf2c2-bec3-0642-9c45-5d6ac9efb597"],
-Cell[CellGroupData[{
-Cell[184574, 3546, 166, 3, 53, "Subsection",ExpressionUUID->"b71e81cf-106d-1d44-b37e-0d5ad3fd0630"],
-Cell[184743, 3551, 299, 6, 30, "ItemNumbered",ExpressionUUID->"24248443-387c-1441-895e-698c838fd3a1"],
-Cell[185045, 3559, 293, 6, 30, "ItemNumbered",ExpressionUUID->"70433f60-bd95-ef48-850e-a30bd454f6f9"],
-Cell[CellGroupData[{
-Cell[185363, 3569, 211, 4, 30, "ItemNumbered",ExpressionUUID->"61174a8b-554d-c946-98aa-e2d26589476c"],
-Cell[185577, 3575, 334, 7, 25, "SubitemNumbered",ExpressionUUID->"4a20241f-8e22-1142-b13b-c70b2c365255"],
-Cell[185914, 3584, 256, 6, 25, "SubitemNumbered",ExpressionUUID->"432a4139-8407-9740-999c-0905a6327423"]
-}, Open  ]]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[186219, 3596, 160, 3, 53, "Subsection",ExpressionUUID->"606b39ce-660b-8c4a-bd72-d843018cbdee"],
-Cell[186382, 3601, 237, 6, 30, "Item",ExpressionUUID->"b832f557-5832-af42-8239-a6b8170d5df8"],
-Cell[186622, 3609, 257, 6, 30, "Item",ExpressionUUID->"4265ce46-1ae1-5040-bf4f-29ed5cfb7037"],
-Cell[186882, 3617, 294, 6, 30, "Item",ExpressionUUID->"5a712838-498e-204b-9478-078d0e879da1"],
-Cell[CellGroupData[{
-Cell[187201, 3627, 144, 3, 43, "Subsubsection",ExpressionUUID->"0562a1e0-f037-e747-b04f-e3be4b6ef3eb"],
-Cell[187348, 3632, 200, 3, 30, "Item",ExpressionUUID->"74360d9f-a0b6-b84c-af9e-574fb9bfa883"],
-Cell[187551, 3637, 431, 8, 50, "Item",ExpressionUUID->"93d845af-0a1e-7c41-a428-b8cf21047195"]
-}, Open  ]]
+Cell[171834, 3165, 185, 3, 53, "Subsection",ExpressionUUID->"6943e342-dddf-e34f-903a-553502e6caa4"],
+Cell[172022, 3170, 220, 4, 30, "ItemNumbered",ExpressionUUID->"c7610dc8-6859-244f-a4ec-026950d867d2"],
+Cell[172245, 3176, 241, 6, 30, "ItemNumbered",ExpressionUUID->"2c8af767-65d3-9c4c-b8d5-aa5cde279325"],
+Cell[172489, 3184, 220, 5, 30, "ItemNumbered",ExpressionUUID->"e916475c-75e6-ea48-bf72-80f89249eb99"],
+Cell[172712, 3191, 261, 6, 30, "ItemNumbered",ExpressionUUID->"055214b9-f320-964b-8c28-419cc6506b71"]
 }, Open  ]]
 }, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[188055, 3653, 164, 3, 67, "Chapter",ExpressionUUID->"6dfa3569-5a06-9247-b8ae-a96ebdb7fff7"],
+Cell[173034, 3204, 238, 4, 67, "Chapter",ExpressionUUID->"e6929191-d1eb-294e-b3d6-036d55cea391"],
 Cell[CellGroupData[{
-Cell[188244, 3660, 143, 3, 66, "Section",ExpressionUUID->"9b97b7c0-035d-0a4c-9607-6ad2a2d96f7b"],
-Cell[188390, 3665, 383, 8, 33, "Text",ExpressionUUID->"fb58bdf4-1072-bd4b-a9d9-5564fe76f333"],
-Cell[CellGroupData[{
-Cell[188798, 3677, 149, 3, 53, "Subsection",ExpressionUUID->"89f59acf-e43d-954c-9f69-3dd797feb965"],
-Cell[188950, 3682, 277, 6, 30, "ItemNumbered",ExpressionUUID->"4741d4f5-6e94-a54c-bc5e-75676d8a5c65"],
-Cell[189230, 3690, 301, 6, 30, "ItemNumbered",ExpressionUUID->"b8cef398-68c9-9442-bb41-5b38e7058a11"],
-Cell[189534, 3698, 311, 6, 30, "ItemNumbered",ExpressionUUID->"4fb17d74-0d93-694e-b248-45e64e06f89a"]
+Cell[173297, 3212, 184, 3, 66, "Section",ExpressionUUID->"b64ce6a5-c74e-4447-806c-1ac52824cb24"],
+Cell[173484, 3217, 174, 3, 33, "Text",ExpressionUUID->"62b03e78-40a7-5543-b84a-d671665c27d3"],
+Cell[173661, 3222, 253, 6, 30, "Item",ExpressionUUID->"f73d3de4-bc09-bc46-a5aa-8b2b4a743e0e"],
+Cell[173917, 3230, 243, 6, 30, "Item",ExpressionUUID->"0349de88-f6da-2541-8a10-6f0a92a400c1"],
+Cell[174163, 3238, 319, 7, 30, "Item",ExpressionUUID->"e12d3722-6c84-dc49-9024-2ab2a18f09c0"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[189882, 3709, 153, 3, 53, "Subsection",ExpressionUUID->"2b5c6b55-2993-224b-b237-6c77de7a4f2a"],
-Cell[190038, 3714, 239, 6, 30, "ItemNumbered",ExpressionUUID->"3dabede1-92e5-aa46-b958-d89d3dec82d8"],
-Cell[190280, 3722, 269, 6, 30, "ItemNumbered",ExpressionUUID->"05aca71d-c118-514a-9dbd-339a8a0d5ae7"],
-Cell[CellGroupData[{
-Cell[190574, 3732, 189, 3, 30, "ItemNumbered",ExpressionUUID->"065d3120-64ac-284d-a66d-c5e369d406f0"],
-Cell[190766, 3737, 184, 3, 25, "SubitemNumbered",ExpressionUUID->"15c27bbe-5d98-7344-8d51-35ef2606b7d7"],
-Cell[190953, 3742, 183, 3, 25, "SubitemNumbered",ExpressionUUID->"5e950304-97c8-ff42-81ef-904ee11099b1"],
-Cell[191139, 3747, 229, 5, 25, "SubitemNumbered",ExpressionUUID->"de50a486-bb32-7b4c-9719-ebb811913cb9"]
+Cell[174519, 3250, 168, 3, 66, "Section",ExpressionUUID->"3b487ccd-6640-9d42-a706-88abc950741c"],
+Cell[174690, 3255, 375, 8, 30, "Item",ExpressionUUID->"153ffad0-e66c-3d4a-917a-b05ff482bc23"],
+Cell[175068, 3265, 358, 7, 50, "Item",ExpressionUUID->"d806d4e5-8747-a44d-bd0b-7e341c049337"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[191405, 3757, 142, 3, 43, "Subsubsection",ExpressionUUID->"5ae5315f-13d7-8f45-b63c-4472b60cd834"],
-Cell[CellGroupData[{
-Cell[191572, 3764, 157, 3, 30, "Item",ExpressionUUID->"c0f5ad0b-4ae4-da41-9cb6-139c61e57b14"],
-Cell[191732, 3769, 343, 7, 25, "Subitem",ExpressionUUID->"2b443604-48d9-e247-a860-261458a7aa61"],
-Cell[192078, 3778, 334, 7, 25, "Subitem",ExpressionUUID->"13bc2ec1-ba08-504a-ae25-6bc4cfdea2c8"]
+Cell[175463, 3277, 160, 3, 66, "Section",ExpressionUUID->"c90919b7-1d55-134b-a5c3-23177f3c2bf0"],
+Cell[175626, 3282, 425, 8, 55, "Text",ExpressionUUID->"40175bf1-3a75-574a-8681-39330e75cd62"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[192449, 3790, 155, 3, 30, "Item",ExpressionUUID->"7a80722d-0c35-d243-98c1-42dd8af99941"],
-Cell[192607, 3795, 319, 7, 25, "Subitem",ExpressionUUID->"4ada1bbd-f47f-1544-9d73-45578d91f206"],
-Cell[192929, 3804, 223, 5, 25, "Subitem",ExpressionUUID->"a7e995b4-2616-1341-ac37-dc7a57357f47"]
-}, Open  ]]
+Cell[176088, 3295, 141, 2, 66, "Section",ExpressionUUID->"6b478c1d-68e1-5c40-8412-b8ef1bb7b1b6"],
+Cell[176232, 3299, 145, 3, 33, "Text",ExpressionUUID->"373914f3-2405-2a4c-8690-04e35e3b1638"],
+Cell[176380, 3304, 226, 5, 30, "Item",ExpressionUUID->"774d6c39-5401-784b-babb-3d031ebdd55d"],
+Cell[176609, 3311, 251, 6, 30, "Item",ExpressionUUID->"cf6e3a42-4640-6d42-8051-403bfdcc0f76"],
+Cell[176863, 3319, 263, 6, 30, "Item",ExpressionUUID->"dc263c14-d6c8-6349-9318-d05388ba3098"],
+Cell[177129, 3327, 266, 6, 33, "Text",ExpressionUUID->"67d5fd3c-5e3b-ae49-844c-9485014e86ed"]
 }, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[193213, 3816, 146, 2, 53, "Subsection",ExpressionUUID->"5e4296fc-499b-d240-9060-5529a2c539ac"],
-Cell[193362, 3820, 252, 6, 30, "Item",ExpressionUUID->"3f41e11c-d482-bc49-83db-5a9383250599"],
-Cell[193617, 3828, 246, 6, 30, "Item",ExpressionUUID->"d9af1364-18a1-6840-ba5b-2f8240ca24a6"]
+Cell[177444, 3339, 173, 3, 67, "Chapter",ExpressionUUID->"81ce6019-f655-d84e-98be-6e6224a0f652"],
+Cell[CellGroupData[{
+Cell[177642, 3346, 171, 3, 66, "Section",ExpressionUUID->"370db9fc-1c5d-7f47-9d92-823c4dcd9f44"],
+Cell[177816, 3351, 578, 11, 77, "Text",ExpressionUUID->"727be10a-a85f-bb42-a452-dbc3d1bb1674"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[178431, 3367, 145, 3, 66, "Section",ExpressionUUID->"4c2eae12-b283-b44d-b23b-5f3b97ec22db"],
+Cell[178579, 3372, 351, 7, 30, "ItemNumbered",ExpressionUUID->"529160f5-12d3-f44b-802b-206c3b91499f"],
+Cell[178933, 3381, 466, 8, 30, "ItemNumbered",ExpressionUUID->"67a5bdde-a54c-8040-87eb-60b980eb6f8d"],
+Cell[179402, 3391, 311, 6, 30, "ItemNumbered",ExpressionUUID->"d0d12955-a339-304b-81db-6926d2e9acc3"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[179750, 3402, 144, 3, 66, "Section",ExpressionUUID->"31ca904d-0276-be44-9fe3-9146d05b82b7"],
+Cell[179897, 3407, 226, 5, 30, "ItemNumbered",ExpressionUUID->"c883766b-1521-0647-9c25-da975c3246f0"],
+Cell[180126, 3414, 252, 6, 30, "ItemNumbered",ExpressionUUID->"9ae89bd2-9d84-4040-8189-0a2f16fbf3aa"],
+Cell[180381, 3422, 253, 4, 30, "ItemNumbered",ExpressionUUID->"b1a109bc-fafb-4b45-92c3-02f824b98313"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[180671, 3431, 158, 3, 66, "Section",ExpressionUUID->"b043da94-7fcb-1f46-99a4-5cb793aa8165"],
+Cell[180832, 3436, 227, 5, 33, "Text",ExpressionUUID->"8337b0e2-4f85-bf46-90f4-c5527e2593c7"],
+Cell[181062, 3443, 288, 6, 30, "ItemNumbered",ExpressionUUID->"e4cdc90d-7d41-994a-aacf-3ef3fc139eb9"],
+Cell[181353, 3451, 289, 6, 30, "ItemNumbered",ExpressionUUID->"1018b41f-0241-1147-8f0b-b5701989173f"],
+Cell[181645, 3459, 316, 7, 30, "ItemNumbered",ExpressionUUID->"cdc096a5-a62c-ca45-8ba8-c6951920c172"],
+Cell[181964, 3468, 414, 8, 30, "ItemNumbered",ExpressionUUID->"d1f190e1-38ec-3f48-bfef-cd1761eea08f"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[182415, 3481, 167, 3, 66, "Section",ExpressionUUID->"0db09bd6-b089-9248-bd17-7e57f6bddee4"],
+Cell[182585, 3486, 273, 6, 33, "Text",ExpressionUUID->"61aa8fa8-86bc-5d44-88d9-16ab41ad7842"],
+Cell[182861, 3494, 340, 7, 30, "ItemNumbered",ExpressionUUID->"9cccd267-a216-394e-88b2-d98f3b0b0d60"],
+Cell[183204, 3503, 307, 6, 30, "ItemNumbered",ExpressionUUID->"b0d0f5a5-d841-524e-b32e-0b61d009bfbc"],
+Cell[183514, 3511, 260, 6, 30, "ItemNumbered",ExpressionUUID->"9151cae5-351f-9e45-8fe9-c9d89712db03"]
 }, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[193912, 3840, 137, 3, 66, "Section",ExpressionUUID->"6d2c323d-a4f3-0548-b722-259a75e62120"],
-Cell[194052, 3845, 249, 6, 33, "Text",ExpressionUUID->"7e36f3d8-5084-ad4b-a5d6-efae6aa45948"],
+Cell[183823, 3523, 169, 3, 67, "Chapter",ExpressionUUID->"7d36f4da-b390-994c-82ff-e05727a69a1b"],
 Cell[CellGroupData[{
-Cell[194326, 3855, 175, 3, 53, "Subsection",ExpressionUUID->"27821b4f-9219-0342-9f52-b428ed4c0515"],
-Cell[194504, 3860, 305, 6, 30, "Item",ExpressionUUID->"b0ef00b4-fd3d-4a49-b0aa-fa113ecb0973"],
-Cell[194812, 3868, 264, 6, 30, "Item",ExpressionUUID->"942e76aa-62b4-9e47-9a3e-e9877bed2fc6"],
-Cell[195079, 3876, 288, 6, 30, "Item",ExpressionUUID->"83da3b88-44d2-a243-a36d-3db740ee2d34"]
-}, Open  ]],
+Cell[184017, 3530, 146, 3, 66, "Section",ExpressionUUID->"334804ce-d086-374c-8a64-5e95c9e6bcb9"],
+Cell[184166, 3535, 411, 8, 55, "Text",ExpressionUUID->"720bf2c2-bec3-0642-9c45-5d6ac9efb597"],
 Cell[CellGroupData[{
-Cell[195404, 3887, 150, 3, 53, "Subsection",ExpressionUUID->"ba14dfb5-3b0b-614e-b843-09ad33062767"],
-Cell[195557, 3892, 288, 6, 30, "ItemNumbered",ExpressionUUID->"6ac0a72b-8897-f34d-9c27-d6411c6aafa6"],
-Cell[195848, 3900, 363, 8, 30, "ItemNumbered",ExpressionUUID->"09090f8e-4dc1-3946-bab2-7927a44eb502"]
-}, Open  ]],
+Cell[184602, 3547, 166, 3, 53, "Subsection",ExpressionUUID->"b71e81cf-106d-1d44-b37e-0d5ad3fd0630"],
+Cell[184771, 3552, 299, 6, 30, "ItemNumbered",ExpressionUUID->"24248443-387c-1441-895e-698c838fd3a1"],
+Cell[185073, 3560, 293, 6, 30, "ItemNumbered",ExpressionUUID->"70433f60-bd95-ef48-850e-a30bd454f6f9"],
 Cell[CellGroupData[{
-Cell[196248, 3913, 149, 3, 53, "Subsection",ExpressionUUID->"d1b4d91a-e331-054e-be70-5223584eba0d"],
-Cell[196400, 3918, 236, 6, 30, "Item",ExpressionUUID->"d55b706c-ca42-9f41-a714-c2f62183635b"],
-Cell[196639, 3926, 254, 6, 30, "Item",ExpressionUUID->"12606a11-c38d-994c-98a6-0204008a9f57"],
-Cell[196896, 3934, 273, 6, 30, "Item",ExpressionUUID->"433a9307-8e51-e84a-84c8-87b46b9cd01d"],
-Cell[CellGroupData[{
-Cell[197194, 3944, 169, 3, 43, "Subsubsection",ExpressionUUID->"b0792cca-ad70-894f-afdb-6b2472f9bfd2"],
-Cell[197366, 3949, 311, 8, 92, "Program",ExpressionUUID->"1a266e90-903c-ac4c-a045-9dd0d6580c37"],
-Cell[197680, 3959, 316, 7, 33, "Text",ExpressionUUID->"39478b89-2775-ac44-b97f-56afe36a9513"]
-}, Open  ]]
+Cell[185391, 3570, 211, 4, 30, "ItemNumbered",ExpressionUUID->"61174a8b-554d-c946-98aa-e2d26589476c"],
+Cell[185605, 3576, 334, 7, 25, "SubitemNumbered",ExpressionUUID->"4a20241f-8e22-1142-b13b-c70b2c365255"],
+Cell[185942, 3585, 256, 6, 25, "SubitemNumbered",ExpressionUUID->"432a4139-8407-9740-999c-0905a6327423"]
 }, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[198057, 3973, 158, 3, 66, "Section",ExpressionUUID->"8c2118fa-9df6-a041-aa8c-4e37df48c213"],
-Cell[198218, 3978, 341, 6, 55, "Text",ExpressionUUID->"ed309eb0-4117-8c4b-ab35-b1a8b9dd3281"],
-Cell[198562, 3986, 244, 6, 30, "Item",ExpressionUUID->"14c1ed0c-af28-a54e-80bc-aa338702ec87"],
-Cell[198809, 3994, 259, 6, 30, "Item",ExpressionUUID->"b7943a0d-8724-9043-9d4c-7abfb6e8703b"],
-Cell[199071, 4002, 258, 6, 30, "Item",ExpressionUUID->"02e9216e-4705-9a4e-ba5a-27de90afcb6e"],
+Cell[186247, 3597, 160, 3, 53, "Subsection",ExpressionUUID->"606b39ce-660b-8c4a-bd72-d843018cbdee"],
+Cell[186410, 3602, 237, 6, 30, "Item",ExpressionUUID->"b832f557-5832-af42-8239-a6b8170d5df8"],
+Cell[186650, 3610, 257, 6, 30, "Item",ExpressionUUID->"4265ce46-1ae1-5040-bf4f-29ed5cfb7037"],
+Cell[186910, 3618, 294, 6, 30, "Item",ExpressionUUID->"5a712838-498e-204b-9478-078d0e879da1"],
 Cell[CellGroupData[{
-Cell[199354, 4012, 182, 3, 53, "Subsection",ExpressionUUID->"1c369da7-0e18-6f4d-a43d-93da7c1a96e5"],
-Cell[199539, 4017, 246, 6, 30, "Item",ExpressionUUID->"308adf48-b417-864c-bca9-ee5a804527bc"],
-Cell[199788, 4025, 280, 6, 30, "Item",ExpressionUUID->"2e108b8d-b65f-9142-851b-22838acbbbce"],
-Cell[200071, 4033, 312, 7, 30, "Item",ExpressionUUID->"d85819d5-0f25-a946-9065-4efe37480b3d"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[200420, 4045, 161, 3, 53, "Subsection",ExpressionUUID->"dda5a5a2-7d23-8a42-b996-290da284871f"],
-Cell[200584, 4050, 247, 6, 30, "Item",ExpressionUUID->"7ddb3179-b4c5-1d42-b9cc-f2076a04aaa0"],
-Cell[200834, 4058, 415, 8, 30, "Item",ExpressionUUID->"7611fedb-b433-b540-8eef-6a8f734fbb63"],
-Cell[201252, 4068, 243, 6, 30, "Item",ExpressionUUID->"cdecac37-4620-f147-b697-6294e8e39d58"]
+Cell[187229, 3628, 144, 3, 43, "Subsubsection",ExpressionUUID->"0562a1e0-f037-e747-b04f-e3be4b6ef3eb"],
+Cell[187376, 3633, 200, 3, 30, "Item",ExpressionUUID->"74360d9f-a0b6-b84c-af9e-574fb9bfa883"],
+Cell[187579, 3638, 431, 8, 50, "Item",ExpressionUUID->"93d845af-0a1e-7c41-a428-b8cf21047195"]
 }, Open  ]]
-}, Open  ]]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[201556, 4081, 177, 3, 67, "Chapter",ExpressionUUID->"3eeb091c-5bb8-eb4d-9857-5273d38b565f"],
-Cell[CellGroupData[{
-Cell[201758, 4088, 147, 3, 66, "Section",ExpressionUUID->"7fb6e9b8-e0f7-b442-82ba-1a06244057a8"],
-Cell[201908, 4093, 490, 9, 55, "Text",ExpressionUUID->"4856fee8-327e-cc4b-bd06-1c6c74715f01"],
-Cell[CellGroupData[{
-Cell[202423, 4106, 145, 3, 53, "Subsection",ExpressionUUID->"b3825825-a5b8-3e4d-9204-09fdd813aff3"],
-Cell[202571, 4111, 315, 6, 30, "ItemNumbered",ExpressionUUID->"9999dd3c-35d5-f54c-a2aa-82ae26bba628"],
-Cell[202889, 4119, 336, 7, 30, "ItemNumbered",ExpressionUUID->"fd2fdea0-9f86-2f46-888e-e506df0ee15e"],
-Cell[203228, 4128, 403, 8, 50, "ItemNumbered",ExpressionUUID->"e50c555b-4d72-f94a-80a0-04c6abce76b2"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[203668, 4141, 172, 3, 53, "Subsection",ExpressionUUID->"65dfcd05-90c6-224a-881c-0478e695246b"],
-Cell[203843, 4146, 322, 7, 30, "ItemNumbered",ExpressionUUID->"7e5b3554-f4c6-0347-9747-f3d1314f3888"],
-Cell[204168, 4155, 318, 7, 30, "ItemNumbered",ExpressionUUID->"70b80aa1-20ef-f045-a8ca-698f76fa1c88"],
-Cell[204489, 4164, 278, 6, 30, "ItemNumbered",ExpressionUUID->"e2ac500d-afa9-ea47-b358-69e4e09646d5"],
-Cell[204770, 4172, 300, 6, 30, "ItemNumbered",ExpressionUUID->"fc71a5a1-6da1-e84d-a9b9-2dd63af7f566"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[205107, 4183, 164, 3, 53, "Subsection",ExpressionUUID->"87389b0b-04e2-944a-be19-70fb3c4cf9d5"],
-Cell[205274, 4188, 186, 4, 33, "Text",ExpressionUUID->"50655171-3ef6-094d-853a-76c8cc149261"],
-Cell[205463, 4194, 273, 6, 30, "Item",ExpressionUUID->"cf61dd85-c174-b345-820e-9b6f5b1050b4"],
-Cell[205739, 4202, 235, 6, 30, "Item",ExpressionUUID->"cec5989b-b5f7-9740-91f9-a1a08d4b9a1e"],
-Cell[205977, 4210, 266, 6, 30, "Item",ExpressionUUID->"760711f7-0992-a14d-b75b-eb6682c58007"]
 }, Open  ]]
 }, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[206304, 4223, 199, 3, 67, "Chapter",ExpressionUUID->"ce50d744-05e6-e246-8991-4b87a25fb4b5"],
+Cell[188083, 3654, 164, 3, 67, "Chapter",ExpressionUUID->"6dfa3569-5a06-9247-b8ae-a96ebdb7fff7"],
 Cell[CellGroupData[{
-Cell[206528, 4230, 164, 3, 66, "Section",ExpressionUUID->"3a8ef388-45f3-414c-8a52-71733bbfb306"],
+Cell[188272, 3661, 143, 3, 66, "Section",ExpressionUUID->"9b97b7c0-035d-0a4c-9607-6ad2a2d96f7b"],
+Cell[188418, 3666, 383, 8, 33, "Text",ExpressionUUID->"fb58bdf4-1072-bd4b-a9d9-5564fe76f333"],
 Cell[CellGroupData[{
-Cell[206717, 4237, 132, 3, 53, "Subsection",ExpressionUUID->"8ad4e6fc-fb8a-d242-b311-a629670edab9"],
-Cell[206852, 4242, 396, 8, 33, "Text",ExpressionUUID->"42759838-0986-e743-bfb8-ba8482e02d02"]
+Cell[188826, 3678, 149, 3, 53, "Subsection",ExpressionUUID->"89f59acf-e43d-954c-9f69-3dd797feb965"],
+Cell[188978, 3683, 277, 6, 30, "ItemNumbered",ExpressionUUID->"4741d4f5-6e94-a54c-bc5e-75676d8a5c65"],
+Cell[189258, 3691, 301, 6, 30, "ItemNumbered",ExpressionUUID->"b8cef398-68c9-9442-bb41-5b38e7058a11"],
+Cell[189562, 3699, 311, 6, 30, "ItemNumbered",ExpressionUUID->"4fb17d74-0d93-694e-b248-45e64e06f89a"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[207285, 4255, 156, 3, 53, "Subsection",ExpressionUUID->"a0683860-680b-9248-8289-c39096511f9a"],
-Cell[207444, 4260, 9055, 155, 126, "ItemNumbered",ExpressionUUID->"b9599bd8-118f-1a41-8ffa-c2972a551873"],
-Cell[216502, 4417, 5598, 99, 138, "ItemNumbered",ExpressionUUID->"104cf19d-7418-bc4b-ab7f-ab016b9616ef"],
-Cell[222103, 4518, 7537, 132, 108, "ItemNumbered",ExpressionUUID->"1f7ac811-6056-e54c-921b-6bc26861ba0e"],
-Cell[229643, 4652, 17399, 303, 107, "ItemNumbered",ExpressionUUID->"a364afbd-455a-2146-b77e-ee52faf69bec"],
-Cell[247045, 4957, 4058, 73, 92, "ItemNumbered",ExpressionUUID->"1376bce2-687c-7244-8a9a-f7138efb15d2"]
+Cell[189910, 3710, 153, 3, 53, "Subsection",ExpressionUUID->"2b5c6b55-2993-224b-b237-6c77de7a4f2a"],
+Cell[190066, 3715, 239, 6, 30, "ItemNumbered",ExpressionUUID->"3dabede1-92e5-aa46-b958-d89d3dec82d8"],
+Cell[190308, 3723, 269, 6, 30, "ItemNumbered",ExpressionUUID->"05aca71d-c118-514a-9dbd-339a8a0d5ae7"],
+Cell[CellGroupData[{
+Cell[190602, 3733, 189, 3, 30, "ItemNumbered",ExpressionUUID->"065d3120-64ac-284d-a66d-c5e369d406f0"],
+Cell[190794, 3738, 184, 3, 25, "SubitemNumbered",ExpressionUUID->"15c27bbe-5d98-7344-8d51-35ef2606b7d7"],
+Cell[190981, 3743, 183, 3, 25, "SubitemNumbered",ExpressionUUID->"5e950304-97c8-ff42-81ef-904ee11099b1"],
+Cell[191167, 3748, 229, 5, 25, "SubitemNumbered",ExpressionUUID->"de50a486-bb32-7b4c-9719-ebb811913cb9"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[251140, 5035, 133, 3, 53, "Subsection",ExpressionUUID->"dfe192c4-0aef-9d4f-ae7f-7b037b1a6083"],
-Cell[251276, 5040, 63775, 1059, 387, "Text",ExpressionUUID->"c3f674b5-20fb-bd40-b1d1-470ce92e9ab1"]
+Cell[191433, 3758, 142, 3, 43, "Subsubsection",ExpressionUUID->"5ae5315f-13d7-8f45-b63c-4472b60cd834"],
+Cell[CellGroupData[{
+Cell[191600, 3765, 157, 3, 30, "Item",ExpressionUUID->"c0f5ad0b-4ae4-da41-9cb6-139c61e57b14"],
+Cell[191760, 3770, 343, 7, 25, "Subitem",ExpressionUUID->"2b443604-48d9-e247-a860-261458a7aa61"],
+Cell[192106, 3779, 334, 7, 25, "Subitem",ExpressionUUID->"13bc2ec1-ba08-504a-ae25-6bc4cfdea2c8"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[192477, 3791, 155, 3, 30, "Item",ExpressionUUID->"7a80722d-0c35-d243-98c1-42dd8af99941"],
+Cell[192635, 3796, 319, 7, 25, "Subitem",ExpressionUUID->"4ada1bbd-f47f-1544-9d73-45578d91f206"],
+Cell[192957, 3805, 223, 5, 25, "Subitem",ExpressionUUID->"a7e995b4-2616-1341-ac37-dc7a57357f47"]
 }, Open  ]]
 }, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[315112, 6106, 270, 4, 67, "Chapter",ExpressionUUID->"0c902542-2c47-f241-986c-6381263d0929"],
-Cell[315385, 6112, 323, 6, 33, "Text",ExpressionUUID->"4895b429-955c-714f-974e-03cac51a6e32"],
-Cell[CellGroupData[{
-Cell[315733, 6122, 3239, 64, 348, "Code",ExpressionUUID->"b961b460-9484-4c48-94f0-1dcb265ac6f3"],
-Cell[318975, 6188, 6435, 87, 32, "Output",ExpressionUUID->"801ce81e-8492-674c-8597-b23521c3ef08"],
-Cell[325413, 6277, 60634, 1115, 550, "Output",ExpressionUUID->"a97024e5-8ee0-804b-a806-49fecff0c18c"]
+Cell[193241, 3817, 146, 2, 53, "Subsection",ExpressionUUID->"5e4296fc-499b-d240-9060-5529a2c539ac"],
+Cell[193390, 3821, 252, 6, 30, "Item",ExpressionUUID->"3f41e11c-d482-bc49-83db-5a9383250599"],
+Cell[193645, 3829, 246, 6, 30, "Item",ExpressionUUID->"d9af1364-18a1-6840-ba5b-2f8240ca24a6"]
 }, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[386096, 7398, 203, 4, 67, "Chapter",ExpressionUUID->"d68c5f7a-c3d3-4c49-82ce-1eeec330aa05"],
-Cell[386302, 7404, 198, 4, 33, "Text",ExpressionUUID->"b43f9b0d-8687-7948-b55c-5deef02c6a5c"],
-Cell[386503, 7410, 176, 3, 30, "Item",ExpressionUUID->"ec574597-2ace-e341-9d32-10a19b740552"],
-Cell[386682, 7415, 194, 3, 30, "Item",ExpressionUUID->"94be3182-7a0c-3242-8ef3-35a8bc291e2e"],
-Cell[386879, 7420, 150, 3, 30, "Item",ExpressionUUID->"f141b9e1-66c4-d848-a6f4-e57f180a36f4"]
+Cell[193940, 3841, 137, 3, 66, "Section",ExpressionUUID->"6d2c323d-a4f3-0548-b722-259a75e62120"],
+Cell[194080, 3846, 249, 6, 33, "Text",ExpressionUUID->"7e36f3d8-5084-ad4b-a5d6-efae6aa45948"],
+Cell[CellGroupData[{
+Cell[194354, 3856, 175, 3, 53, "Subsection",ExpressionUUID->"27821b4f-9219-0342-9f52-b428ed4c0515"],
+Cell[194532, 3861, 305, 6, 30, "Item",ExpressionUUID->"b0ef00b4-fd3d-4a49-b0aa-fa113ecb0973"],
+Cell[194840, 3869, 264, 6, 30, "Item",ExpressionUUID->"942e76aa-62b4-9e47-9a3e-e9877bed2fc6"],
+Cell[195107, 3877, 288, 6, 30, "Item",ExpressionUUID->"83da3b88-44d2-a243-a36d-3db740ee2d34"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[387066, 7428, 203, 4, 67, "Chapter",ExpressionUUID->"4bb7a2fa-fc0a-e942-a9e8-2ce45046ccce"],
-Cell[387272, 7434, 270, 7, 30, "Item",ExpressionUUID->"3870266a-3650-504b-8bc4-fa1a272f9fb6"],
-Cell[387545, 7443, 329, 7, 30, "Item",ExpressionUUID->"b93c5c9f-ebb4-2944-ac1b-93ac7cbcbcfa"]
+Cell[195432, 3888, 150, 3, 53, "Subsection",ExpressionUUID->"ba14dfb5-3b0b-614e-b843-09ad33062767"],
+Cell[195585, 3893, 288, 6, 30, "ItemNumbered",ExpressionUUID->"6ac0a72b-8897-f34d-9c27-d6411c6aafa6"],
+Cell[195876, 3901, 363, 8, 30, "ItemNumbered",ExpressionUUID->"09090f8e-4dc1-3946-bab2-7927a44eb502"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[196276, 3914, 149, 3, 53, "Subsection",ExpressionUUID->"d1b4d91a-e331-054e-be70-5223584eba0d"],
+Cell[196428, 3919, 236, 6, 30, "Item",ExpressionUUID->"d55b706c-ca42-9f41-a714-c2f62183635b"],
+Cell[196667, 3927, 254, 6, 30, "Item",ExpressionUUID->"12606a11-c38d-994c-98a6-0204008a9f57"],
+Cell[196924, 3935, 273, 6, 30, "Item",ExpressionUUID->"433a9307-8e51-e84a-84c8-87b46b9cd01d"],
+Cell[CellGroupData[{
+Cell[197222, 3945, 169, 3, 43, "Subsubsection",ExpressionUUID->"b0792cca-ad70-894f-afdb-6b2472f9bfd2"],
+Cell[197394, 3950, 311, 8, 92, "Program",ExpressionUUID->"1a266e90-903c-ac4c-a045-9dd0d6580c37"],
+Cell[197708, 3960, 316, 7, 33, "Text",ExpressionUUID->"39478b89-2775-ac44-b97f-56afe36a9513"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[198085, 3974, 158, 3, 66, "Section",ExpressionUUID->"8c2118fa-9df6-a041-aa8c-4e37df48c213"],
+Cell[198246, 3979, 341, 6, 55, "Text",ExpressionUUID->"ed309eb0-4117-8c4b-ab35-b1a8b9dd3281"],
+Cell[198590, 3987, 244, 6, 30, "Item",ExpressionUUID->"14c1ed0c-af28-a54e-80bc-aa338702ec87"],
+Cell[198837, 3995, 259, 6, 30, "Item",ExpressionUUID->"b7943a0d-8724-9043-9d4c-7abfb6e8703b"],
+Cell[199099, 4003, 258, 6, 30, "Item",ExpressionUUID->"02e9216e-4705-9a4e-ba5a-27de90afcb6e"],
+Cell[CellGroupData[{
+Cell[199382, 4013, 182, 3, 53, "Subsection",ExpressionUUID->"1c369da7-0e18-6f4d-a43d-93da7c1a96e5"],
+Cell[199567, 4018, 246, 6, 30, "Item",ExpressionUUID->"308adf48-b417-864c-bca9-ee5a804527bc"],
+Cell[199816, 4026, 280, 6, 30, "Item",ExpressionUUID->"2e108b8d-b65f-9142-851b-22838acbbbce"],
+Cell[200099, 4034, 312, 7, 30, "Item",ExpressionUUID->"d85819d5-0f25-a946-9065-4efe37480b3d"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[200448, 4046, 161, 3, 53, "Subsection",ExpressionUUID->"dda5a5a2-7d23-8a42-b996-290da284871f"],
+Cell[200612, 4051, 247, 6, 30, "Item",ExpressionUUID->"7ddb3179-b4c5-1d42-b9cc-f2076a04aaa0"],
+Cell[200862, 4059, 415, 8, 30, "Item",ExpressionUUID->"7611fedb-b433-b540-8eef-6a8f734fbb63"],
+Cell[201280, 4069, 243, 6, 30, "Item",ExpressionUUID->"cdecac37-4620-f147-b697-6294e8e39d58"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[201584, 4082, 177, 3, 67, "Chapter",ExpressionUUID->"3eeb091c-5bb8-eb4d-9857-5273d38b565f"],
+Cell[CellGroupData[{
+Cell[201786, 4089, 147, 3, 66, "Section",ExpressionUUID->"7fb6e9b8-e0f7-b442-82ba-1a06244057a8"],
+Cell[201936, 4094, 490, 9, 55, "Text",ExpressionUUID->"4856fee8-327e-cc4b-bd06-1c6c74715f01"],
+Cell[CellGroupData[{
+Cell[202451, 4107, 145, 3, 53, "Subsection",ExpressionUUID->"b3825825-a5b8-3e4d-9204-09fdd813aff3"],
+Cell[202599, 4112, 315, 6, 30, "ItemNumbered",ExpressionUUID->"9999dd3c-35d5-f54c-a2aa-82ae26bba628"],
+Cell[202917, 4120, 336, 7, 30, "ItemNumbered",ExpressionUUID->"fd2fdea0-9f86-2f46-888e-e506df0ee15e"],
+Cell[203256, 4129, 403, 8, 50, "ItemNumbered",ExpressionUUID->"e50c555b-4d72-f94a-80a0-04c6abce76b2"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[203696, 4142, 172, 3, 53, "Subsection",ExpressionUUID->"65dfcd05-90c6-224a-881c-0478e695246b"],
+Cell[203871, 4147, 322, 7, 30, "ItemNumbered",ExpressionUUID->"7e5b3554-f4c6-0347-9747-f3d1314f3888"],
+Cell[204196, 4156, 318, 7, 30, "ItemNumbered",ExpressionUUID->"70b80aa1-20ef-f045-a8ca-698f76fa1c88"],
+Cell[204517, 4165, 278, 6, 30, "ItemNumbered",ExpressionUUID->"e2ac500d-afa9-ea47-b358-69e4e09646d5"],
+Cell[204798, 4173, 300, 6, 30, "ItemNumbered",ExpressionUUID->"fc71a5a1-6da1-e84d-a9b9-2dd63af7f566"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[205135, 4184, 164, 3, 53, "Subsection",ExpressionUUID->"87389b0b-04e2-944a-be19-70fb3c4cf9d5"],
+Cell[205302, 4189, 186, 4, 33, "Text",ExpressionUUID->"50655171-3ef6-094d-853a-76c8cc149261"],
+Cell[205491, 4195, 273, 6, 30, "Item",ExpressionUUID->"cf61dd85-c174-b345-820e-9b6f5b1050b4"],
+Cell[205767, 4203, 235, 6, 30, "Item",ExpressionUUID->"cec5989b-b5f7-9740-91f9-a1a08d4b9a1e"],
+Cell[206005, 4211, 266, 6, 30, "Item",ExpressionUUID->"760711f7-0992-a14d-b75b-eb6682c58007"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[206332, 4224, 199, 3, 67, "Chapter",ExpressionUUID->"ce50d744-05e6-e246-8991-4b87a25fb4b5"],
+Cell[CellGroupData[{
+Cell[206556, 4231, 164, 3, 66, "Section",ExpressionUUID->"3a8ef388-45f3-414c-8a52-71733bbfb306"],
+Cell[CellGroupData[{
+Cell[206745, 4238, 132, 3, 53, "Subsection",ExpressionUUID->"8ad4e6fc-fb8a-d242-b311-a629670edab9"],
+Cell[206880, 4243, 396, 8, 33, "Text",ExpressionUUID->"42759838-0986-e743-bfb8-ba8482e02d02"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[207313, 4256, 156, 3, 53, "Subsection",ExpressionUUID->"a0683860-680b-9248-8289-c39096511f9a"],
+Cell[207472, 4261, 9055, 155, 126, "ItemNumbered",ExpressionUUID->"b9599bd8-118f-1a41-8ffa-c2972a551873"],
+Cell[216530, 4418, 5598, 99, 138, "ItemNumbered",ExpressionUUID->"104cf19d-7418-bc4b-ab7f-ab016b9616ef"],
+Cell[222131, 4519, 7537, 132, 108, "ItemNumbered",ExpressionUUID->"1f7ac811-6056-e54c-921b-6bc26861ba0e"],
+Cell[229671, 4653, 17399, 303, 107, "ItemNumbered",ExpressionUUID->"a364afbd-455a-2146-b77e-ee52faf69bec"],
+Cell[247073, 4958, 4058, 73, 92, "ItemNumbered",ExpressionUUID->"1376bce2-687c-7244-8a9a-f7138efb15d2"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[251168, 5036, 133, 3, 53, "Subsection",ExpressionUUID->"dfe192c4-0aef-9d4f-ae7f-7b037b1a6083"],
+Cell[251304, 5041, 63775, 1059, 387, "Text",ExpressionUUID->"c3f674b5-20fb-bd40-b1d1-470ce92e9ab1"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[315140, 6107, 270, 4, 67, "Chapter",ExpressionUUID->"0c902542-2c47-f241-986c-6381263d0929"],
+Cell[315413, 6113, 323, 6, 33, "Text",ExpressionUUID->"4895b429-955c-714f-974e-03cac51a6e32"],
+Cell[CellGroupData[{
+Cell[315761, 6123, 3226, 65, 348, "Code",ExpressionUUID->"b961b460-9484-4c48-94f0-1dcb265ac6f3"],
+Cell[318990, 6190, 7280, 99, 32, "Output",ExpressionUUID->"3cd11f19-5a89-e04a-91d5-25e98205ad5f"],
+Cell[326273, 6291, 56464, 1025, 550, "Output",ExpressionUUID->"07cf2555-5c58-234e-bcba-41b5b18dd67a"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[382786, 7322, 203, 4, 67, "Chapter",ExpressionUUID->"d68c5f7a-c3d3-4c49-82ce-1eeec330aa05"],
+Cell[382992, 7328, 198, 4, 33, "Text",ExpressionUUID->"b43f9b0d-8687-7948-b55c-5deef02c6a5c"],
+Cell[383193, 7334, 176, 3, 30, "Item",ExpressionUUID->"ec574597-2ace-e341-9d32-10a19b740552"],
+Cell[383372, 7339, 194, 3, 30, "Item",ExpressionUUID->"94be3182-7a0c-3242-8ef3-35a8bc291e2e"],
+Cell[383569, 7344, 150, 3, 30, "Item",ExpressionUUID->"f141b9e1-66c4-d848-a6f4-e57f180a36f4"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[383756, 7352, 203, 4, 67, "Chapter",ExpressionUUID->"4bb7a2fa-fc0a-e942-a9e8-2ce45046ccce"],
+Cell[383962, 7358, 270, 7, 30, "Item",ExpressionUUID->"3870266a-3650-504b-8bc4-fa1a272f9fb6"],
+Cell[384235, 7367, 329, 7, 30, "Item",ExpressionUUID->"b93c5c9f-ebb4-2944-ac1b-93ac7cbcbcfa"]
 }, Open  ]]
 }, Open  ]]
 }
