@@ -1,5 +1,6 @@
 (* ::Package:: *)
 
+(* ::Package:: *)
 BeginPackage["SimulatoreDecisioni`"];
 
 (* Funzione principale per avviare il gioco *)
@@ -185,7 +186,7 @@ ControllaRisorse[costo_, azione_, risorseCorrenti_, log_] :=
     Column[{
       Style["Partita Terminata!", Bold, 16, Red],
       Style["Non puoi pi\[UGrave] eseguire alcuna azione con le risorse disponibili.", Italic],
-      Style["Premi 'Pulisci e Ricomincia' per avviare una nuova simulazione.", Bold, Darker[Gray]]
+      Style["Premi 'Reset Esercizio' per avviare una nuova simulazione.", Bold, Darker[Gray]]
     }],
     WindowTitle -> "Fine Partita"
    ];
@@ -209,7 +210,7 @@ AvviaGioco[] := DynamicModule[
     difficolta = "Medio", costoRaccolta, beneficioRaccolta, 
     costoCostruzione, beneficioCostruzione, costoEsplorazione, 
     beneficioEsplorazione, rendimentoCostruzione = 0, 
-    strategiaOttimale = ""
+    strategiaOttimale = "", seedNumerico = 42
     },
    
    (* Interfaccia del Simulatore *)
@@ -217,7 +218,7 @@ AvviaGioco[] := DynamicModule[
      
      (* Titolo del Simulatore *)
      Style["Simulatore di Ottimizzazione delle Scelte", Bold, 18],
-     Style["Per iniziare, personalizzare i parametri e cliccare su 'Inizia Simulazione'", Italic, Darker@Gray],
+     Style["Per iniziare, personalizzare i parametri e cliccare su 'Genera Esercizio'", Italic, Darker@Gray],
      
      (* Personalizzazione dei parametri *)
      Row[{
@@ -250,25 +251,43 @@ AvviaGioco[] := DynamicModule[
      }],
      Spacer[10],
      
-     (* Variabile per il seed numerico *)
-     seedNumerico = 42;
-     Row[{
-       Style["Seed: ", Bold],
-       InputField[
-         Dynamic[
-           seedNumerico, 
-           (seedNumerico = IntegerPart[#]) &
-         ], 
-         FieldSize -> 6, 
-         Enabled -> Dynamic[!simulazioneIniziata]
-       ]
-     }],
+(* Variabile per il seed numerico *)
+seedNumerico = 42; (* Valore predefinito valido *)
 
-     Spacer[10],
+Row[{
+  Tooltip[
+    Style["Seed (0-99): ", Bold],
+    "Inserisci un numero intero compreso tra 0 e 99 per impostare il seed del generatore casuale. Se il valore non \[EGrave] valido, verr\[AGrave] impostato a 42 come default."
+  ],
+  InputField[
+    Dynamic[
+      seedNumerico, 
+      (* Validazione dell'input *)
+      (If[
+        IntegerQ[#] && 0 <= # <= 99, (* Controlla che sia un intero tra 0 e 99 *)
+        seedNumerico = #, (* Assegna il valore se valido *)
+        (
+          seedNumerico = 42; (* Reimposta al valore di default *)
+          CreateDialog[
+            Column[{
+              TextCell["Errore: Il seed deve essere un numero intero tra 0 e 99.", FontWeight -> Bold, FontColor -> Red],
+              TextCell["Il valore \[EGrave] stato impostato a 42 di default."]
+            }],
+            WindowTitle -> "Seed non valido"
+          ]
+        )
+      ]) &
+    ], 
+    FieldSize -> 6, 
+    Enabled -> Dynamic[!simulazioneIniziata]
+  ]
+}],
+
+Spacer[10],
 
      (* Bottone per avviare la simulazione *)
      Tooltip[
-      Button["Inizia Simulazione",
+      Button["Genera Esercizio",
        (
         SeedRandom[seedNumerico]; (* Fissa il seed per la simulazione *)
         risorseCorrenti = risorseIniziali; 
@@ -377,7 +396,7 @@ ControllaRisorse[
       "Azioni Costruisci Struttura: " <> ToString[azioniCostruzione],
       "Azioni Esplora: " <> ToString[azioniEsplorazione],
       Spacer[10],
-      Style["Premi 'Pulisci e Ricomincia' per iniziare una nuova partita!", Italic, Darker[Red]],
+      Style["Premi 'Reset Esercizio' per iniziare una nuova partita!", Italic, Darker[Red]],
       Spacer[10], log
     }];
    ];
@@ -614,9 +633,9 @@ ControllaRisorse[
 	
 	   Spacer[10],
 	
-(* Pulsante: Ricevi un consiglio *)
+(* Pulsante: Suggerimento Strategico *)
 Tooltip[
- Button["Ricevi un consiglio",
+ Button["Suggerimento Strategico",
   Module[
   {
     turnoCorrente, azioneSuggerita, spiegazione, azioneSuggeritaStyled, spiegazioneStyled, roiCostruzione, 
@@ -666,7 +685,7 @@ Tooltip[
     (* Partita persa se nessuna azione \[EGrave] possibile *)
     CreateDialog[{
       TextCell["Hai perso! Non puoi continuare il gioco.", FontWeight -> Bold, FontColor -> Red],
-      TextCell["Clicca 'Pulisci e Ricomincia' per iniziare una nuova partita."]
+      TextCell["Clicca 'Reset Esercizio' per iniziare una nuova partita."]
     }];
     simulazioneIniziata = False;
     Return[];
@@ -748,7 +767,7 @@ Which[
   ],
   Enabled -> Dynamic[simulazioneIniziata && turniRestanti > 0]
  ],
- "Ricevi un consiglio basato sulla strategia ottimale per il turno corrente."
+ "Ricevi un suggerimento strategico basato sulla strategia ottimale per il turno corrente."
 ]
 
  }]
@@ -773,7 +792,7 @@ Row[{
      Spacer[10],
      
 Tooltip[
- Button["Mostra Soluzione",
+ Button["Visualizza Soluzione",
   Module[{
     logSimulazione = {}, turnoCorrente, azioneSuggerita = "Nessuna",
     spiegazione = "Inizializzazione", turniSimulati = turniIniziali,
@@ -916,21 +935,22 @@ Tooltip[
      
      (* Pulsante per pulire l'interfaccia *)
 	Tooltip[
-	 Button["Pulisci e Ricomincia", 
-	  (
-	   risorseCorrenti = 100; 
-	   turniRestanti = 10; 
-	   simulazioneIniziata = False; 
-	   log = ""; 
-	   azioniRaccolta = 0; 
-	   azioniCostruzione = 0; 
-	   azioniEsplorazione = 0;
-	   turniIniziali = 10;
-	   risorseIniziali = 100;
-	   difficolta = "Medio";
-	  ), Enabled -> True
-	 ], "Reimposta l'interfaccia per iniziare un nuovo esercizio."
-	 ],
+		 Button["Reset Esercizio", 
+		  (
+		   risorseCorrenti = 100; 
+		   turniRestanti = 10; 
+		   simulazioneIniziata = False; 
+		   log = ""; 
+		   azioniRaccolta = 0; 
+		   azioniCostruzione = 0; 
+		   azioniEsplorazione = 0;
+		   turniIniziali = 10;
+		   risorseIniziali = 100;
+		   difficolta = "Medio";
+		   seedNumerico = 42; (* Ripristina il valore di default *)
+		  ), Enabled -> True
+		 ], "Reimposta l'interfaccia per iniziare un nuovo esercizio."
+		],
      Spacer[10],
      
      (* Log degli eventi *)
